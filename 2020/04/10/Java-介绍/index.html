@@ -301,7 +301,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-12 13:03:57'>2020-04-10 08:32</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-12 21:22:21'>2020-04-10 08:32</time>
         
     </div>
     <div class="article-meta">
@@ -349,7 +349,31 @@
 </blockquote>
 </li>
 </ul>
-<h2 id="产品版本"><a href="#产品版本" class="headerlink" title="产品版本"></a>产品版本</h2><p>随着JAVA的发展，现在JAVA分为3个版本，面向不同的需求。<br>|简称|全称|特点|<br>|:—|—:|:—:|<br>|Java SE|java standerd Edition|JVM和标准库|<br>|Java EE|java Enterprise Edition|在SE的基础上加了大量的API和库，方便开发Web 应用、数据库、消息服务等|<br>|Java ME|java Micro Editon|略，正在消失中|</p>
+<h2 id="产品版本"><a href="#产品版本" class="headerlink" title="产品版本"></a>产品版本</h2><p>随着JAVA的发展，现在JAVA分为3个版本，面向不同的需求。</p>
+<table>
+<thead>
+<tr>
+<th>简称</th>
+<th>全称</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Java SE</td>
+<td>java standerd Edition</td>
+<td>JVM和标准库</td>
+</tr>
+<tr>
+<td>Java EE</td>
+<td>java Enterprise Edition</td>
+<td>在SE的基础上加了大量的API和库,方便开发Web 应用 数据库 消息服务等</td>
+</tr>
+<tr>
+<td>Java ME</td>
+<td>java Micro Editon</td>
+<td>略,正在消失中</td>
+</tr>
+</tbody></table>
 <p><strong>从上表看出Java SE 是 JAVA的核心。</strong></p>
 <h2 id="Java-学习路线"><a href="#Java-学习路线" class="headerlink" title="Java 学习路线"></a>Java 学习路线</h2><pre class="mermaid">graph TD
 0[start]-->a[学习Java SE,Java语言,Java核心技术]
@@ -361,10 +385,10 @@ f-->o(andriod开发)
 f-->m(web 企业应用开发)
 f-->y(数据库 大数据开发)</pre>
 <h2 id="名称解释"><a href="#名称解释" class="headerlink" title="名称解释"></a>名称解释</h2><h3 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h3><ul>
-<li>JDK（Java Development Kit） 是将Java 源代码编译成Java字节码的工具，也是JAVA开发工具;JDK除了包含JRE、还提供了编译器、调试器等开发工具。</li>
-<li>JRE: Java Runtime Environment</li>
-<li>JRE是Java 运行Java字节码的运行环境。</li>
+<li>JDK（Java Development Kit） 是将Java 源代码编译成Java字节码的工具，也是JAVA开发工具;JDK除了包含JRE、还提供了编译器(compile)、调试器等开发工具。</li>
+<li>JRE: Java Runtime Environment,JRE是Java 运行Java字节码的运行环境。</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> ┌─    ┌──────────────────────────────────┐</span><br><span class="line"> │     │     Compiler, debugger, etc.     │</span><br><span class="line"> │     └──────────────────────────────────┘</span><br><span class="line">JDK ┌─ ┌──────────────────────────────────┐</span><br><span class="line"> │  │  │                                  │</span><br><span class="line"> │ JRE │      JVM + Runtime Library       │</span><br><span class="line"> │  │  │                                  │</span><br><span class="line"> └─ └─ └──────────────────────────────────┘</span><br><span class="line">       ┌───────┐┌───────┐┌───────┐┌───────┐</span><br><span class="line">       │Windows││ Linux ││ macOS ││others │</span><br><span class="line">       └───────┘└───────┘└───────┘└───────┘</span><br></pre></td></tr></table></figure>
 <h3 id="JSR"><a href="#JSR" class="headerlink" title="JSR"></a>JSR</h3><ul>
 <li>Java Specification Request</li>
 <li>为了保证Java语言的规范性，SUN公司建立了JSR规范;凡是想给Java平台加一个功能，要先定要好接口。比如说增加访问数据库的功能，大家要先创建一个JSR规范，定义好接口，这样，各个数据库厂商都按照规范写出Java驱动程序，开发者就不用担心自己写的数据库代码在MySQL上能跑，却不能跑在PostgreSQL上。<br>所以JSR是一系列的规范，从JVM的内存模型到Web程序接口，全部都标准化了。</li>
@@ -388,7 +412,7 @@ f-->y(数据库 大数据开发)</pre>
     
     <p><span class="copy-title">本文作者:</span><a  title="james">james</a></p>
     <p><span class="copy-title">发布时间:</span>2020-04-10, 08:32:38</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-12, 13:03:57</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-12, 21:22:21</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/10/Java-%E4%BB%8B%E7%BB%8D/" title="java入门">https://feixiangdjames.github.io/blog/2020/04/10/Java-%E4%BB%8B%E7%BB%8D/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
