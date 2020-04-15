@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>使用IDE | james blog</title>
+  <title>字符,字符串,数组 | james blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="使用IDE | james blog">
+  <meta name="description" content="字符,字符串,数组 | james blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="IDE IDE 是程序员的武器，用于快速生成代码环境。 自动整理代码格式。 进行工程调试。  流行流行的IDE是免费Eclipse(IBM开发捐赠给开源社区) 和 商用的IntelliJ Idea，如果有edu邮箱可以使用商用版本的，体验更好。 eclipse 配置 下载 eclipse for java 安装程序。  安装完毕后，配置编码规则，打开eclipse，进入window-prefere">
 <meta property="og:type" content="article">
@@ -262,9 +262,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-使用IDE" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-字符,字符串,数组" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">使用IDE</h1>
+        <h1 class="article-title">字符,字符串,数组</h1>
     
     <div class="article-meta">
         
@@ -274,7 +274,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="java入门">java入门</a>
+                <a  data-rel="程序基础">程序基础</a>
             
         </span>
         
@@ -288,7 +288,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-13 03:55:47'>2020-04-12 11:01</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-15 05:04:16'>2020-04-15 11:03</time>
         
     </div>
     <div class="article-meta">
@@ -310,7 +310,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IDE"><span class="toc-text">IDE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#流行"><span class="toc-text">流行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#eclipse-配置"><span class="toc-text">eclipse 配置</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#字符类型"><span class="toc-text">字符类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#引用类型"><span class="toc-text">引用类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-text">字符串类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串操作"><span class="toc-text">字符串操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空值null"><span class="toc-text">空值null</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组类型"><span class="toc-text">数组类型</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -326,39 +326,84 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h1><ul>
-<li>IDE 是程序员的武器，用于快速生成代码环境。</li>
-<li>自动整理代码格式。</li>
-<li>进行工程调试。</li>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#字符类型"><span class="toc-text">字符类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#引用类型"><span class="toc-text">引用类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-text">字符串类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串操作"><span class="toc-text">字符串操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空值null"><span class="toc-text">空值null</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组类型"><span class="toc-text">数组类型</span></a></li></ol></div></p>
+<h1 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h1><p><strong>char</strong>acter<br>字符类型是基本类型:</p>
+<ul>
+<li>char:保存一个字符，可以是一个英文或中文字符。<br>Java 使用Unicode 表示字符<br>如果我们想看一个字符的的unicode编码，我们可以把一个char类型值，赋给int类型变量。</li>
+<li>我们也可以直接用Unicode编码表示一个字符,。</li>
 </ul>
-<h2 id="流行"><a href="#流行" class="headerlink" title="流行"></a>流行</h2><p>流行的IDE是免费Eclipse(IBM开发捐赠给开源社区) 和 商用的IntelliJ Idea，如果有edu邮箱可以使用商用版本的，体验更好。</p>
-<h3 id="eclipse-配置"><a href="#eclipse-配置" class="headerlink" title="eclipse 配置"></a>eclipse 配置</h3><ul>
-<li><p>下载 eclipse for java 安装程序。</p>
-</li>
-<li><p>安装完毕后，配置编码规则，打开eclipse，进入window-preference-general-workspace,修改 text file encoding 为UTF-8，new text file line delimiter 为Unix(window换行是\r\n,Unix是\n)</p>
-</li>
-<li><p>调节字体</p>
-<blockquote>
-<p>打开eclipse，点击window，选择preferences。<br>鼠标双击General，并依次打开Appearance/Colors and fonts/Basic。<br>点击Basic下的Text Font。<br>点击“Edit”。<br>选择合适的字体大小，点击确定就OK了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c1=<span class="string">'A'</span>;</span><br><span class="line"><span class="keyword">char</span> c2=<span class="string">'中'</span>；</span><br><span class="line"><span class="keyword">int</span> n2=c2;</span><br><span class="line"><span class="keyword">int</span> n1=c1; <span class="comment">//65;</span></span><br><span class="line">System.out.println(n2);<span class="comment">// 20013</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> c3=<span class="string">'\u0041'</span>;<span class="comment">// 'A' </span></span><br><span class="line"><span class="comment">//\u 加上一个4位的16进制数来表示。</span></span><br></pre></td></tr></table></figure>
+<h1 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h1><p>   引用类型的值存在堆内存中。CPU如果想获取引用类型的值，首先获得变量，然后变量会保存一个堆内存地址，然后CPU获得该地址，从这个地址中取得信息。<br>堆内存数据，需要两步才可以获得。<br>   <strong>引用类型的变量，是指向某个对象；并不是持有某个对象。</strong></p>
+<ul>
+<li>引用类型不会改变，只是引用对象的地址不会改变。<h2 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h2><blockquote>
+<p>字符串类型是引用类型：</p>
 </blockquote>
+<ul>
+<li>String:保存一个字符串</li>
+<li>转义字符\</li>
+<li>常见的转义字符：\n \r \t </li>
+</ul>
 </li>
-<li><p>快捷键</p>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* String </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">String s1 =<span class="string">"ABC"</span>;<span class="comment">//包含3个字符</span></span><br><span class="line">String s2 = <span class="string">"Hello\n"</span> 包含<span class="number">6</span>个字符，\是转义字符，不会被计算。</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h3><ul>
+<li>字符串 连接 + </li>
+<li>可以连接字符串和其他数据类型<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String s=<span class="string">"hello"</span>;</span><br><span class="line">String h=<span class="string">"world!"</span>;</span><br><span class="line">System.out.println(s+h);</span><br><span class="line">String a=<span class="string">"age is "</span>+<span class="number">12</span>;</span><br><span class="line">System.out.pringln(a);</span><br></pre></td></tr></table></figure>
+<h3 id="空值null"><a href="#空值null" class="headerlink" title="空值null"></a>空值null</h3></li>
+<li>String s=null; 当一个String 变量被赋值null,这个含义是不指向任何对象或内存地址。</li>
+<li>String s1=””; 字符串 s1 指向一个地址或者对象，这个地址中存储的值是空值。 </li>
+</ul>
+<h1 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h1><ul>
+<li>当我们有一组<strong>类型相同的变量</strong>时，可以用数组表示。</li>
+<li>数组是引用类型.</li>
+<li>数组的元素可以是值(int[])类型或者引用类型(String[])</li>
+</ul>
 <table>
 <thead>
 <tr>
-<th>快捷键</th>
-<th>说明</th>
+<th>数组类型</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Ctrl+Shift+F</td>
-<td>约定格式刷</td>
+<td>定义方式 ：<strong>类型关键字[] 名称</strong></td>
 </tr>
 <tr>
-<td>F6</td>
-<td>单步调式</td>
+<td>初始化：new int[5]；5代表是5个元素，也就是数组长度</td>
+</tr>
+<tr>
+<td>所有元素初始化为默认值</td>
+</tr>
+<tr>
+<td>索引从0开始,通过索引（下标）来访问元素，如果访问的索引不存在，也就是超出数组范围，运行时报错</td>
+</tr>
+<tr>
+<td>创建后元素个数不能改变，length属性存储着元素个数</td>
 </tr>
 </tbody></table>
+<ul>
+<li>指定初始化元素<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] ns=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br><span class="line">ns[<span class="number">0</span>]==<span class="number">0</span>;<span class="comment">//true;</span></span><br><span class="line">out.pringln(ns.length);<span class="comment">//5</span></span><br><span class="line"><span class="keyword">int</span>[] ns2=<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">12</span>,<span class="number">13</span>,<span class="number">15</span>,<span class="number">21</span>&#125;;<span class="comment">//创建数组的时候，直接初始化元素，编译器会自动计算数组的length</span></span><br><span class="line">ns2=&#123;<span class="number">1985</span>,<span class="number">1982</span>&#125;;<span class="comment">//由于上面的方法常见，可以直接用&#123;&#125;来初始化数组。这里的ns2并没有变，只是改变了指向。</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </li>
 </ul>
 
@@ -370,12 +415,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>使用IDE</p>
+    <p><span class="copy-title">文章标题:</span>字符,字符串,数组</p>
     
     <p><span class="copy-title">本文作者:</span><a  title="james">james</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-12, 11:01:44</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-13, 03:55:47</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/12/%E4%BD%BF%E7%94%A8IDE/" title="使用IDE">https://feixiangdjames.github.io/blog/2020/04/12/%E4%BD%BF%E7%94%A8IDE/</a>
+    <p><span class="copy-title">发布时间:</span>2020-04-15, 11:03:05</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-15, 05:04:16</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/15/%E5%AD%97%E7%AC%A6,%E5%AD%97%E7%AC%A6%E4%B8%B2,%E6%95%B0%E7%BB%84/" title="字符,字符串,数组">https://feixiangdjames.github.io/blog/2020/04/15/%E5%AD%97%E7%AC%A6,%E5%AD%97%E7%AC%A6%E4%B8%B2,%E6%95%B0%E7%BB%84/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
