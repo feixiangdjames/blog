@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>第一个Java | james blog</title>
+  <title>面向对象概念 | james blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="第一个Java | james blog">
+  <meta name="description" content="面向对象概念 | james blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc] 字符类型character字符类型是基本类型:  char:保存一个字符，可以是一个英文或中文字符。Java 使用Unicode 表示字符如果我们想看一个字符的的unicode编码，我们可以把一个char类型值，赋给int类型变量。 我们也可以直接用Unicode编码表示一个字符,。  12345678char c1&#x3D;&#39;A&#39;;char c2&#x3D;&#39;中&#39;；int n2&#x3D;c2;int n1&#x3D;">
 <meta property="og:type" content="article">
@@ -294,9 +294,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-第一个Java" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-面向对象概念" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">第一个Java</h1>
+        <h1 class="article-title">面向对象概念</h1>
     
     <div class="article-meta">
         
@@ -306,7 +306,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="java入门">java入门</a>
+                <a  data-rel="面向对象">面向对象</a>
             
         </span>
         
@@ -320,7 +320,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-13 04:08:21'>2020-04-12 11:01</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-16 09:15:39'>2020-04-15 15:03</time>
         
     </div>
     <div class="article-meta">
@@ -342,7 +342,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第一个JAVA"><span class="toc-text">第一个JAVA</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境部署"><span class="toc-text">环境部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载JDK"><span class="toc-text">下载JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置环境变量"><span class="toc-text">配置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装成功"><span class="toc-text">安装成功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK-安装程序下的bin-目录"><span class="toc-text">JDK 安装程序下的bin 目录</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Object-Orientd-Programming"><span class="toc-text">Object-Orientd Programming</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#class-对象模板"><span class="toc-text">class 对象模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#instance-是对象实例"><span class="toc-text">instance 是对象实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义-class"><span class="toc-text">定义 class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建实例"><span class="toc-text">创建实例</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -358,42 +358,51 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第一个JAVA"><span class="toc-text">第一个JAVA</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境部署"><span class="toc-text">环境部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载JDK"><span class="toc-text">下载JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置环境变量"><span class="toc-text">配置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装成功"><span class="toc-text">安装成功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK-安装程序下的bin-目录"><span class="toc-text">JDK 安装程序下的bin 目录</span></a></li></ol></li></ol></li></ol></div></p>
-<h1 id="第一个JAVA"><a href="#第一个JAVA" class="headerlink" title="第一个JAVA"></a>第一个JAVA</h1><ul>
-<li><p>新建一个Hello.java文件，输入以下代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">System.out.println(<span class="string">"Hello,world"</span>);</span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>class 的修饰符 public 是为了支持在命令行运行;也就是说不在命令行运行的话，可以省略。</p>
-</li>
-<li><p>class后面跟的是类名，类名必须和文件名一致。</p>
-</li>
-<li><p>Java 是大小写敏感的。</p>
-</li>
-<li><p>java源码要使用javac编程成字节码，然后java 调用 JVM运行字节码。</p>
-<h2 id="环境部署"><a href="#环境部署" class="headerlink" title="环境部署"></a>环境部署</h2><h3 id="下载JDK"><a href="#下载JDK" class="headerlink" title="下载JDK"></a>下载JDK</h3><p>到oracle 官方网站下载JAVA SE JDK，根据不同操作系统，选择不同版本的JDK<br>现在2020年4月，最新版本的JDK是是JAVA 14</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>在window环境下，直接双击按转包，一路点下去完成安装。<br>安装完成，在window下，启动命令行  window+R</p>
-<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3></li>
-<li><p>为什么要配置环境变量？<br>为了在任何目录下都可以找到JAVA的运行环境或JAVA文件的编译器程序。多说一句，如果要运行程序，需要找到程序的位置；操作系统在当前目录下找不到运行的程序，会去环境变量中寻找；环境变量中也没有的话，就会报错。所以配置环境变量是为了全局（在宿主环境的任何位置）运行。</p>
-</li>
-<li><p>配置方法：</p>
-<ol>
-<li>window-&gt;控制面板-&gt;系统-&gt;高级系统设置-&gt;环境变量-&gt;Path-&gt;编辑  ：将JAVA 安装目录下的 bin 地址写入环境变量。然后将JAVA环境变量顺序放在最上方。</li>
-<li>OS 略</li>
-</ol>
-</li>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Object-Orientd-Programming"><span class="toc-text">Object-Orientd Programming</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#class-对象模板"><span class="toc-text">class 对象模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#instance-是对象实例"><span class="toc-text">instance 是对象实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义-class"><span class="toc-text">定义 class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建实例"><span class="toc-text">创建实例</span></a></li></ol></li></ol></div></p>
+<h1 id="Object-Orientd-Programming"><a href="#Object-Orientd-Programming" class="headerlink" title="Object-Orientd Programming"></a>Object-Orientd Programming</h1><ul>
+<li>对显示世界建立计算机模型的一种编程方法</li>
 </ul>
-<h3 id="安装成功"><a href="#安装成功" class="headerlink" title="安装成功"></a>安装成功</h3><ul>
-<li>在window 下，使用 window+R 组合键打开命令行 执行命令：<blockquote>
-<p>java -version   //返回JAVA版本信息<br>javac //不报错</p>
+<table>
+<thead>
+<tr>
+<th>现实世界</th>
+<th>计算机模型</th>
+<th>Java 代码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>人</td>
+<td>类/class</td>
+<td>class Person{}</td>
+</tr>
+<tr>
+<td>James</td>
+<td>实例</td>
+<td>Person James=new Person();</td>
+</tr>
+</tbody></table>
+<h2 id="class-对象模板"><a href="#class-对象模板" class="headerlink" title="class 对象模板"></a>class 对象模板</h2><ul>
+<li>定义了如何创建实例</li>
+<li>class 名称就是数据类型</li>
+<li>每个class 都有一个独立的文件</li>
+</ul>
+<h2 id="instance-是对象实例"><a href="#instance-是对象实例" class="headerlink" title="instance 是对象实例"></a>instance 是对象实例</h2><ul>
+<li>instance 是根据class 创建的实例</li>
+<li>instance 的类型相同，但是属性不同</li>
+</ul>
+<h2 id="定义-class"><a href="#定义-class" class="headerlink" title="定义 class"></a>定义 class</h2><ul>
+<li>一个class 可以有多个field描述</li>
+<li>class 实现了封装</li>
+</ul>
+<h2 id="创建实例"><a href="#创建实例" class="headerlink" title="创建实例"></a>创建实例</h2><ul>
+<li>new 操作符 可以创建一个实例</li>
+<li>定义一个引用类型变量来指向实例</li>
+<li>通过变量操作实例</li>
+<li>通过变量.字段来访问实例</li>
+</ul>
+<blockquote>
+<p>每个实例都有独立的空间<br>指向instance 的变量都是引用变量</p>
 </blockquote>
-</li>
-</ul>
-<h3 id="JDK-安装程序下的bin-目录"><a href="#JDK-安装程序下的bin-目录" class="headerlink" title="JDK 安装程序下的bin 目录"></a>JDK 安装程序下的bin 目录</h3><ul>
-<li>Java 这个执行文件就是JVM，运行java 就是启动JVM，让JVM执行java字节码(.class文件)。</li>
-<li>javac java编译器，运行javac可以将java源码转换为java字节码。</li>
-<li>jar 将一组class 文件打包成一个.jar文件，方便发布。（类似zip）</li>
-<li>javadoc 将特定的注释文件直接生成文档。</li>
-<li>jdb 在开发的过程中，进行调试。</li>
-</ul>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -403,12 +412,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>第一个Java</p>
+    <p><span class="copy-title">文章标题:</span>面向对象概念</p>
     
     <p><span class="copy-title">本文作者:</span><a  title="james">james</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-12, 11:01:13</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-13, 04:08:21</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/12/%E7%AC%AC%E4%B8%80%E4%B8%AAJava/" title="第一个Java">https://feixiangdjames.github.io/blog/2020/04/12/%E7%AC%AC%E4%B8%80%E4%B8%AAJava/</a>
+    <p><span class="copy-title">发布时间:</span>2020-04-15, 15:03:05</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-16, 09:15:39</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/15/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%A6%82%E5%BF%B5/" title="面向对象概念">https://feixiangdjames.github.io/blog/2020/04/15/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%A6%82%E5%BF%B5/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
