@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>继承和Polymorphic | james blog</title>
+  <meta name="keywords" content=" java ">
+  <meta name="description" content="继承和Polymorphic | james blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="@[toc] 继承   总结    继承是面向对象编程的一种代码复用   Java 只允许单继承   protected 允许子类访问父类的字段和方法   子类的构造方法可以通过super()调用父类的构造方法   upcasting 安全的向上转型，更抽象   dawncasting 最好借助 instanceof 判断   has 关系可以用组合，is关系用继承    父类或基类 声明一个cl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="继承和Polymorphic">
+<meta property="og:url" content="https://feixiangdjames.github.io/blog/2020/04/17/%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/index.html">
+<meta property="og:site_name" content="james blog">
+<meta property="og:description" content="@[toc] 继承   总结    继承是面向对象编程的一种代码复用   Java 只允许单继承   protected 允许子类访问父类的字段和方法   子类的构造方法可以通过super()调用父类的构造方法   upcasting 安全的向上转型，更抽象   dawncasting 最好借助 instanceof 判断   has 关系可以用组合，is关系用继承    父类或基类 声明一个cl">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-17T10:03:05.000Z">
+<meta property="article:modified_time" content="2020-04-17T01:18:28.334Z">
+<meta property="article:author" content="james">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar1.jpg">
+
+<link href="/blog/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/blog/css/hl_theme/Atelier Estuary Dark.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/blog/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/blog/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="/blog">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/blog/" class="avatar_target">
+    <img class="avatar" src="/blog/img/avatar1.jpg" />
+</a>
+<div class="author">
+    <span>james</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/feixiangdjames" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:feixiangdjames@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=174455864&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(13)</small></div></li>
+    
+        
+            
+            <li><div data-rel="JAVA"><i class="fold iconfont icon-right"></i>JAVA<small>(13)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="java入门">java入门<small>(3)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="程序基础">程序基础<small>(6)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="面向对象">面向对象<small>(3)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="例子">例子<small>(1)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="13">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color5">java</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="JAVA java入门 "
+           href="/blog/2020/04/12/%E4%BD%BF%E7%94%A8IDE/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="使用IDE">使用IDE</span>
+            <span class="post-date" title="2020-04-12 11:01:44">2020/04/12</span>
+        </a>
+        
+        <a  class="JAVA java入门 "
+           href="/blog/2020/04/12/%E7%AC%AC%E4%B8%80%E4%B8%AAJava/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="第一个Java">第一个Java</span>
+            <span class="post-date" title="2020-04-12 11:01:13">2020/04/12</span>
+        </a>
+        
+        <a  class="JAVA java入门 "
+           href="/blog/2020/04/10/java%E5%85%A5%E9%97%A8/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="java入门">java入门</span>
+            <span class="post-date" title="2020-04-10 08:32:38">2020/04/10</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/11/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84,%E5%8F%98%E9%87%8F,%E5%B8%B8%E9%87%8F,%E6%95%B4%E6%95%B0,%E6%B5%AE%E7%82%B9,%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97,%E5%B8%83%E5%B0%94/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="基本结构,变量,常量,整数,浮点,数的运算,布尔">基本结构,变量,常量,整数,浮点,数的运算,布尔</span>
+            <span class="post-date" title="2020-04-11 11:03:05">2020/04/11</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/15/%E5%AD%97%E7%AC%A6,%E5%AD%97%E7%AC%A6%E4%B8%B2,%E6%95%B0%E7%BB%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="字符,字符串,数组">字符,字符串,数组</span>
+            <span class="post-date" title="2020-04-15 11:03:05">2020/04/15</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/15/%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="流程控制[输入，输出]">流程控制[输入，输出]</span>
+            <span class="post-date" title="2020-04-15 15:03:05">2020/04/15</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/12/%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="数的运算">数的运算</span>
+            <span class="post-date" title="2020-04-12 11:05:00">2020/04/12</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/15/%E6%95%B0%E7%BB%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="数组">数组</span>
+            <span class="post-date" title="2020-04-15 15:03:05">2020/04/15</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/15/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%A6%82%E5%BF%B5/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="面向对象概念">面向对象概念</span>
+            <span class="post-date" title="2020-04-15 15:03:05">2020/04/15</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/16/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6if,switch,doWhile/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="流程控制[if,switch,doWhile]">流程控制[if,switch,doWhile]</span>
+            <span class="post-date" title="2020-04-16 15:03:05">2020/04/16</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/17/%E5%B0%81%E8%A3%85%E3%80%81%E6%96%B9%E6%B3%95%E3%80%81%E6%9E%84%E9%80%A0%E3%80%81%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="封装,方法,构造,方法重载">封装,方法,构造,方法重载</span>
+            <span class="post-date" title="2020-04-17 15:03:05">2020/04/17</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/17/%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="继承和Polymorphic">继承和Polymorphic</span>
+            <span class="post-date" title="2020-04-17 18:03:05">2020/04/17</span>
+        </a>
+        
+        <a  class="JAVA 例子 "
+           href="/blog/2020/04/15/%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%20-%20%E5%89%AF%E6%9C%AC/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="sample">sample</span>
+            <span class="post-date" title="2020-04-15 15:03:05">2020/04/15</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-继承和多态" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">继承和Polymorphic</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="JAVA">JAVA</a>/
+            
+                <a  data-rel="面向对象">面向对象</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color5">java</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-17 09:18:28'>2020-04-17 18:03</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#继承"><span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#继承树"><span class="toc-text">继承树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#protected"><span class="toc-text">protected</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super"><span class="toc-text">super</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向上转型"><span class="toc-text">向上转型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向下转型"><span class="toc-text">向下转型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#instanceof-判断实例类型或所属类"><span class="toc-text">instanceof 判断实例类型或所属类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#继承和组合的区别"><span class="toc-text">继承和组合的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Polymorphic"><span class="toc-text">Polymorphic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#override"><span class="toc-text">override</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-定义的几个重要方法"><span class="toc-text">Object 定义的几个重要方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#super-1"><span class="toc-text">super</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#final"><span class="toc-text">final</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#继承"><span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#继承树"><span class="toc-text">继承树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#protected"><span class="toc-text">protected</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super"><span class="toc-text">super</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向上转型"><span class="toc-text">向上转型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向下转型"><span class="toc-text">向下转型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#instanceof-判断实例类型或所属类"><span class="toc-text">instanceof 判断实例类型或所属类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#继承和组合的区别"><span class="toc-text">继承和组合的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Polymorphic"><span class="toc-text">Polymorphic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#override"><span class="toc-text">override</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-定义的几个重要方法"><span class="toc-text">Object 定义的几个重要方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#super-1"><span class="toc-text">super</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#final"><span class="toc-text">final</span></a></li></ol></li></ol></li></ol></div></p>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><table>
+<thead>
+<tr>
+<th>总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>继承是面向对象编程的一种代码复用</td>
+</tr>
+<tr>
+<td>Java 只允许单继承</td>
+</tr>
+<tr>
+<td>protected 允许子类访问父类的字段和方法</td>
+</tr>
+<tr>
+<td>子类的构造方法可以通过super()调用父类的构造方法</td>
+</tr>
+<tr>
+<td>upcasting 安全的向上转型，更抽象</td>
+</tr>
+<tr>
+<td>dawncasting 最好借助 instanceof 判断</td>
+</tr>
+<tr>
+<td>has 关系可以用组合，is关系用继承</td>
+</tr>
+</tbody></table>
+<ul>
+<li>父类或基类</li>
+<li>声明一个class 没有使用 extends.其实时省略了 extends Object</li>
+<li>在JAVA中，Object是所有类的根类。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pubic <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"><span class="function">pubic <span class="title">Person</span><span class="params">()</span></span>&#123;</span><br><span class="line">name=<span class="string">"james"</span>,</span><br><span class="line">age=<span class="string">"15"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function">pubic <span class="keyword">void</span> <span class="title">sayHi</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">system.out.println(<span class="string">"hi"</span>+name+<span class="string">"i am "</span>+<span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>为Person 建立一个子类，包含 Person的所有方法和field。<blockquote>
+<p>可以使用关键字 extends 继承<br>这样student获得Person所有功能<br>只需要编写新增的功能</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> score;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setScore</span><span class="params">(<span class="keyword">int</span> Score)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getScore</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="继承树"><a href="#继承树" class="headerlink" title="继承树"></a>继承树</h2><pre class="mermaid">graph BT
+A(Student) ==>C(Person)
+C(Teacher)==>D(Object)
+M(Teacher)==>C</pre>
+<ul>
+<li>一个子类有且只有一个父类（Object 除外）</li>
+<li>子类可以直接继承父类所有的 field 和 方法，但是不包含构造构造器。</li>
+</ul>
+<h2 id="protected"><a href="#protected" class="headerlink" title="protected"></a>protected</h2><ul>
+<li>Person 类定义的 private 字段虽然可以被继承，但是子类并不能访问private field.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Hello"</span>+<span class="keyword">this</span>.name;<span class="comment">//编译错误</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果想让子类可以访问到父类的一个field，要把父类的filed访问权限修改为protected.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span></span>&#123;</span><br><span class="line"><span class="keyword">protected</span> String name;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pubic <span class="class"><span class="keyword">class</span> <span class="title">S</span> <span class="keyword">extends</span> <span class="title">P</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">sayHi</span><span class="params">()</span></span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="string">"hello, "</span>+ <span class="keyword">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>protected 把filed 字段和方法的访问权限控制继承树的内部</li>
+</ul>
+<h2 id="super"><a href="#super" class="headerlink" title="super"></a>super</h2><ul>
+<li>继承关系中的构造方法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">super表示父类或者超类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">构造方法的第一行语句必须调用super()</td>
+</tr>
+<tr>
+<td align="center">没有super()编译器会默认生成一个super()</td>
+</tr>
+<tr>
+<td align="center">父类没有默认构造方法（也是说父类显式定义了构造方法）子类就需要显示调用超类</td>
+</tr>
+<tr>
+<td align="center"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">super</span>(age);/</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></td>
+</tr>
+<tr>
+<td align="center">子类调用了super方法（相当于父类的构造方法）,并传入父类的构造方法需要的参数</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span></span>&#123;</span><br><span class="line">System.out.println(<span class="string">"creat Person..."</span>)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"><span class="keyword">public</span> Student&#123;</span><br><span class="line"><span class="keyword">super</span>();</span><br><span class="line">System.out.println(<span class="string">"creat Student...."</span>)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="向上转型"><a href="#向上转型" class="headerlink" title="向上转型"></a>向上转型</h2><p>实例变量都是可以向上转型的。</p>
+<pre class="mermaid">graph BT
+A(Student)==>b(Person)
+b==>c(Object)</pre>
+<ul>
+<li>可以对实例变量进行向上转型（upcasting）</li>
+<li>向上转型把一个子类型安全地变为更加抽象的类型。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Person p=<span class="keyword">new</span> Person();</span><br><span class="line">Student s= <span class="keyword">new</span> Student();</span><br><span class="line"></span><br><span class="line">Person ps=<span class="keyword">new</span> Student();<span class="comment">//upcasting</span></span><br><span class="line">Object o1=p;<span class="comment">//upcasting</span></span><br></pre></td></tr></table></figure>
+<h2 id="向下转型"><a href="#向下转型" class="headerlink" title="向下转型"></a>向下转型</h2><ul>
+<li>可以对实例进行向下转型，抽象更加的具体。</li>
+<li>向下转型很可能报错:ClassCastException<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Person p= <span class="keyword">new</span> Person();</span><br><span class="line">student s=(Student)p; <span class="comment">//向下转型使用P（）</span></span><br></pre></td></tr></table></figure>
+变量P 有可能指向的是一个Person 类，也有可能指向的是Student类<br>如果，P 并没有 指向Student ，x</li>
+</ul>
+<h2 id="instanceof-判断实例类型或所属类"><a href="#instanceof-判断实例类型或所属类" class="headerlink" title="instanceof 判断实例类型或所属类"></a>instanceof 判断实例类型或所属类</h2><ul>
+<li>interanceof 是可以判断变量的引用属于什么类型。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Student n=<span class="keyword">null</span>,m=<span class="keyword">new</span> Student();</span><br><span class="line">println(n <span class="keyword">instanceof</span> Student);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>instanceof可以判断对象的类型，所有向下转型可以用instanceof先判断，再转型。</li>
+<li>变量的类型决定了，你可以调用的方法。</li>
+</ul>
+<h1 id="继承和组合的区别"><a href="#继承和组合的区别" class="headerlink" title="继承和组合的区别"></a>继承和组合的区别</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> name;</span><br><span class="line"><span class="keyword">protected</span> age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> name;</span><br><span class="line"><span class="keyword">protected</span> page;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"><span class="function">Public <span class="title">Student</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">super</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> score;</span><br><span class="line"><span class="keyword">private</span> Book book;<span class="comment">//持有一个book实例</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>student 不合从Book继承</li>
+<li>student 可以持有一个book实例</li>
+<li>继承is,组合是has</li>
+</ul>
+<h1 id="Polymorphic"><a href="#Polymorphic" class="headerlink" title="Polymorphic"></a>Polymorphic</h1><table>
+<thead>
+<tr>
+<th>总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>多态是针对某个类型的方法调用，其真正执行的方法取决于运行时实际类型的方法</td>
+</tr>
+<tr>
+<td>对某个类型调用某个方法，执行的方法可能时某个子类覆写方法</td>
+</tr>
+<tr>
+<td>利用多态，允许添加更多类型的子类实现功能扩展</td>
+</tr>
+<tr>
+<td>子类可以覆写父类的方法</td>
+</tr>
+<tr>
+<td>覆写在子类改变了父类方法的行为</td>
+</tr>
+<tr>
+<td>final修饰的方法不能覆写</td>
+</tr>
+<tr>
+<td>final 修饰的class可以被继承</td>
+</tr>
+<tr>
+<td>final修饰的field必须在创建对象时初始化</td>
+</tr>
+</tbody></table>
+<h2 id="override"><a href="#override" class="headerlink" title="override"></a>override</h2><ul>
+<li>子类覆写父类的方法,方法的参数和返回值类型是一样的。方法的语句是不同的；这种覆写的方式称为Overrider</li>
+<li>方法的签名如果不同，就不是OVerride，而是创建了一个新的方法</li>
+<li>加上@Override 可以让编译器帮助检查是否进行了正确的覆写，不必须。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"><span class="meta">@Override</span> </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>引用变量的声明类型可能其实际对象不同。</li>
+<li>一个实例的方法调用，总是和他实际的类型相同，而不是声明的类型。</li>
+<li>JAVA 的实例方法调用时基于运行时实际类型的<strong>动态调用</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Person p = <span class="keyword">new</span> Student();</span><br><span class="line">p.run();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>无法知道是否调用的是person类定义的。可能是Student的run方法。</li>
+</ul>
+<h2 id="Object-定义的几个重要方法"><a href="#Object-定义的几个重要方法" class="headerlink" title="Object 定义的几个重要方法"></a>Object 定义的几个重要方法</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>toString</td>
+<td>把instance 输出为String</td>
+</tr>
+<tr>
+<td>equals</td>
+<td>判断两个instance是否逻辑相等</td>
+</tr>
+<tr>
+<td>hashCode</td>
+<td>计算一个instance的哈希值</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">....</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span> </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span> </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="super-1"><a href="#super-1" class="headerlink" title="super"></a>super</h3><ul>
+<li>super 可以调用父类的被Override的方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Hello, "</span>+name;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> Student extends Person&#123;</span><br><span class="line"><span class="meta">@verride</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">super</span>.hello+<span class="string">"!"</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><ul>
+<li>用final 修饰的方法，不能被覆写。</li>
+<li>final 声明的类不能被继承</li>
+<li>final 修饰的字段，初始化后不能被修改。 </li>
+</ul>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>继承和Polymorphic</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="james">james</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-04-17, 18:03:05</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-17, 09:18:28</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/17/%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/" title="继承和Polymorphic">https://feixiangdjames.github.io/blog/2020/04/17/%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2020 james</p>
+
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/blog/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/blog/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#java',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+        /* 渲染*/
+        function HTMLDecode(text) {
+            var temp = document.createElement("div");
+            temp.innerHTML = text;
+            var output = temp.innerText || temp.textContent;
+            temp = null;
+            return output;
+        }
+        if (window.mermaid){
+            window.mermaid = null
+        }
+        $.getScript("//cdn.jsdelivr.net/npm/mermaid@8.4.2/dist/mermaid.min.js", function () {
+            var mermaidOptions = JSON.parse(HTMLDecode("{&#34;theme&#34;:&#34;default&#34;,&#34;startOnLoad&#34;:true,&#34;flowchart&#34;:{&#34;useMaxWidth&#34;:false,&#34;htmlLabels&#34;:true}}"))
+            if (window.mermaid) {
+                mermaid.initialize(mermaidOptions)
+                mermaid.contentLoaded()
+            }
+        })
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
