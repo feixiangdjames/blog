@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>james blog</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="james blog">
+  <title>抽象类 | james blog</title>
+  <meta name="keywords" content=" java ">
+  <meta name="description" content="抽象类 | james blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc] 继承   总结    继承是面向对象编程的一种代码复用   Java 只允许单继承   protected 允许子类访问父类的字段和方法   子类的构造方法可以通过super()调用父类的构造方法   upcasting 安全的向上转型，更抽象   dawncasting 最好借助 instanceof 判断   has 关系可以用组合，is关系用继承    父类或基类 声明一个cl">
 <meta property="og:type" content="article">
@@ -53,7 +53,7 @@
 </div>
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/blog/" class="avatar_target">
     <img class="avatar" src="/blog/img/avatar1.jpg" />
@@ -116,21 +116,13 @@
                             
                         </li>
                             
-                        <li><div data-rel="面向对象">面向对象<small>(3)</small></div>
-                            
-                        </li>
-                            
-                        <li><div data-rel="例子">例子<small>(1)</small></div>
+                        <li><div data-rel="面向对象">面向对象<small>(4)</small></div>
                             
                         </li>
                             
                     </ul>
                 
             </li>
-            
-        
-    
-        
             
         
     
@@ -298,12 +290,12 @@
             <span class="post-date" title="2020-04-17 18:03:05">2020/04/17</span>
         </a>
         
-        <a  class="JAVA 例子 "
-           href="/blog/2020/04/15/%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%20-%20%E5%89%AF%E6%9C%AC/"
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/17/%E6%8A%BD%E8%B1%A1%E7%B1%BB/"
            data-tag="java"
            data-author="" >
-            <span class="post-title" title="sample">sample</span>
-            <span class="post-date" title="2020-04-15 15:03:05">2020/04/15</span>
+            <span class="post-title" title="抽象类">抽象类</span>
+            <span class="post-date" title="2020-04-17 18:03:05">2020/04/17</span>
         </a>
         
     </nav>
@@ -316,12 +308,57 @@
         </div>
     </div>
 </aside>
-<div class="post index">
+<div class="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-抽象类" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#欢迎来访，祝你一切顺利"><span class="toc-text">欢迎来访，祝你一切顺利</span></a></li></ol>
+        <h1 class="article-title">抽象类</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="JAVA">JAVA</a>/
+            
+                <a  data-rel="面向对象">面向对象</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color5">java</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-18 23:47:53'>2020-04-17 18:03</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#抽象类"><span class="toc-text">抽象类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#我们可以把父类的方法声明为一个抽象方法。"><span class="toc-text">我们可以把父类的方法声明为一个抽象方法。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无法实例化的抽象类有什么用？"><span class="toc-text">无法实例化的抽象类有什么用？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#面向抽象编程"><span class="toc-text">面向抽象编程</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -334,23 +371,95 @@
     }
 </style>
 </div>
-            <h1 id="欢迎来访，祝你一切顺利"><a href="#欢迎来访，祝你一切顺利" class="headerlink" title="欢迎来访，祝你一切顺利"></a>欢迎来访，祝你一切顺利</h1><blockquote>
-<p>Keep your face always toward the sunshine and shadows will fall behind you.</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>这里是Jmames个人站，用于收录我喜欢的技术文章，编写我对生活的感悟。</p>
-</blockquote>
-<p>到目前为止已经写了<code class="article_number"></code>篇文章， 共<code class="site_word_count"></code>字。</p>
-<p>主要功能：</p>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#抽象类"><span class="toc-text">抽象类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#我们可以把父类的方法声明为一个抽象方法。"><span class="toc-text">我们可以把父类的方法声明为一个抽象方法。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无法实例化的抽象类有什么用？"><span class="toc-text">无法实例化的抽象类有什么用？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#面向抽象编程"><span class="toc-text">面向抽象编程</span></a></li></ol></div></p>
+<h1 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h1><table>
+<thead>
+<tr>
+<th>总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>抽象方法定义了子类必须实现的抽象接口规范</td>
+</tr>
+<tr>
+<td>定义了抽象方法的类就是抽象类</td>
+</tr>
+<tr>
+<td>抽象类继承的子类必须首先抽象方法</td>
+</tr>
+<tr>
+<td>如果不直线抽象方法，则该子类仍是一个抽象类</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>- 子类可以覆写父类的方法【不能是final】，这种行为被称为多态。</td>
+</tr>
+<tr>
+<td>-  如果父类的方法没有实际意义，可否去掉方法的执行语句？</td>
+</tr>
+<tr>
+<td>不行，子类会编译错误。</td>
+</tr>
+<tr>
+<td>去掉父类方法，丧失多态。</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;<span class="comment">//去掉执行语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="我们可以把父类的方法声明为一个抽象方法。"><a href="#我们可以把父类的方法声明为一个抽象方法。" class="headerlink" title="我们可以把父类的方法声明为一个抽象方法。"></a>我们可以把父类的方法声明为一个抽象方法。</h2><pre><code>- 抽象方法没有执行语句，使用abstract修饰。
+- 因为无法执行抽象方法，这里类必须也声明为抽象类。
+- 无法实例化一个抽象类.只能实例化一个子类，比如人永远是概念。</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;<span class="comment">//抽象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">super</span>.run()+<span class="string">""</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="无法实例化的抽象类有什么用？"><a href="#无法实例化的抽象类有什么用？" class="headerlink" title="无法实例化的抽象类有什么用？"></a>无法实例化的抽象类有什么用？</h2><ul>
+<li>抽象类用于被继承。</li>
+<li>抽象类可以强迫子类实现其定义的抽象方法（否则编译错误）。</li>
+<li>抽象方法实际上相当于定义了”规范”，防止异化。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这样可以不关心,employee如何实现run方法，直接在</span></span><br><span class="line"><span class="comment">//person 上调用，e总是会实现它实际类型的方法。</span></span><br><span class="line"></span><br><span class="line">Person e= <span class="keyword">new</span> Eemployee();</span><br></pre></td></tr></table></figure>
+<h1 id="面向抽象编程"><a href="#面向抽象编程" class="headerlink" title="面向抽象编程"></a>面向抽象编程</h1><ul>
+<li>上层代码只定义规范 abstract </li>
+<li>不需要子类就可以实现业务逻辑（正常编译）。</li>
+<li>具体的业务逻辑由不同的子类实现，调用者并不关心。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">area</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>搜索支持文章标题、标签(#标签)、作者(@作者)</li>
-<li>pad/手机等移动端适配</li>
+<li><p>对于main方法调用子类的方法，我们只关系子类是否有方法（可以进行业务编译）<br>我们并不关心方法是如何编写或实现的。</p>
+</li>
+<li><p>实现一个糟糕的没有抽象类的方法。</p>
+</li>
 </ul>
 
-        </article>
-        
-        
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>抽象类</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="james">james</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-04-17, 18:03:05</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-18, 23:47:53</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/17/%E6%8A%BD%E8%B1%A1%E7%B1%BB/" title="抽象类">https://feixiangdjames.github.io/blog/2020/04/17/%E6%8A%BD%E8%B1%A1%E7%B1%BB/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
     </div>
     <div class="copyright">
         <p class="footer-entry">©2020 james</p>
