@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>基本结构,变量,常量,整数,浮点,数的运算,布尔 | James blog</title>
+  <title>接口 | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="基本结构,变量,常量,整数,浮点,数的运算,布尔 | James blog">
+  <meta name="description" content="接口 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="CSS 变量 和 JS  1234567891011  :root&amp;#123;    --base:#ffc600;    --spacing:10px;    --blur:5px;&amp;#125;	 img &amp;#123;    padding: var(--spacing);    background: var(--base);    filter: blur(var(--blur));&amp;#12">
 <meta property="og:type" content="article">
@@ -350,9 +350,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-基本结构,变量,常量,整数,浮点,数的运算,布尔" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-interface" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">基本结构,变量,常量,整数,浮点,数的运算,布尔</h1>
+        <h1 class="article-title">接口</h1>
     
     <div class="article-meta">
         
@@ -362,7 +362,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="程序基础">程序基础</a>
+                <a  data-rel="面向对象">面向对象</a>
             
         </span>
         
@@ -376,12 +376,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-15 08:08:02'>2020-04-11 11:03</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-20 03:54:35'>2020-04-17 18:03</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.2k</span>
+        <span>字数:451</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -400,7 +400,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关键字"><span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hello程序结构"><span class="toc-text">Hello程序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类的命名规则"><span class="toc-text">类的命名规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据类型"><span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本类型"><span class="toc-text">基本类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#整型"><span class="toc-text">整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点型"><span class="toc-text">浮点型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#字符型-char"><span class="toc-text">字符型 char</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#boolean"><span class="toc-text">boolean</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常量"><span class="toc-text">常量</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#interface"><span class="toc-text">interface</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#区分"><span class="toc-text">区分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#abstract-class-VS-interface"><span class="toc-text">abstract class VS interface</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#default"><span class="toc-text">default</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#interface-继承"><span class="toc-text">interface 继承</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -416,84 +416,101 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关键字"><span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hello程序结构"><span class="toc-text">Hello程序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类的命名规则"><span class="toc-text">类的命名规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据类型"><span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本类型"><span class="toc-text">基本类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#整型"><span class="toc-text">整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点型"><span class="toc-text">浮点型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#字符型-char"><span class="toc-text">字符型 char</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#boolean"><span class="toc-text">boolean</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常量"><span class="toc-text">常量</span></a></li></ol></div></p>
-<ul>
-<li>JAVA提供了两种变量类型：基本类型、引用类型。</li>
-<li>JAVA定义基本类型：整（type,short,int,long）,浮点型（float,double）,boolean,char</li>
-<li>变量可以重新赋值；等号是赋值语句，不是数学符号。</li>
-<li>常量初始化之后，不能重新赋值；为了避免magic number. 常量修饰关键字是final</li>
-</ul>
-<h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><blockquote>
-<p>Java关键字是对Java编译器有特殊含义的字符串，是编译器和程序员的一个约定，程序员利用关键字来告诉编译器其声明的变量类型、类、方法特性等信息。<br>声明变量要避开关键字。</p>
-</blockquote>
-<h2 id="Hello程序结构"><a href="#Hello程序结构" class="headerlink" title="Hello程序结构"></a>Hello程序结构</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 双星符号开头，是区别于其他多行注释的；可以自动创建文档。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">System.out.println(<span class="string">"Hello,world"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在Java程序中，注释是一种给人阅读的文本，不是程序的一部分，所以编译器会自动忽略注释.在JAVA中有3种注释。</p>
-</blockquote>
-<p>  1.// 单行注释<br>  2.<kbd>/<em>~</em>/</kbd>多行注释<br>  3.<kbd>/<em>*~</em>/</kbd> 可以自动创建文档的注释。</p>
-<blockquote>
-<p>java 的基本单位是关键字class,一个.java 文件有且只有一个class<br>class 的访问修饰符是public，表示可以在命令行运行<br>public static void main 是JAVA程序的固定入口；参数必须是String[ ] args;方法定义了一组执行语句，方法内部的代码将会被依次顺序执行。main 不是关键字只是 JAVA的主函数入口。<br>System.out.println 打印方法的执行，参数是”Hello,world”<br>|关键字|说明|<br>|–|–|<br>|public|<del>|<br>|static|</del>|<br>|void|没有返回值||||<br>方法代码每一行用；结束</p>
-</blockquote>
-<h3 id="类的命名规则"><a href="#类的命名规则" class="headerlink" title="类的命名规则"></a>类的命名规则</h3><ul>
-<li>class name 必须是英文字母，后接数字和下划线。</li>
-<li>常用惯例是声明类名称用大写字母开头，使用驼峰命名法。<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2></li>
-<li>什么是变量？<br>变量是对数据本身的引用。在java中会用变量名来指代。</li>
-<li>变量的行为？<br>变量必须先定义，后使用。<br>变量在同一个作用域（代码块中）不能被重复声明。<br>变量定义后可以多次赋值。<br>变量的命名是以小写字母开头后可以加数值；惯例上当多个单词组合成变量名使用驼峰命名法。<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1>java 变量分为两种基本类型和引用类型。<h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><blockquote>
-<p>存储在栈内存中，CPU可以直接进行运算的类型。<br>计算机内存的最小存储单元是字节（byte），一个字节就是一个8位二进制数，即8个bit。二进制的表示是0000_0000~1111_1111.一个bit就是一个内存地址。<br>不同的数据类型所占用的字节数是不同的。</p>
-</blockquote>
-<h3 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h3><table>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#interface"><span class="toc-text">interface</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#区分"><span class="toc-text">区分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#abstract-class-VS-interface"><span class="toc-text">abstract class VS interface</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#default"><span class="toc-text">default</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#interface-继承"><span class="toc-text">interface 继承</span></a></li></ol></li></ol></div></p>
+<h1 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h1><table>
 <thead>
 <tr>
-<th>数据类型</th>
-<th>字长</th>
-<th>说明</th>
+<th>总结</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>byte</td>
-<td>1</td>
-<td>整数类型,代表10进制的范围是-2^7~2^7-1,第一位是符号位，0是正，1是负；涉及到反码和补码知识</td>
+<td>接口定义了纯抽象规范</td>
 </tr>
 <tr>
-<td>short</td>
-<td>2</td>
-<td>整数类型</td>
+<td>接口可以实现多个接口</td>
 </tr>
 <tr>
-<td>int</td>
-<td>4</td>
-<td>整数类型</td>
+<td>接口也是数据类型，适用于向上转型和向下转型</td>
 </tr>
 <tr>
-<td>long</td>
-<td>8</td>
-<td>整数类型</td>
+<td>接口不能定义field</td>
+</tr>
+<tr>
+<td>接口可以定义default方法</td>
 </tr>
 </tbody></table>
+<ul>
+<li><p>如果一个抽象类没有字段，所有的方法全部是抽象方法，就可以把该抽象类<br>改写为interface</p>
+</li>
+<li><p>使用 interface 声明一个结果</p>
+</li>
+<li><p>接口定义的方法默认是public abstract，接口中可以默认不写。</p>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"><span class="keyword">int</span> i=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> i2=<span class="number">2000_0000_000000000</span>;</span><br><span class="line"><span class="keyword">int</span> i3=<span class="number">0xffff</span>;<span class="comment">//0x开头的是16进制，f就是代表1111,是十进制的15</span></span><br><span class="line"><span class="keyword">int</span> i4=<span class="number">0b100000000</span>;<span class="comment">//0b 开头定义的是2进制</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不同进制下的数字是相同的，15==0xf==0b1111;</p>
-<h3 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h3><p>浮点类型的数就是小数，整数也可以用小数表示的，使用科学计数法。<br>定义小数类型的关键字是 float double<br>|类型|字长(byte)|说明|<br>|–|–|–|<br>|float|4|浮点类型32bit|<br>|double|8|长浮点类型，定义不需要末尾加f|</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span>       m=<span class="number">3.00e2f</span>;<span class="comment">//代表m 是一个3.00 * 10^2的浮点数，float 关键字定义的末尾必须加f</span></span><br><span class="line"><span class="keyword">double</span>      n=<span class="number">3.00</span>;<span class="comment">//n 是一个double型的数值</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>不同于可以准确定义整数，小数是不准确，比如0.1+0.2===0.3 在不采用任何处理方式的情况下，结果是false.所以,在做小数结果的比较时候，要在一定精度范围内比较，才可以得出正确结果。 </li>
+<li>interface 是Java内置的纯抽象接口</li>
 </ul>
-<h4 id="字符型-char"><a href="#字符型-char" class="headerlink" title="字符型 char"></a>字符型 char</h4><ul>
-<li>字符类型用单引号表示，只用有一个字符；<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> name=<span class="string">'A'</span>;</span><br></pre></td></tr></table></figure>
-注意：字符和字符串不同；字符属于基本类型，字符串是引用类型。</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Hello</span></span>&#123;</span><br><span class="line"><span class="function">String <span class="title">hello</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">String <span class="title">goodbye</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>实现interface 使用implements </li>
 </ul>
-<h4 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h4><ul>
-<li>只有两个值 ture 、false;</li>
-<li>通常表示比较的结果；<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> oneBoolean=<span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">int</span> age =<span class="number">7</span>;</span><br><span class="line"><span class="keyword">int</span> oneKid=<span class="number">6</span>;</span><br><span class="line"><span class="keyword">boolean</span> shouldGoToSchool = age==oneKid;</span><br><span class="line">System.out.println(shouldGoToSchool);<span class="comment">//==&gt;false</span></span><br></pre></td></tr></table></figure>
-<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2></li>
-<li>如果变量用final修饰的话，就是常量；</li>
-<li>为了方便理解程序,用来代替Magic Number。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">double</span> PI=<span class="number">3.14</span>;</span><br><span class="line"><span class="keyword">double</span> r=<span class="number">5.0</span>;</span><br><span class="line"><span class="keyword">double</span> area=PI*r*r;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>常量初始化以后不能再次赋值。否则会报编译异常。<br>常量名通常全部大写<br>常量用来避免意外赋值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Hello</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以实现多个interface <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Robot</span> <span class="keyword">implements</span> <span class="title">Hello</span>,<span class="title">Comparable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="区分"><a href="#区分" class="headerlink" title="区分"></a>区分</h2><blockquote>
+<p>Java的接口特质interface 定义的接口，只定义方法签名<br>编程接口泛指接口规范，如方法签名，数据格式，网络协议等</p>
 </blockquote>
 </li>
 </ul>
+<h1 id="abstract-class-VS-interface"><a href="#abstract-class-VS-interface" class="headerlink" title="abstract class VS interface"></a>abstract class VS interface</h1><table>
+<thead>
+<tr>
+<th></th>
+<th align="center">absctract</th>
+<th align="center">interface</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>继承</td>
+<td align="center">一个子类只能extends一个calss</td>
+<td align="center">一个子类可以implements多个interface</td>
+</tr>
+<tr>
+<td>field</td>
+<td align="center">可以定义实例字段</td>
+<td align="center">不能定义实例字段</td>
+</tr>
+<tr>
+<td>抽象方法</td>
+<td align="center">可以定义</td>
+<td align="center">可以定义</td>
+</tr>
+<tr>
+<td>非抽象方法</td>
+<td align="center">可以定义非抽象方法</td>
+<td align="center">可以定义default方法</td>
+</tr>
+</tbody></table>
+<h2 id="default"><a href="#default" class="headerlink" title="default"></a>default</h2><ul>
+<li>interface 中 所有的 抽象方法，都要求子类去实现。</li>
+<li>子类的子类并不需要去实现祖父类的,抽象方法仅是限定在父子关系中。</li>
+<li>default 不是抽象方法，需要加函数体。</li>
+</ul>
+<h2 id="interface-继承"><a href="#interface-继承" class="headerlink" title="interface 继承"></a>interface 继承</h2><ul>
+<li>一个interface可以继承自另一个interface</li>
+<li>interface 的继承使用 extends</li>
+<li>相当于扩展了接口，子类需要讲需要实现的接口上的方法，一一实现。</li>
+</ul>
+<blockquote>
+<p>合理设计interface 和 abstract class 的继承关系<br>公共逻辑放在 abstract class<br>接口层次代表抽象程度</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List list=<span class="keyword">new</span> ArrayList();</span><br><span class="line">Collection coll=list;</span><br><span class="line">Iterable it=coll;</span><br></pre></td></tr></table></figure>
+
+
+
+
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -503,12 +520,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>基本结构,变量,常量,整数,浮点,数的运算,布尔</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.2k</span></p>
+    <p><span class="copy-title">文章标题:</span>接口</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">460</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-11, 11:03:05</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-15, 08:08:02</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/11/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84,%E5%8F%98%E9%87%8F,%E5%B8%B8%E9%87%8F,%E6%95%B4%E6%95%B0,%E6%B5%AE%E7%82%B9,%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97,%E5%B8%83%E5%B0%94/" title="基本结构,变量,常量,整数,浮点,数的运算,布尔">https://feixiangdjames.github.io/blog/2020/04/11/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84,%E5%8F%98%E9%87%8F,%E5%B8%B8%E9%87%8F,%E6%95%B4%E6%95%B0,%E6%B5%AE%E7%82%B9,%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97,%E5%B8%83%E5%B0%94/</a>
+    <p><span class="copy-title">发布时间:</span>2020-04-17, 18:03:05</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-20, 03:54:35</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/17/interface/" title="接口">https://feixiangdjames.github.io/blog/2020/04/17/interface/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
