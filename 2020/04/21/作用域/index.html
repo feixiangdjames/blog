@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>数的运算 | James blog</title>
+  <title>作用域 | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="数的运算 | James blog">
+  <meta name="description" content="作用域 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc] 访问权限   总结    JAVA内建的访问权限包括public、protected、private、package   局部变量的作用域从变量声明开始，到一个块结束   一个JAVA文件只能包含一个public class，但可以包含多个非public class    JAVA的类、接口、字段和方法都可以设置访问权限  访问权限有public、 protected、private">
 <meta property="og:type" content="article">
@@ -366,9 +366,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-数的运算" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-作用域" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">数的运算</h1>
+        <h1 class="article-title">作用域</h1>
     
     <div class="article-meta">
         
@@ -378,7 +378,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="程序基础">程序基础</a>
+                <a  data-rel="面向对象">面向对象</a>
             
         </span>
         
@@ -392,12 +392,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-15 10:28:55'>2020-04-12 11:05</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-22 10:03:11'>2020-04-21 18:03</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.1k</span>
+        <span>字数:854</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -416,7 +416,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#整数运算"><span class="toc-text">整数运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#整数"><span class="toc-text">整数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#移位运算"><span class="toc-text">移位运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位运算"><span class="toc-text">位运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异或运算"><span class="toc-text">异或运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非运算"><span class="toc-text">非运算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#浮点数运算"><span class="toc-text">浮点数运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#boolean-运算"><span class="toc-text">boolean 运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#三元运算符"><span class="toc-text">三元运算符</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字符和字符串"><span class="toc-text">字符和字符串</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#访问权限"><span class="toc-text">访问权限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#private"><span class="toc-text">private</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义在一个class的内部的class称为inner-class"><span class="toc-text">定义在一个class的内部的class称为inner class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#protected"><span class="toc-text">protected</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#package"><span class="toc-text">package</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#局部变量"><span class="toc-text">局部变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final"><span class="toc-text">final</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#classpath"><span class="toc-text">classpath</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jar包"><span class="toc-text">jar包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#jar包生成"><span class="toc-text">jar包生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jar包的其他功能"><span class="toc-text">jar包的其他功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK的class"><span class="toc-text">JDK的class</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -432,59 +432,146 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#整数运算"><span class="toc-text">整数运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#整数"><span class="toc-text">整数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#移位运算"><span class="toc-text">移位运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位运算"><span class="toc-text">位运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异或运算"><span class="toc-text">异或运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非运算"><span class="toc-text">非运算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#浮点数运算"><span class="toc-text">浮点数运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#boolean-运算"><span class="toc-text">boolean 运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#三元运算符"><span class="toc-text">三元运算符</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字符和字符串"><span class="toc-text">字符和字符串</span></a></li></ol></div></p>
-<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="整数运算"><a href="#整数运算" class="headerlink" title="整数运算"></a>整数运算</h1><ul>
-<li>整数运算结果永远精确。</li>
-<li>预算结果的类型会自动提升。</li>
-<li>强制转型，可能会损失。<h2 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h2></li>
-<li>依照四则预算规则，如果变量是整型，则结果也是整形；</li>
-<li>如果定义的变量是整型，则计算的算子都只能是整型。如果定义的变量是浮点型，则算子可以有浮点型。</li>
-<li>被除数是0，不会影响编译；JVM运行字节码的时候会报错。</li>
-<li>++ 和 – 运算符，这里要注意++的位置，在变量之前，是先加后引用；在变量之后是先引用，之后自身加1.</li>
-<li>+= 相当于 n+=1==&gt;n=n+1;<blockquote>
-<p>注意：java 中的整数是有符号的整数。在计算机中的整数都是以二进制补码形式进行存储的。</p>
-</blockquote>
-</li>
-</ul>
-<p>|类型|说明|<br>|正数|源码，补码，反码都是该数字本身；整数的符号位是0|<br>|负数|负数的符号位是1，计算机的二进制代码是补码；想得到这个数字的源码，先获取反码，然后+1，获得补码|<br>|0|+0-0|都是0|</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//11111111111111111111111111111111</span></span><br><span class="line">System.out.println(Integer.toBinaryString(-<span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#访问权限"><span class="toc-text">访问权限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#private"><span class="toc-text">private</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义在一个class的内部的class称为inner-class"><span class="toc-text">定义在一个class的内部的class称为inner class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#protected"><span class="toc-text">protected</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#package"><span class="toc-text">package</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#局部变量"><span class="toc-text">局部变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final"><span class="toc-text">final</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#classpath"><span class="toc-text">classpath</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jar包"><span class="toc-text">jar包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#jar包生成"><span class="toc-text">jar包生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jar包的其他功能"><span class="toc-text">jar包的其他功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK的class"><span class="toc-text">JDK的class</span></a></li></ol></li></ol></div></p>
+<h1 id="访问权限"><a href="#访问权限" class="headerlink" title="访问权限"></a>访问权限</h1><table>
+<thead>
+<tr>
+<th>总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JAVA内建的访问权限包括public、protected、private、package</td>
+</tr>
+<tr>
+<td>局部变量的作用域从变量声明开始，到一个块结束</td>
+</tr>
+<tr>
+<td>一个JAVA文件只能包含一个public class，但可以包含多个非public class</td>
+</tr>
+</tbody></table>
 <ul>
-<li>11111111111111111111111111111111 </li>
-<li>先取反码 获得1—31个0，然后补码-》末尾+1，结果就是1–0001,高位的1代表负数，就是-1.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Div</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">int</span> i=<span class="number">99</span>/<span class="number">9</span>;</span><br><span class="line">	System.out.println(Integer.toBinaryString(i));</span><br><span class="line">	System.out.println(i);</span><br><span class="line">    <span class="keyword">boolean</span> a=i&gt;<span class="number">7</span>;  </span><br><span class="line">    System.out.println(a);</span><br><span class="line">    <span class="keyword">double</span> f=i/<span class="number">1</span>;<span class="comment">//返回的结果是浮点数11.0</span></span><br><span class="line">		<span class="comment">/*因为byte 最大的数是127.这里会抛出异常；</span></span><br><span class="line"><span class="comment">	但是由于计算结果加了强制转换(byte),这里就会把128的二进制代码作为有符号二进制转换得出-128.</span></span><br><span class="line"><span class="comment">	注意：这里如果没有(byte)会抛出异常。*/</span></span><br><span class="line">	<span class="keyword">byte</span> x=(<span class="keyword">byte</span>)(<span class="number">127</span>+<span class="number">1</span>);</span><br><span class="line">    System.out.println(x);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*在运算过程中，计算结果为较大类型的整型，</span></span><br><span class="line"><span class="comment">	可以将结果进行强制转型。(类型),可以高位转低位，也可以低位转高位。*/</span></span><br><span class="line">	<span class="keyword">int</span> x=(<span class="keyword">byte</span>) (<span class="number">127</span>+<span class="number">1</span>);</span><br><span class="line">	<span class="comment">//-128 因为先进行了强制转换，然后值分配了更多的位数，相当于将-128作为int类型进行了存储。</span></span><br><span class="line">    System.out.println(x);</span><br><span class="line">	<span class="comment">//不影响编译，这条代码以上的部分，还是可以执行；当执行到这里的时候，JVM 会抛异常。</span></span><br><span class="line">	<span class="keyword">int</span> s=i/<span class="number">0</span>;</span><br><span class="line">    System.out.println(f);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="移位运算"><a href="#移位运算" class="headerlink" title="移位运算"></a>移位运算</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int n1&#x3D;5;  &#x2F;&#x2F;0...101;5</span><br><span class="line">int n2&#x3D;n1&lt;&lt;2;&#x2F;&#x2F;0...10100;左移两位，16+4&#x3D;20;</span><br><span class="line">int n3&#x3D;n1&lt;&lt;&lt;3;&#x2F;&#x2F;无条件左移3位，左移可能没有意义，当右边移动时候，就会将符号位进行移动。</span><br></pre></td></tr></table></figure>
-<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><ul>
-<li>首先位对齐，然后依次对每位进行运算。</li>
-<li>1 &amp; 0 // 结果是0</li>
-<li>1 | 0 ///结果是1</li>
-</ul>
-<h3 id="异或运算"><a href="#异或运算" class="headerlink" title="异或运算"></a>异或运算</h3><ul>
-<li>位相等的时候是 0,位不同的是1</li>
-</ul>
-<h3 id="非运算"><a href="#非运算" class="headerlink" title="非运算"></a>非运算</h3><ul>
-<li>~1=0</li>
-<li>~0=1</li>
-</ul>
-<h1 id="浮点数运算"><a href="#浮点数运算" class="headerlink" title="浮点数运算"></a>浮点数运算</h1><ul>
-<li>浮点数无法精确表示。</li>
-<li>计算有误差。</li>
-<li>计算过程中，整型会自动提升到浮点型。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> d1=<span class="number">1.2</span>+<span class="number">24.0</span>/<span class="number">5</span>;<span class="comment">//6.0</span></span><br></pre></td></tr></table></figure></li>
-<li>以下情况类型不自动提升<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">floatOps</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">double</span> i=<span class="number">24.0</span>/<span class="number">5</span> +<span class="number">1</span>; </span><br><span class="line">	System.out.println(i);</span><br><span class="line">	<span class="keyword">double</span> m=<span class="number">20</span>/<span class="number">5</span>;</span><br><span class="line">	System.out.println(<span class="string">"m:"</span>+m);<span class="comment">//m:4.0</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>浮点数除0，是有别于整数的。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NaN</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">double</span> d1=<span class="number">0.0</span>/<span class="number">0</span>; <span class="comment">//NaN</span></span><br><span class="line">	System.out.println(d1);</span><br><span class="line">	<span class="keyword">double</span> d2=<span class="number">1.0</span>/<span class="number">0</span>; <span class="comment">//Infinity</span></span><br><span class="line">	System.out.println(d2);<span class="comment">//- Infinity</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>浮点型强制转型，并不会四舍五入，而是直接扔掉小数位位数。</li>
-<li>浮点型四舍五入的技巧是加0.5</li>
-<li>超出整型范围的浮点型转型，会便问最大值<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n1 = (<span class="keyword">int</span>) <span class="number">12.3</span>;<span class="comment">// 12</span></span><br><span class="line">	<span class="keyword">int</span> n2 = (<span class="keyword">int</span>) <span class="number">12.7</span>;<span class="comment">// 12</span></span><br><span class="line">	<span class="keyword">int</span> n3 = (<span class="keyword">int</span>) (<span class="number">12.7</span> + <span class="number">0.5</span>);<span class="comment">// 13,这是一个可以四舍五入的技巧</span></span><br><span class="line">	<span class="keyword">int</span> n4 = (<span class="keyword">int</span>) <span class="number">1.2e20</span>;<span class="comment">// 2147483647</span></span><br></pre></td></tr></table></figure>
-
+<li><p>JAVA的类、接口、字段和方法都可以设置访问权限</p>
+</li>
+<li><p>访问权限有public、 protected、private 和 package四种。</p>
+<table>
+<thead>
+<tr>
+<th>定义为public的field、method可以被其他类访问</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定义为private的field、method无法被其他类访问</td>
+</tr>
+</tbody></table>
+<h2 id="private"><a href="#private" class="headerlink" title="private"></a>private</h2></li>
+<li><p>private 访问权限限定在class的内部，与方法的声明顺序无关</p>
+</li>
+<li><p>建议把public放在private前面，因为public对外提供了方法，首先应该被关注。</p>
+</li>
+<li><p>定义为private 的class 无法被其他类访问</p>
+</li>
+<li><p>访问private class 被限定在外层class 的内部</p>
+<h2 id="定义在一个class的内部的class称为inner-class"><a href="#定义在一个class的内部的class称为inner-class" class="headerlink" title="定义在一个class的内部的class称为inner class"></a>定义在一个class的内部的class称为inner class</h2><h2 id="protected"><a href="#protected" class="headerlink" title="protected"></a>protected</h2><p>定义为protected的字段和方法可以被子类访问</p>
+<h2 id="package"><a href="#package" class="headerlink" title="package"></a>package</h2><p>包作用域是指一个类允许访问同一个package的。</p>
+</li>
+<li><p>没有public、private修饰的class</p>
+</li>
+<li><p>没有public 、protected、private修饰的字段和方法。</p>
+</li>
+<li><p>包没有继承关系，package权限 包名必须一致。</p>
+<table>
+<thead>
+<tr>
+<th>最佳实践</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>如果不确定是否需要public ，就不声明为public ，即尽可以能少暴露对外方法</td>
+</tr>
+<tr>
+<td>因为权限从小改大容易，从大改小要非常小心</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h2></li>
+<li><p>在方法内部定义的变量称为局部变量，方法名也是局部变量。</p>
+</li>
+<li><p>局部变量作用域从变量声明处开始到对应的块结束。</p>
+</li>
+<li><p>尽可能的把局部变量作用域缩小。</p>
+</li>
+<li><p>尽可能的延后声明局部变量.</p>
+<p>注意：在一个java文件中，只能定义一个public class,但是可以定义多个非<br>public class.并且保存在同一个java 文件中。</p>
+<h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2></li>
+<li><p>final 修饰方法，阻止覆写。</p>
+</li>
+<li><p>final 修饰类，不能继承。</p>
+</li>
+<li><p>final field 不能重新赋值。</p>
+<h1 id="classpath"><a href="#classpath" class="headerlink" title="classpath"></a>classpath</h1></li>
+<li><p>classpath 是一个环境变量</p>
+</li>
+<li><p>classpath 指示JVM如何搜索class</p>
+</li>
+<li><p>classpath 设置的搜索路径与操作系统相关</p>
+</li>
+<li><p>window中;fenge</p>
+</li>
+<li><p>mac OS 是使用： 分割</p>
+<p>例如设置的classpash是 .;C::\work\project1\bin;c:\shared</p>
+</li>
+<li><p>JVM在加载com.feiyangedu.Hello这个类时，依次查找</p>
 </li>
 </ul>
-<h1 id="boolean-运算"><a href="#boolean-运算" class="headerlink" title="boolean 运算"></a>boolean 运算</h1><ul>
-<li>短路运算符 &amp;&amp; 和 ||</li>
-<li>&amp;&amp;<br>boolean and =false&amp;&amp;(5/0&gt;0);//并不会报错,因为第一个值计算为false<br>boolean and=false &amp;&amp; (5/0&gt;0);//false<br>boolean or=true||(5/0&gt;0);//true,有一个ture就不会运行后面的代码<br>  }<h2 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符"></a>三元运算符</h2><blockquote>
-<p>b?x:y;根据条件的结果，计算X或Y中的一个。这里要注意 X 和 Y 类型必须相同。<br>三元运算符有点儿短路运算符的意思。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> abs=<span class="keyword">true</span>?<span class="number">1</span>+<span class="number">2</span>:<span class="number">5</span>/<span class="number">0</span>; <span class="comment">//不会发生运行时的错误</span></span><br></pre></td></tr></table></figure>
-<h1 id="字符和字符串"><a href="#字符和字符串" class="headerlink" title="字符和字符串"></a>字符和字符串</h1></li>
+<ol>
+<li>当前目录 \com\feiyangedu\Hello.class</li>
+<li>C:\work\project1\bin\com\feiyangedu\Hello.class</li>
+<li>C:\shared\com\feiyangedu\Hello.class</li>
+</ol>
+<ul>
+<li><p>在某个路径下找到了，就不继续了</p>
+</li>
+<li><p>如果都没有就报错</p>
+<p>classpath的设置方法：</p>
+</li>
+<li><p>直接在系统环境中设置classpath 环境变量（不推荐）</p>
+</li>
+<li><p>在启动JVM时设置classpath变量（推荐）</p>
+</li>
+<li><p>java -classpath C:\work\bin;C:\shared com.feiyangedu.Hello</p>
+</li>
+<li><p>java -cp C:\work\bin;c:\shared com.feiyangedu.Hello</p>
+</li>
+<li><p>没有设置环境变量，也没有设置-CP参数，默认的classpath为.当前目录</p>
+</li>
+<li><p>在Eclips中运行JAVA程序，eclipse自动传入-cp参数是当前工程的bin目录和引入的jar</p>
+<h1 id="jar包"><a href="#jar包" class="headerlink" title="jar包"></a>jar包</h1></li>
+<li><p>jar包是zip格式的压缩文件，包含若干.class 文件中。</p>
+</li>
+<li><p>jar 包相当于目录</p>
+</li>
+<li><p>classpath可以包含jar文件 C:\WORK\bin\all.jar</p>
+</li>
+<li><p>查找com.feiyangedu.Hello类将在C:\work\bin\all.jar文件中所有</p>
+<h2 id="jar包生成"><a href="#jar包生成" class="headerlink" title="jar包生成"></a>jar包生成</h2></li>
+<li><p>使用JDK自带的jar命令</p>
+</li>
+<li><p>使用构建工具如Maven等</p>
+<h3 id="jar包的其他功能"><a href="#jar包的其他功能" class="headerlink" title="jar包的其他功能"></a>jar包的其他功能</h3></li>
+<li><p>jar包可以包含一个特殊的/META-INF/MANIFEST.MF文件</p>
+</li>
+<li><p>MANIFEST.MF是纯文本，可以指定Main-Class和其他信息</p>
+</li>
+<li><p>jar包可以包含其他jar包</p>
+<h2 id="JDK的class"><a href="#JDK的class" class="headerlink" title="JDK的class"></a>JDK的class</h2></li>
+<li><p>JVM运行时会自动加载JDK自带的class</p>
+</li>
+<li><p>JDK自带的class被打包在rt.jar</p>
+</li>
+<li><p>不需要在classpath中引用rt.jar</p>
+</li>
 </ul>
 
       
@@ -495,12 +582,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>数的运算</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.1k</span></p>
+    <p><span class="copy-title">文章标题:</span>作用域</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">887</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-12, 11:05:00</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-15, 10:28:55</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/12/%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97/" title="数的运算">https://feixiangdjames.github.io/blog/2020/04/12/%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97/</a>
+    <p><span class="copy-title">发布时间:</span>2020-04-21, 18:03:05</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-22, 10:03:11</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/21/%E4%BD%9C%E7%94%A8%E5%9F%9F/" title="作用域">https://feixiangdjames.github.io/blog/2020/04/21/%E4%BD%9C%E7%94%A8%E5%9F%9F/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

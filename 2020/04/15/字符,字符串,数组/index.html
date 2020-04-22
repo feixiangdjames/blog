@@ -6,15 +6,15 @@
   <meta name="keywords" content=" java ">
   <meta name="description" content="字符,字符串,数组 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="@[toc] 总结   static field 是实例共享字段，实际上是属于class的字段    调用静态方法不需要实例，因此无法访问this   静态方法可以访问静态字段和静态方法   静态方法用于工具类和辅助方法   static field 用static 修饰的字段称为静态字段 普通字段在每个实例中都有自己的独立空间 静态字段只有一个共享“空间”,所有实例都共享该字段.  1234pu">
+<meta name="description" content="@[toc] 访问权限   总结    JAVA内建的访问权限包括public、protected、private、package   局部变量的作用域从变量声明开始，到一个块结束   一个JAVA文件只能包含一个public class，但可以包含多个非public class    JAVA的类、接口、字段和方法都可以设置访问权限  访问权限有public、 protected、private">
 <meta property="og:type" content="article">
-<meta property="og:title" content="静态字段和方法,package">
-<meta property="og:url" content="https://feixiangdjames.github.io/blog/2020/04/21/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5%E5%92%8C%E6%96%B9%E6%B3%95,package/index.html">
+<meta property="og:title" content="作用域">
+<meta property="og:url" content="https://feixiangdjames.github.io/blog/2020/04/21/%E4%BD%9C%E7%94%A8%E5%9F%9F/index.html">
 <meta property="og:site_name" content="James blog">
-<meta property="og:description" content="@[toc] 总结   static field 是实例共享字段，实际上是属于class的字段    调用静态方法不需要实例，因此无法访问this   静态方法可以访问静态字段和静态方法   静态方法用于工具类和辅助方法   static field 用static 修饰的字段称为静态字段 普通字段在每个实例中都有自己的独立空间 静态字段只有一个共享“空间”,所有实例都共享该字段.  1234pu">
+<meta property="og:description" content="@[toc] 访问权限   总结    JAVA内建的访问权限包括public、protected、private、package   局部变量的作用域从变量声明开始，到一个块结束   一个JAVA文件只能包含一个public class，但可以包含多个非public class    JAVA的类、接口、字段和方法都可以设置访问权限  访问权限有public、 protected、private">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-21T10:03:05.000Z">
-<meta property="article:modified_time" content="2020-04-21T00:11:42.349Z">
+<meta property="article:modified_time" content="2020-04-22T02:03:11.539Z">
 <meta property="article:author" content="James">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -100,11 +100,11 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(16)</small></div></li>
+    <li><div class="all active">全部文章<small>(17)</small></div></li>
     
         
             
-            <li><div data-rel="JAVA"><i class="fold iconfont icon-right"></i>JAVA<small>(15)</small></div>
+            <li><div data-rel="JAVA"><i class="fold iconfont icon-right"></i>JAVA<small>(16)</small></div>
                 
                     <ul class="sub hide">
                         
@@ -116,7 +116,7 @@
                             
                         </li>
                             
-                        <li><div data-rel="面向对象">面向对象<small>(6)</small></div>
+                        <li><div data-rel="面向对象">面向对象<small>(7)</small></div>
                             
                         </li>
                             
@@ -168,8 +168,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="16">
-<input type="hidden" id="yelog_site_word_count" value="11.3k">
+<input type="hidden" id="yelog_site_posts_number" value="17">
+<input type="hidden" id="yelog_site_word_count" value="12.2k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -343,6 +343,14 @@
            data-tag="java"
            data-author="" >
             <span class="post-title" title="静态字段和方法,package">静态字段和方法,package</span>
+            <span class="post-date" title="2020-04-21 18:03:05">2020/04/21</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/21/%E4%BD%9C%E7%94%A8%E5%9F%9F/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="作用域">作用域</span>
             <span class="post-date" title="2020-04-21 18:03:05">2020/04/21</span>
         </a>
         
