@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>第一个Java | James blog</title>
+  <title>核心String | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="第一个Java | James blog">
+  <meta name="description" content="核心String | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc] Sring   总结    字符串是不可变对象   字符串操作不改变原字符串内容，而是返回新字符串   常用的字符串：提取子串，查找，替换，大小写，都不改变原有字符串   字符串和 byte[]互相转换要注意编码，总是建议UTF-8   String 特点 可以字面量发创建实例。  内容不可变  equals(Object)比较两个对象值是否相等。  equalslgnoreCase">
 <meta property="og:type" content="article">
@@ -374,9 +374,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-第一个Java" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-核心String" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">第一个Java</h1>
+        <h1 class="article-title">核心String</h1>
     
     <div class="article-meta">
         
@@ -386,7 +386,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="java入门">java入门</a>
+                <a  data-rel="面向对象">面向对象</a>
             
         </span>
         
@@ -400,12 +400,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-13 04:08:21'>2020-04-12 11:01</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-23 09:03:47'>2020-04-23 07:43</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:538</span>
+        <span>字数:701</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -424,7 +424,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第一个JAVA"><span class="toc-text">第一个JAVA</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境部署"><span class="toc-text">环境部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载JDK"><span class="toc-text">下载JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置环境变量"><span class="toc-text">配置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装成功"><span class="toc-text">安装成功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK-安装程序下的bin-目录"><span class="toc-text">JDK 安装程序下的bin 目录</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Sring"><span class="toc-text">Sring</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#String-特点"><span class="toc-text">String 特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#是否包含字串"><span class="toc-text">是否包含字串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#trim"><span class="toc-text">trim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#substring"><span class="toc-text">substring();</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#toUpcase-and-toLowercase"><span class="toc-text">toUpcase and toLowercase</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#替换子串"><span class="toc-text">替换子串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-split-String"><span class="toc-text">String[] split(String)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#static-String-join"><span class="toc-text">static String join();</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sring和其他类型的转换"><span class="toc-text">Sring和其他类型的转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-char"><span class="toc-text">String char[]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sring-转换为byte"><span class="toc-text">Sring 转换为byte[];</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#byte-转String"><span class="toc-text">byte[]转String</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编码最佳实践"><span class="toc-text">编码最佳实践</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -440,41 +440,139 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第一个JAVA"><span class="toc-text">第一个JAVA</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境部署"><span class="toc-text">环境部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载JDK"><span class="toc-text">下载JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置环境变量"><span class="toc-text">配置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装成功"><span class="toc-text">安装成功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK-安装程序下的bin-目录"><span class="toc-text">JDK 安装程序下的bin 目录</span></a></li></ol></li></ol></li></ol></div></p>
-<h1 id="第一个JAVA"><a href="#第一个JAVA" class="headerlink" title="第一个JAVA"></a>第一个JAVA</h1><ul>
-<li><p>新建一个Hello.java文件，输入以下代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">System.out.println(<span class="string">"Hello,world"</span>);</span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>class 的修饰符 public 是为了支持在命令行运行;也就是说不在命令行运行的话，可以省略。</p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Sring"><span class="toc-text">Sring</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#String-特点"><span class="toc-text">String 特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#是否包含字串"><span class="toc-text">是否包含字串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#trim"><span class="toc-text">trim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#substring"><span class="toc-text">substring();</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#toUpcase-and-toLowercase"><span class="toc-text">toUpcase and toLowercase</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#替换子串"><span class="toc-text">替换子串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-split-String"><span class="toc-text">String[] split(String)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#static-String-join"><span class="toc-text">static String join();</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sring和其他类型的转换"><span class="toc-text">Sring和其他类型的转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-char"><span class="toc-text">String char[]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sring-转换为byte"><span class="toc-text">Sring 转换为byte[];</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#byte-转String"><span class="toc-text">byte[]转String</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编码最佳实践"><span class="toc-text">编码最佳实践</span></a></li></ol></li></ol></div></p>
+<h1 id="Sring"><a href="#Sring" class="headerlink" title="Sring"></a>Sring</h1><table>
+<thead>
+<tr>
+<th>总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串是不可变对象</td>
+</tr>
+<tr>
+<td>字符串操作不改变原字符串内容，而是返回新字符串</td>
+</tr>
+<tr>
+<td>常用的字符串：提取子串，查找，替换，大小写，都不改变原有字符串</td>
+</tr>
+<tr>
+<td>字符串和 byte[]互相转换要注意编码，总是建议UTF-8</td>
+</tr>
+</tbody></table>
+<h2 id="String-特点"><a href="#String-特点" class="headerlink" title="String 特点"></a>String 特点</h2><ul>
+<li><p>可以字面量发创建实例。</p>
 </li>
-<li><p>class后面跟的是类名，类名必须和文件名一致。</p>
+<li><p>内容不可变</p>
 </li>
-<li><p>Java 是大小写敏感的。</p>
+<li><p>equals(Object)<br>比较两个对象值是否相等。</p>
 </li>
-<li><p>java源码要使用javac编程成字节码，然后java 调用 JVM运行字节码。</p>
-<h2 id="环境部署"><a href="#环境部署" class="headerlink" title="环境部署"></a>环境部署</h2><h3 id="下载JDK"><a href="#下载JDK" class="headerlink" title="下载JDK"></a>下载JDK</h3><p>到oracle 官方网站下载JAVA SE JDK，根据不同操作系统，选择不同版本的JDK<br>现在2020年4月，最新版本的JDK是是JAVA 14</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>在window环境下，直接双击按转包，一路点下去完成安装。<br>安装完成，在window下，启动命令行  window+R</p>
-<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3></li>
-<li><p>为什么要配置环境变量？<br>为了在任何目录下都可以找到JAVA的运行环境或JAVA文件的编译器程序。多说一句，如果要运行程序，需要找到程序的位置；操作系统在当前目录下找不到运行的程序，会去环境变量中寻找；环境变量中也没有的话，就会报错。所以配置环境变量是为了全局（在宿主环境的任何位置）运行。</p>
-</li>
-<li><p>配置方法：</p>
-<ol>
-<li>window-&gt;控制面板-&gt;系统-&gt;高级系统设置-&gt;环境变量-&gt;Path-&gt;编辑  ：将JAVA 安装目录下的 bin 地址写入环境变量。然后将JAVA环境变量顺序放在最上方。</li>
-<li>OS 略</li>
-</ol>
+<li><p>equalslgnoreCase(Sring)<br>可以忽略大小写比较</p>
 </li>
 </ul>
-<h3 id="安装成功"><a href="#安装成功" class="headerlink" title="安装成功"></a>安装成功</h3><ul>
-<li>在window 下，使用 window+R 组合键打开命令行 执行命令：<blockquote>
-<p>java -version   //返回JAVA版本信息<br>javac //不报错</p>
-</blockquote>
+<h2 id="是否包含字串"><a href="#是否包含字串" class="headerlink" title="是否包含字串"></a>是否包含字串</h2><table>
+<thead>
+<tr>
+<th>boolean contains(String)</th>
+<th>retun boolean</th>
+<th>a.contains(“m2”)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int indexOf(Sring)</td>
+<td>retun int</td>
+<td>a.indexOf(“m2”) 从前查询返回索引，没有找到返回 -1</td>
+</tr>
+<tr>
+<td>int lastIndexOf(String)</td>
+<td>retun int</td>
+<td>a.lastIndexOf(“m2”)</td>
+</tr>
+<tr>
+<td>boolean startsWith(String)</td>
+<td>retun boolean</td>
+<td></td>
+</tr>
+<tr>
+<td>boolean endsWith(String)</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="trim"><a href="#trim" class="headerlink" title="trim"></a>trim</h2><p>s.trim()</p>
+<ul>
+<li>移除空格，”  \t\r\n”;这些字符串</li>
+<li>注意：trim()并不改变字符串内容，而是返回新字符串。<h2 id="substring"><a href="#substring" class="headerlink" title="substring();"></a>substring();</h2></li>
+<li>提前字串。</li>
+</ul>
+<h2 id="toUpcase-and-toLowercase"><a href="#toUpcase-and-toLowercase" class="headerlink" title="toUpcase and toLowercase"></a>toUpcase and toLowercase</h2><ul>
+<li>大小写转换</li>
+</ul>
+<h2 id="替换子串"><a href="#替换子串" class="headerlink" title="替换子串"></a>替换子串</h2><ul>
+<li>replace(char,char)</li>
+<li>replace(CharSequence,CharSequence)<br>两个重载方法，用来替换一个字符或一个字符。</li>
+<li>replaceAll(String,String); 正则替换<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sring s=<span class="string">"A,,B;C,D"</span>;</span><br><span class="line">s.replaceAll&#123;<span class="string">"[\\,\\;\\s]"</span>,<span class="string">","</span>&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="String-split-String"><a href="#String-split-String" class="headerlink" title="String[] split(String)"></a>String[] split(String)</h2></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s=<span class="string">"A,B;D,C"</span></span><br><span class="line">String[] ss=s.split(正则)</span><br></pre></td></tr></table></figure>
+<h2 id="static-String-join"><a href="#static-String-join" class="headerlink" title="static String join();"></a>static String join();</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sring[] arr=&#123;<span class="string">"a"</span>,<span class="string">"1"</span>,<span class="string">"2"</span>&#125;</span><br><span class="line">String.join(<span class="string">"~~"</span>,arr);</span><br></pre></td></tr></table></figure>
+<h2 id="Sring和其他类型的转换"><a href="#Sring和其他类型的转换" class="headerlink" title="Sring和其他类型的转换"></a>Sring和其他类型的转换</h2><ul>
+<li><p>把任意类型转换 Sring<br>valueOf 是一个重载方法</p>
+</li>
+<li><p>static String valueOf(int);</p>
+</li>
+<li><p>static String valueOf(Objiect);</p>
+</li>
+<li><p>static String valueOf(boolean);</p>
+</li>
+<li><p>把String 转换为其他类型：</p>
+</li>
+<li><p>static int lnteger.parselnt(Sring)</p>
+</li>
+<li><p>static lnteger integer.valueOf(String)</p>
 </li>
 </ul>
-<h3 id="JDK-安装程序下的bin-目录"><a href="#JDK-安装程序下的bin-目录" class="headerlink" title="JDK 安装程序下的bin 目录"></a>JDK 安装程序下的bin 目录</h3><ul>
-<li>Java 这个执行文件就是JVM，运行java 就是启动JVM，让JVM执行java字节码(.class文件)。</li>
-<li>javac java编译器，运行javac可以将java源码转换为java字节码。</li>
-<li>jar 将一组class 文件打包成一个.jar文件，方便发布。（类似zip）</li>
-<li>javadoc 将特定的注释文件直接生成文档。</li>
-<li>jdb 在开发的过程中，进行调试。</li>
+<h2 id="String-char"><a href="#String-char" class="headerlink" title="String char[]"></a>String char[]</h2><p>char[] cs=s.toCharArray();</p>
+<ul>
+<li>char[]转换为String<br>String s2=new String(cs);</li>
+</ul>
+<h2 id="Sring-转换为byte"><a href="#Sring-转换为byte" class="headerlink" title="Sring 转换为byte[];"></a>Sring 转换为byte[];</h2><p>这就涉及到字符串编码</p>
+<ul>
+<li>byte[]getBytes() 取操作系统的默认编码规则</li>
+<li>byte[]getBytes(String)推荐</li>
+<li>byte[]getBytes(Charset)<h2 id="byte-转String"><a href="#byte-转String" class="headerlink" title="byte[]转String"></a>byte[]转String</h2></li>
+<li>new Sring(byte[],String);</li>
+<li>new String(tyte[],CharSequence);</li>
+</ul>
+<p>#编码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">class ASC&#123;</span><br><span class="line">-最早的字符编码是ASC||</span><br><span class="line">-一个字符占一个字节</span><br><span class="line">-最多表示128个字符</span><br><span class="line">-字符&#39;A&#39;是0x41</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>中文编码：GB212,GBK</li>
+<li>一个中文字符占2个字节</li>
+<li>第一个字节最高位是1，中 d6d0</li>
+<li>还有其他语言 Shift_JIS。。。</li>
+</ul>
+<p>– 发展到这里ASC||明显不够用了</p>
+<p>为了解决各个国家编码不一致的情况，因为总有需要在一个页面显示多种字符的情况。<br>全球统一编码： unicode出现了</p>
+<ul>
+<li>全球所有文字都有唯一编码</li>
+<li>一个unicode字符通常占用2个字节</li>
+<li>JAVA使用unicode编码</li>
+</ul>
+<p>为什么需要UTF-8编码？</p>
+<ul>
+<li>英文unicode编码和ASC||不一致</li>
+<li>包含大量英文的文本会浪费空间</li>
+<li>UTF-8是变长的编码</li>
+<li>英文的UTF-8编码和ASC码是一致</li>
+<li>使用UTF编码UNICODE字符需要2-6个字节不等</li>
+<li>UTF-8编码容错能力强</li>
+</ul>
+<h2 id="编码最佳实践"><a href="#编码最佳实践" class="headerlink" title="编码最佳实践"></a>编码最佳实践</h2><ul>
+<li>java 使用unicode编码</li>
+<li>java 程序运行使用unicode编码</li>
+<li>输入输出时，把String 和 byte[]转换，需要考虑编码</li>
+<li>始终优先考虑UTF-8</li>
 </ul>
 
       
@@ -485,12 +583,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>第一个Java</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">570</span></p>
+    <p><span class="copy-title">文章标题:</span>核心String</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">748</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-12, 11:01:13</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-13, 04:08:21</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/12/%E7%AC%AC%E4%B8%80%E4%B8%AAJava/" title="第一个Java">https://feixiangdjames.github.io/blog/2020/04/12/%E7%AC%AC%E4%B8%80%E4%B8%AAJava/</a>
+    <p><span class="copy-title">发布时间:</span>2020-04-23, 07:43:03</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-23, 09:03:47</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/23/%E6%A0%B8%E5%BF%83String/" title="核心String">https://feixiangdjames.github.io/blog/2020/04/23/%E6%A0%B8%E5%BF%83String/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
