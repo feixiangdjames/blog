@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>流程控制[输入，输出] | James blog</title>
+  <title>包装类型 | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="流程控制[输入，输出] | James blog">
+  <meta name="description" content="包装类型 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]    总结    StringBuilder用来高效拼接字符串   append支持链式写法，因为拼接完成后会返回this   StringBuffer是线程安全版本的StringBuilder 很少使用   #StringBuilder 1234String &#x3D;&quot;&quot;;for(int t&#x3D;0;i&lt;1000;i++)&amp;#123;s&#x3D;s+String.valueOf(i)&amp;#125">
 <meta property="og:type" content="article">
@@ -398,9 +398,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-输入和输出" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-包装类型" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">流程控制[输入，输出]</h1>
+        <h1 class="article-title">包装类型</h1>
     
     <div class="article-meta">
         
@@ -410,7 +410,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="程序基础">程序基础</a>
+                <a  data-rel="面向对象">面向对象</a>
             
         </span>
         
@@ -424,12 +424,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-15 08:38:27'>2020-04-15 15:03</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-26 06:35:38'>2020-04-26 06:08</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:335</span>
+        <span>字数:392</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -448,7 +448,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#输出"><span class="toc-text">输出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#输入"><span class="toc-text">输入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#格式化输出"><span class="toc-text">格式化输出</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#wrapper"><span class="toc-text">wrapper</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JDK为每种基本类型都创建了对应的包装类型："><span class="toc-text">JDK为每种基本类型都创建了对应的包装类型：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#int-lnteger和String的相互转换"><span class="toc-text">int lnteger和String的相互转换</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -464,70 +464,86 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#输出"><span class="toc-text">输出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#输入"><span class="toc-text">输入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#格式化输出"><span class="toc-text">格式化输出</span></a></li></ol></li></ol></div></p>
-<h1 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h1><ul>
-<li>System.out.println();输出并换行</li>
-<li>System.out.print();输出不换行</li>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#wrapper"><span class="toc-text">wrapper</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JDK为每种基本类型都创建了对应的包装类型："><span class="toc-text">JDK为每种基本类型都创建了对应的包装类型：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#int-lnteger和String的相互转换"><span class="toc-text">int lnteger和String的相互转换</span></a></li></ol></li></ol></div><br>|总结|<br>|—|<br>|JDK的包装类型可以把基本类型包装为class|<br>|自动装箱和自动拆箱是编译器完成的|<br>|装箱和拆箱会以向执行效率|<br>|拆箱是可能会发生NullPonterException||||||||||</p>
+<h1 id="wrapper"><a href="#wrapper" class="headerlink" title="wrapper"></a>wrapper</h1><ul>
+<li>定义一个Integer类，包含一个实例字段int</li>
+<li>可以把lnteger看作一个int的包装类型（wrapper）</li>
 </ul>
-<h1 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h1><pre class="mermaid">graph TD
-A[import<br>java.util.Scanner]==>B["Scanner scanner=new Scanner(System.in)"]
-B-->C("Scanner.nextLine()")</pre>
-
-<p>下面的代码会有警告，先忽略，到I/O的时候，再解释。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;<span class="comment">//0.导入java.util.Scanner </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">Scanner scanner=<span class="keyword">new</span> Scanner(System.in); <span class="comment">//1.创建Scanner，并传入System.in </span></span><br><span class="line">System.out.print(<span class="string">"Input your name:"</span>);</span><br><span class="line">String name=scanner.nextLine();<span class="comment">//2.使用scanner.nextLine() 读取输入的字符串字符串</span></span><br><span class="line">System.out.print(<span class="string">"Input your age: "</span>);</span><br><span class="line"><span class="keyword">int</span> age = scanner.nextInt();<span class="comment">//3.使用Scanner.nextInt()读整数</span></span><br><span class="line">System.out.println(<span class="string">"Hi,"</span>+name+<span class="string">",you are "</span>+age);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h2><ul>
-<li>System.out.printf(占位符参数,v1…);不会自动换行，我们自己加\n </li>
-</ul>
-<blockquote>
-<p>为了更好的阅读体验</p>
-</blockquote>
-<ul>
-<li>格式化输出使用 System.out.printf();</li>
-<li>使用占位符%xxx</li>
-</ul>
-<table>
+<h1 id="JDK为每种基本类型都创建了对应的包装类型："><a href="#JDK为每种基本类型都创建了对应的包装类型：" class="headerlink" title="JDK为每种基本类型都创建了对应的包装类型："></a>JDK为每种基本类型都创建了对应的包装类型：</h1><table>
 <thead>
 <tr>
-<th>%d</th>
-<th>整数</th>
+<th>基本类型</th>
+<th>对应的引用类型</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>%x</td>
-<td>16进制整数</td>
+<td>boolean</td>
+<td>Boolean</td>
 </tr>
 <tr>
-<td>%f</td>
-<td>浮点</td>
+<td>byte</td>
+<td>Byte</td>
 </tr>
 <tr>
-<td>%s</td>
-<td>字符串</td>
+<td>short</td>
+<td>Short</td>
 </tr>
 <tr>
-<td>%%</td>
-<td>%字符本身</td>
+<td>int</td>
+<td>lnterger</td>
 </tr>
 <tr>
-<td>%.2</td>
-<td>2位小数</td>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
 </tr>
 </tbody></table>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">double</span> P=<span class="number">3.1415926</span>;</span><br><span class="line">System.out.println(P);</span><br><span class="line">System.out.printf(<span class="string">"PI=%.2f\n"</span>,P);</span><br><span class="line">System.out.printf(<span class="string">"PI=%5.2f\n"</span>,P);</span><br><span class="line">System.out.printf(<span class="string">"PI=%ef\n"</span>,P);<span class="comment">//科学计数法打印</span></span><br><span class="line">System.out.printf(<span class="string">"PI=%+.2f\n"</span>,P);<span class="comment">//带符号位</span></span><br><span class="line">System.out.printf(<span class="string">"%s\n"</span>,<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;); <span class="comment">//%s 打印出字符串</span></span><br><span class="line">System.out.printf(<span class="string">"%s %s\n"</span>,<span class="string">"A"</span>,<span class="string">"B"</span>); </span><br><span class="line">System.out.printf(<span class="string">"%2$s %1$s\n"</span>,<span class="string">"A"</span>,<span class="string">"B"</span>);  <span class="comment">//调整参数顺序</span></span><br><span class="line"><span class="comment">// java format string syntax 可以获得你可以使用哪些占位符</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Integer n=<span class="keyword">new</span> Integer(<span class="number">99</span>);</span><br><span class="line"><span class="keyword">int</span> i=n.intValue();</span><br></pre></td></tr></table></figure>
+<h2 id="int-lnteger和String的相互转换"><a href="#int-lnteger和String的相互转换" class="headerlink" title="int lnteger和String的相互转换"></a>int lnteger和String的相互转换</h2><p>特别注意lnteger.getInteger(String)是从系统环境中读取系统变量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i=<span class="number">100</span>;</span><br><span class="line">Integer n1= <span class="keyword">new</span> Integer(i);</span><br><span class="line">Integer n2= Integer.valueOf(i);</span><br><span class="line">Integer n3= integer.valueOf(<span class="string">"100"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x1=n1.intValue();</span><br><span class="line"><span class="keyword">int</span> x2=Integer.parseInt(<span class="string">"100"</span>);</span><br><span class="line"></span><br><span class="line">String s=n1.toString();</span><br><span class="line"></span><br><span class="line"><span class="comment">//WARNING:</span></span><br><span class="line">Integer prop=Integer.getInteger(<span class="string">"cpus"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>对于基本类型和它对应包装类型，编译器可以自动在int和lnteger之间转型：</p>
+</li>
+<li><p>自动装箱： auto boxing<br>int-&gt;lnteger </p>
+</li>
+<li><p>自动拆箱：aauto unboxing<br>integer-&gt;int </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lnteger n=<span class="number">99</span>; <span class="comment">//integer.valueOf(99) auto boxing </span></span><br><span class="line"><span class="keyword">int</span> i=n <span class="comment">// auto unboxing</span></span><br></pre></td></tr></table></figure></li>
+<li><p>auto boxing ,auto unboxing 只发生在编译阶段。</p>
+</li>
+<li><p>boxing,unboxing 影响执行效率</p>
+</li>
+<li><p>编译后的class代码时严格区分基本类型和引用类型的</p>
+</li>
+<li><p>integer-&gt;int 执行时可能会报错</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Integer x=<span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">int</span> y=x ;<span class="comment">//NullPointerExcetion</span></span><br><span class="line">```  </span><br><span class="line">- 包装类型定义了一些有用静态变量</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">Boolean t=Boolean.TRUE;</span><br><span class="line">Boolean f=Boolean.FALSE;</span><br><span class="line"><span class="keyword">int</span> max=Integer.MAX_VALUE;<span class="number">2147483647</span></span><br><span class="line"><span class="keyword">int</span> sizeOfLong=Long.SIZE;<span class="comment">//64</span></span><br><span class="line"><span class="keyword">int</span> bytesOfLong=Long.BYTES;<span class="comment">//8(bytes)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>整数和浮点数包装类型继承自Number<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph BT</span><br><span class="line">a(Byte)--&gt;n(Number)</span><br><span class="line">i(integer)--&gt;n(Number)</span><br><span class="line">f(Float)--&gt;n(Number)</span><br><span class="line">n--&gt;o(Object)</span><br></pre></td></tr></table></figure>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
+</li>
+</ul>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -537,12 +553,12 @@ B-->C("Scanner.nextLine()")</pre>
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>流程控制[输入，输出]</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">345</span></p>
+    <p><span class="copy-title">文章标题:</span>包装类型</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">420</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-15, 15:03:05</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-15, 08:38:27</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/15/%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA/" title="流程控制[输入，输出]">https://feixiangdjames.github.io/blog/2020/04/15/%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA/</a>
+    <p><span class="copy-title">发布时间:</span>2020-04-26, 06:08:00</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-26, 06:35:38</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/26/%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B/" title="包装类型">https://feixiangdjames.github.io/blog/2020/04/26/%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
