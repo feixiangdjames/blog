@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>使用IDE | James blog</title>
-  <meta name="keywords" content=" java ">
-  <meta name="description" content="使用IDE | James blog">
+  <title>枚举类 | James blog</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="枚举类 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc] Math Math 提供树蕨计算的静态方法：  abs&#x2F;min&#x2F;max  pow&#x2F;sqrt&#x2F;exp&#x2F;log&#x2F;log10  sin&#x2F;cos&#x2F;tan&#x2F;asin&#x2F;acos 常量PI &#x3D; 3.1415E  &#x3D; 2.71828   获取随机数Math.random()  1&lt;&#x3D;n1&lt;1 某区间随机数Math.random()*(MAX-MIN)+MIN;  Random class">
 <meta property="og:type" content="article">
@@ -414,38 +414,24 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-使用IDE" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-枚举类" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">使用IDE</h1>
+        <h1 class="article-title">枚举类</h1>
     
     <div class="article-meta">
         
         
         
-        <span class="book">
-            
-                <a  data-rel="JAVA">JAVA</a>/
-            
-                <a  data-rel="java入门">java入门</a>
-            
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a class="color5">java</a>
-            
-        </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-13 03:55:47'>2020-04-12 11:01</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-26 22:25:52'>2020-04-26 21:15</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:207</span>
+        <span>字数:354</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -464,7 +450,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IDE"><span class="toc-text">IDE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#流行"><span class="toc-text">流行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#eclipse-配置"><span class="toc-text">eclipse 配置</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#enumeration"><span class="toc-text">enumeration</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#enum-介绍"><span class="toc-text">enum 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unum-定义的类型实际上是-Class"><span class="toc-text">unum 定义的类型实际上是 Class</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -480,41 +466,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h1><ul>
-<li>IDE 是程序员的武器，用于快速生成代码环境。</li>
-<li>自动整理代码格式。</li>
-<li>进行工程调试。</li>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#enumeration"><span class="toc-text">enumeration</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#enum-介绍"><span class="toc-text">enum 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unum-定义的类型实际上是-Class"><span class="toc-text">unum 定义的类型实际上是 Class</span></a></li></ol></li></ol></div><br>|总结|<br>|—|<br>|enum可以定义常量类型，它被编译器编译为：|<br>|final class Xxx extends Enum{…}|<br>|name()获取常量的定义字符串，不要使用toString，因为toString可以被override|<br>|ordinal()返回常量定义的顺序（方鸿渐）|<br>|可以为enum类编写的构造方法、字段和方法|<br>|构造方法申明为private||||||||||||||||||||</p>
+<h1 id="enumeration"><a href="#enumeration" class="headerlink" title="enumeration"></a>enumeration</h1><ul>
+<li>定义常量<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Weekday</span></span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SUN=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(day==weekday.SUN)&#123;&#125;</span><br></pre></td></tr></table></figure></li>
+<li>整型常量使用==操作符比较。</li>
+<li>字符串常量用s.equals来比较内容。</li>
 </ul>
-<h2 id="流行"><a href="#流行" class="headerlink" title="流行"></a>流行</h2><p>流行的IDE是免费Eclipse(IBM开发捐赠给开源社区) 和 商用的IntelliJ Idea，如果有edu邮箱可以使用商用版本的，体验更好。</p>
-<h3 id="eclipse-配置"><a href="#eclipse-配置" class="headerlink" title="eclipse 配置"></a>eclipse 配置</h3><ul>
-<li><p>下载 eclipse for java 安装程序。</p>
-</li>
-<li><p>安装完毕后，配置编码规则，打开eclipse，进入window-preference-general-workspace,修改 text file encoding 为UTF-8，new text file line delimiter 为Unix(window换行是\r\n,Unix是\n)</p>
-</li>
-<li><p>调节字体</p>
-<blockquote>
-<p>打开eclipse，点击window，选择preferences。<br>鼠标双击General，并依次打开Appearance/Colors and fonts/Basic。<br>点击Basic下的Text Font。<br>点击“Edit”。<br>选择合适的字体大小，点击确定就OK了。</p>
-</blockquote>
-</li>
-<li><p>快捷键</p>
-<table>
-<thead>
-<tr>
-<th>快捷键</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Ctrl+Shift+F</td>
-<td>约定格式刷</td>
-</tr>
-<tr>
-<td>F6</td>
-<td>单步调式</td>
-</tr>
-</tbody></table>
-</li>
+<p>这样的定义有一个问题，无法检测常量定义的内容。</p>
+<h2 id="enum-介绍"><a href="#enum-介绍" class="headerlink" title="enum 介绍"></a>enum 介绍</h2><p>JAVA提供了enum定义常量：</p>
+<ul>
+<li>关键字enum定义常量类型</li>
+<li>常量本身带有类型信息</li>
+<li>使用==比较：</li>
 </ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Weekday&#123;</span><br><span class="line">SUN,MON,TUE,WED,THU,FRI,SAT;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Color&#123;</span><br><span class="line">RED,GREEN,BLUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="unum-定义的类型实际上是-Class"><a href="#unum-定义的类型实际上是-Class" class="headerlink" title="unum 定义的类型实际上是 Class"></a>unum 定义的类型实际上是 Class</h2><ul>
+<li>继承自java.lang.Enum</li>
+<li>不能通过new创建实例</li>
+<li>所有常量都是唯一实例（引用类型）</li>
+<li>可以用switch语句</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个Color 常量 </span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Color&#123;</span><br><span class="line">RED,GREEN,BLUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//编译器编译出的class：</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Color</span> <span class="keyword">extends</span> <span class="title">ENum</span></span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color RED= <span class="keyword">new</span> Color();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color GREEN= <span class="keyword">new</span> GREEN();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color BLUE= <span class="keyword">new</span> BLUE();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">Color</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Color &#123;</span><br><span class="line">	BLOCK(<span class="string">"黑"</span>),RED(<span class="string">"红"</span>),GREEN(<span class="string">"绿"</span>),BLUE(<span class="string">"12蓝"</span>);</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">private</span> String chinese;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Color</span><span class="params">(String chinese)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">this</span>.chinese=chinese;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toChinese</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">return</span> chinese;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="keyword">super</span>.toString()+<span class="string">"  voerride"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -524,12 +498,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>使用IDE</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">207</span></p>
+    <p><span class="copy-title">文章标题:</span>枚举类</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">369</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-12, 11:01:44</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-13, 03:55:47</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/12/%E4%BD%BF%E7%94%A8IDE/" title="使用IDE">https://feixiangdjames.github.io/blog/2020/04/12/%E4%BD%BF%E7%94%A8IDE/</a>
+    <p><span class="copy-title">发布时间:</span>2020-04-26, 21:15:32</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-26, 22:25:52</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/26/%E6%9E%9A%E4%B8%BE%E7%B1%BB/" title="枚举类">https://feixiangdjames.github.io/blog/2020/04/26/%E6%9E%9A%E4%B8%BE%E7%B1%BB/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

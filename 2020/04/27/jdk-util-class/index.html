@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>使用IDE | James blog</title>
+  <title>jdk util class | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="使用IDE | James blog">
+  <meta name="description" content="jdk util class | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc] Math Math 提供树蕨计算的静态方法：  abs&#x2F;min&#x2F;max  pow&#x2F;sqrt&#x2F;exp&#x2F;log&#x2F;log10  sin&#x2F;cos&#x2F;tan&#x2F;asin&#x2F;acos 常量PI &#x3D; 3.1415E  &#x3D; 2.71828   获取随机数Math.random()  1&lt;&#x3D;n1&lt;1 某区间随机数Math.random()*(MAX-MIN)+MIN;  Random class">
 <meta property="og:type" content="article">
@@ -414,9 +414,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-使用IDE" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-jdk-util-class" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">使用IDE</h1>
+        <h1 class="article-title">jdk util class</h1>
     
     <div class="article-meta">
         
@@ -426,7 +426,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="java入门">java入门</a>
+                <a  data-rel="面向对象">面向对象</a>
             
         </span>
         
@@ -440,12 +440,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-13 03:55:47'>2020-04-12 11:01</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-27 08:47:12'>2020-04-27 08:09</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:207</span>
+        <span>字数:258</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -464,7 +464,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IDE"><span class="toc-text">IDE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#流行"><span class="toc-text">流行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#eclipse-配置"><span class="toc-text">eclipse 配置</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Math"><span class="toc-text">Math</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常量"><span class="toc-text">常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取随机数"><span class="toc-text">获取随机数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Random-class"><span class="toc-text">Random class</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安全随机数"><span class="toc-text">安全随机数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#用于财务计算的类"><span class="toc-text">用于财务计算的类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BigInteger"><span class="toc-text">BigInteger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BigDecimal"><span class="toc-text">BigDecimal</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -480,41 +480,47 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h1><ul>
-<li>IDE 是程序员的武器，用于快速生成代码环境。</li>
-<li>自动整理代码格式。</li>
-<li>进行工程调试。</li>
-</ul>
-<h2 id="流行"><a href="#流行" class="headerlink" title="流行"></a>流行</h2><p>流行的IDE是免费Eclipse(IBM开发捐赠给开源社区) 和 商用的IntelliJ Idea，如果有edu邮箱可以使用商用版本的，体验更好。</p>
-<h3 id="eclipse-配置"><a href="#eclipse-配置" class="headerlink" title="eclipse 配置"></a>eclipse 配置</h3><ul>
-<li><p>下载 eclipse for java 安装程序。</p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Math"><span class="toc-text">Math</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常量"><span class="toc-text">常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取随机数"><span class="toc-text">获取随机数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Random-class"><span class="toc-text">Random class</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安全随机数"><span class="toc-text">安全随机数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#用于财务计算的类"><span class="toc-text">用于财务计算的类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BigInteger"><span class="toc-text">BigInteger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BigDecimal"><span class="toc-text">BigDecimal</span></a></li></ol></li></ol></div></p>
+<h1 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h1><ul>
+<li><p>Math 提供树蕨计算的静态方法：</p>
 </li>
-<li><p>安装完毕后，配置编码规则，打开eclipse，进入window-preference-general-workspace,修改 text file encoding 为UTF-8，new text file line delimiter 为Unix(window换行是\r\n,Unix是\n)</p>
+<li><p>abs/min/max</p>
 </li>
-<li><p>调节字体</p>
-<blockquote>
-<p>打开eclipse，点击window，选择preferences。<br>鼠标双击General，并依次打开Appearance/Colors and fonts/Basic。<br>点击Basic下的Text Font。<br>点击“Edit”。<br>选择合适的字体大小，点击确定就OK了。</p>
-</blockquote>
+<li><p>pow/sqrt/exp/log/log10</p>
 </li>
-<li><p>快捷键</p>
-<table>
-<thead>
-<tr>
-<th>快捷键</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Ctrl+Shift+F</td>
-<td>约定格式刷</td>
-</tr>
-<tr>
-<td>F6</td>
-<td>单步调式</td>
-</tr>
-</tbody></table>
+<li><p>sin/cos/tan/asin/acos</p>
+<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p>PI = 3.1415<br>E  = 2.71828</p>
 </li>
 </ul>
+<h2 id="获取随机数"><a href="#获取随机数" class="headerlink" title="获取随机数"></a>获取随机数</h2><p>Math.random()</p>
+<ul>
+<li>1&lt;=n1&lt;1</li>
+<li>某区间随机数<br>Math.random()*(MAX-MIN)+MIN;</li>
+</ul>
+<h1 id="Random-class"><a href="#Random-class" class="headerlink" title="Random class"></a>Random class</h1><ul>
+<li>伪随机数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Random r=<span class="keyword">new</span> Random(<span class="number">10</span>);</span><br><span class="line">r.nextInt();</span><br><span class="line">r.nextLong();</span><br><span class="line">r.nextFloat();</span><br><span class="line">r.nextDouble();</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>nextInt / nextLong /nextFloat</p>
+</li>
+<li><p>nextInt(N) 生成不大于N的随机数</p>
+</li>
+<li><p>什么是伪随机数？</p>
+</li>
+<li><p>给定种子后伪随机数算法会生成完全相同的序列</p>
+</li>
+<li><p>不给定种子时Random使用系统当前时间戳作为种子</p>
+</li>
+</ul>
+<h1 id="安全随机数"><a href="#安全随机数" class="headerlink" title="安全随机数"></a>安全随机数</h1><p>SecureRandom 用来创建安全随机数<br>缺点时慢</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SecureRandom sr=<span class="keyword">new</span> SecureRandom();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> <span class="number">1</span>=<span class="number">100</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">System.out.priint(sr.next(<span class="number">100</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="用于财务计算的类"><a href="#用于财务计算的类" class="headerlink" title="用于财务计算的类"></a>用于财务计算的类</h1><h2 id="BigInteger"><a href="#BigInteger" class="headerlink" title="BigInteger"></a>BigInteger</h2><ul>
+<li>BigInteger用任意多个int[]来表示非常大的整数<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BigInteger bi=<span class="keyword">new</span> BigInteger(<span class="string">"12312312332323"</span>)</span><br><span class="line">System.out.priintln(bi.pow(<span class="number">5</span>));</span><br></pre></td></tr></table></figure>
+继承自number类，我们可以number方法方便的转换</li>
+</ul>
+<h2 id="BigDecimal"><a href="#BigDecimal" class="headerlink" title="BigDecimal"></a>BigDecimal</h2><p>表示任意精度的浮点数</p>
+<p>继承自number类，我们可以number方法方便的转换</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -524,12 +530,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>使用IDE</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">207</span></p>
+    <p><span class="copy-title">文章标题:</span>jdk util class</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">281</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-12, 11:01:44</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-13, 03:55:47</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/12/%E4%BD%BF%E7%94%A8IDE/" title="使用IDE">https://feixiangdjames.github.io/blog/2020/04/12/%E4%BD%BF%E7%94%A8IDE/</a>
+    <p><span class="copy-title">发布时间:</span>2020-04-27, 08:09:23</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-27, 08:47:12</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/27/jdk-util-class/" title="jdk util class">https://feixiangdjames.github.io/blog/2020/04/27/jdk-util-class/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
