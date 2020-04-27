@@ -456,7 +456,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-28 05:54:11'>2020-04-26 21:15</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-28 06:00:23'>2020-04-26 21:15</time>
         
     </div>
     <div class="article-meta">
@@ -496,7 +496,32 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#enumeration"><span class="toc-text">enumeration</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#enum-介绍"><span class="toc-text">enum 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unum-定义的类型实际上是-Class"><span class="toc-text">unum 定义的类型实际上是 Class</span></a></li></ol></li></ol></div><br>|总结|<br>|–|<br>|enum可以定义常量类型，它被编译器编译为：|<br>|final class Xxx extends Enum{…}|<br>|name()获取常量的定义字符串，不要使用toString，因为toString可以被override|<br>|ordinal()返回常量定义的顺序(方鸿渐)|<br>|可以为enum类编写的构造方法、字段和方法|<br>|构造方法申明为private||||||||||||||||||||</p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#enumeration"><span class="toc-text">enumeration</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#enum-介绍"><span class="toc-text">enum 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unum-定义的类型实际上是-Class"><span class="toc-text">unum 定义的类型实际上是 Class</span></a></li></ol></li></ol></div></p>
+<table>
+<thead>
+<tr>
+<th>总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>enum可以定义常量类型，它被编译器编译为:</td>
+</tr>
+<tr>
+<td>final class Xxx extends Enum{…}</td>
+</tr>
+<tr>
+<td>name()获取常量的定义字符串，不要使用toString，因为toString可以被override</td>
+</tr>
+<tr>
+<td>ordinal()返回常量定义的顺序(方鸿渐)</td>
+</tr>
+<tr>
+<td>可以为enum类编写的构造方法、字段和方法</td>
+</tr>
+<tr>
+<td>构造方法申明为private</td>
+</tr>
+</tbody></table>
 <h1 id="enumeration"><a href="#enumeration" class="headerlink" title="enumeration"></a>enumeration</h1><ul>
 <li>定义常量<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Weekday</span></span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SUN=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(day==weekday.SUN)&#123;&#125;</span><br></pre></td></tr></table></figure></li>
 <li>整型常量使用==操作符比较。</li>
@@ -532,7 +557,7 @@
     <p><span class="copy-title">文章字数:</span><span class="post-count">369</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
     <p><span class="copy-title">发布时间:</span>2020-04-26, 21:15:32</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-28, 05:54:11</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-28, 06:00:23</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/26/%E6%9E%9A%E4%B8%BE%E7%B1%BB/" title="枚举类">https://feixiangdjames.github.io/blog/2020/04/26/%E6%9E%9A%E4%B8%BE%E7%B1%BB/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
