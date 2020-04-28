@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>String Builder | James blog</title>
+  <title>异常捕获 | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="String Builder | James blog">
+  <meta name="description" content="异常捕获 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc] 总结   catch 子句的顺序非常重要，子类要放在前面    catch 一旦捕获成功，后续的catch将不会执行   finally可以保证有无异常都可以执行   finally是可选项目   同一个catch可以匹配多个非继承关系的异常   multi-catch 不存在继承关系的异常  123456789101112131415public static void main(">
 <meta property="og:type" content="article">
@@ -438,9 +438,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-String-Builder" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-异常捕获" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">String Builder</h1>
+        <h1 class="article-title">异常捕获</h1>
     
     <div class="article-meta">
         
@@ -450,7 +450,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="面向对象">面向对象</a>
+                <a  data-rel="java异常">java异常</a>
             
         </span>
         
@@ -464,12 +464,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-25 01:05:21'>2020-04-24 23:59</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-28 21:37:18'>2020-04-28 21:24</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:210</span>
+        <span>字数:179</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -488,7 +488,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#StringBuffer"><span class="toc-text">StringBuffer</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#multi-catch"><span class="toc-text">multi-catch</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -504,47 +504,35 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#StringBuffer"><span class="toc-text">StringBuffer</span></a></li></ol></div></p>
-<table>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#multi-catch"><span class="toc-text">multi-catch</span></a></li></ol></li></ol></div></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><table>
 <thead>
 <tr>
-<th>总结</th>
+<th>catch 子句的顺序非常重要，子类要放在前面</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>StringBuilder用来高效拼接字符串</td>
+<td>catch 一旦捕获成功，后续的catch将不会执行</td>
 </tr>
 <tr>
-<td>append支持链式写法，因为拼接完成后会返回this</td>
+<td>finally可以保证有无异常都可以执行</td>
 </tr>
 <tr>
-<td>StringBuffer是线程安全版本的StringBuilder 很少使用</td>
+<td>finally是可选项目</td>
+</tr>
+<tr>
+<td>同一个catch可以匹配多个非继承关系的异常</td>
 </tr>
 </tbody></table>
-<p>#StringBuilder</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String =<span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> t=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)&#123;</span><br><span class="line">s=s+String.valueOf(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>String 可以用+ 拼接</li>
-<li>每次循环都会创建新的字符串</li>
-<li>绝大部分都是临时对象，浪费内存</li>
-<li>影响GC效率</li>
+<h2 id="multi-catch"><a href="#multi-catch" class="headerlink" title="multi-catch"></a>multi-catch</h2><ul>
+<li>不存在继承关系的异常</li>
 </ul>
-<blockquote>
-<p>StringBuilder 类可以高效拼接字符串</p>
-</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">precess1();</span><br><span class="line">precess2();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(UnsupportedEncodeException e)&#123;</span><br><span class="line">System.out.println(<span class="string">"done"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(IoException e)&#123;</span><br><span class="line">System.out.println(<span class="string">"IO error"</span>)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">fally&#123;</span><br><span class="line">System.out.println(<span class="string">"over"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>StrinBuilder是可变对象</li>
-<li>StringBuilder可以预分配缓冲区</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder sb=<span class="keyword">new</span> StringBuilder(<span class="number">1024</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)&#123;</span><br><span class="line">sb.append(String.valueOf(i));</span><br><span class="line">&#125;</span><br><span class="line">String s=sb.toString();</span><br></pre></td></tr></table></figure>
-<ul>
-<li>StringBuilder可以进行链式操作</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder sb=<span class="keyword">new</span> StringBuilder(<span class="number">1024</span>);</span><br><span class="line">String s=sb.append(<span class="string">"Mr "</span>)</span><br><span class="line">.append(name)</span><br><span class="line">.append(<span class="string">"!"</span>)</span><br><span class="line">.insert(<span class="number">0</span>,<span class="string">"Hello,"</span>)</span><br><span class="line">.toString();</span><br></pre></td></tr></table></figure>
-<h2 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h2><ul>
-<li>StringBuilder 和 StringBuffer接口完全相同</li>
-<li>StringBuffer是StringBuilder的线程安全版本。</li>
-<li>没有必要使用StringBuffer（跨线程做字符串拼接）</li>
+<li>如果处理错误逻辑相同，可以写在同一条catch中，用“|”操作方。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">precess1();</span><br><span class="line">precess2();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(IoException|NumberException e)&#123;</span><br><span class="line">System.out.println(<span class="string">"IO error"</span>)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">fally&#123;</span><br><span class="line">System.out.println(<span class="string">"over"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
 </ul>
 
       
@@ -555,12 +543,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>String Builder</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">212</span></p>
+    <p><span class="copy-title">文章标题:</span>异常捕获</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">184</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-24, 23:59:24</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-25, 01:05:21</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/24/String-Builder/" title="String Builder">https://feixiangdjames.github.io/blog/2020/04/24/String-Builder/</a>
+    <p><span class="copy-title">发布时间:</span>2020-04-28, 21:24:57</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-28, 21:37:18</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/28/%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/" title="异常捕获">https://feixiangdjames.github.io/blog/2020/04/28/%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
