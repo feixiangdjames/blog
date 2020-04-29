@@ -14,7 +14,7 @@
 <meta property="og:description" content="@[toc] 总结   printStackTace()可以打印异常的传播栈，调用必备    捕获异常并再次抛出，应持有原有异常信息   不在finally中抛出异常   如果要在finally中抛出异常，应把新抛出的异常添加到原有异常   用getSuppressed()可以获取所有添加的Suppressed Exception   处理Suppressed Exception 要求JDK&amp;gt">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-29T14:36:59.000Z">
-<meta property="article:modified_time" content="2020-04-29T15:31:29.773Z">
+<meta property="article:modified_time" content="2020-04-29T15:32:38.728Z">
 <meta property="article:author" content="James">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -472,12 +472,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-29 23:31:29'>2020-04-29 22:36</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-29 23:32:38'>2020-04-29 22:36</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:659</span>
+        <span>字数:641</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -556,7 +556,12 @@
 <li>新的Exception可以持有原来异常信息（e）。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">process();</span><br><span class="line">&#125;<span class="keyword">catch</span>(NullPointerException e)&#123;</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(e);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h1></li>
 <li>finally子句会保证执行与catch中新抛出的的异常。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">System.out.println(<span class="string">"catched"</span>);</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">System.out.println(<span class="string">"finally"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>如果finally语句抛出异常，则catch语句不再抛出.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line">a(打印catched)&#x3D;&#x3D;&gt;b(finally子句执行)</span><br><span class="line">b&#x3D;&#x3D;finally中没有异常&#x3D;&#x3D;&gt;c[throw new runtimeException]</span><br><span class="line">b&#x3D;&#x3D;finally中有异常&#x3D;&#x3D;&gt;d[抛出finally中的异常]</span><br><span class="line">c&#x3D;&#x3D;&gt;e(end)</span><br><span class="line">d&#x3D;&#x3D;&gt;e</span><br></pre></td></tr></table></figure></li>
+<li>如果finally语句抛出异常，则catch语句不再抛出.<pre class="mermaid">graph TB
+a(打印catched)==>b(finally子句执行)
+b==finally中没有异常==>c[throw new runtimeException]
+b==finally中有异常==>d[抛出finally中的异常]
+c==>e(end)
+d==>e</pre></li>
 <li>没有被抛出的异常称为 （suppressed exception）,因为<br>java的异常传播只能传播一个异常，后抛出的会把前面抛出且没有<br>被catch的异常覆盖掉，所有前面抛出的异常就丢失了。</li>
 </ul>
 <h1 id="suppressed-exception"><a href="#suppressed-exception" class="headerlink" title="suppressed exception"></a>suppressed exception</h1><ul>
@@ -602,10 +607,10 @@
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>throw Exception</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">678</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">660</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
     <p><span class="copy-title">发布时间:</span>2020-04-29, 22:36:59</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-29, 23:31:29</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-29, 23:32:38</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/29/throw-Exception/" title="throw Exception">https://feixiangdjames.github.io/blog/2020/04/29/throw-Exception/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
