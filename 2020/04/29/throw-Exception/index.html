@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>包装类型 | James blog</title>
+  <title>throw Exception | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="包装类型 | James blog">
+  <meta name="description" content="throw Exception | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc] 总结   printStackTace()可以打印异常的传播栈，调用必备    捕获异常并再次抛出，应持有原有异常信息   不在finally中抛出异常   如果要在finally中抛出异常，应把新抛出的异常添加到原有异常   用getSuppressed()可以获取所有添加的Suppressed Exception   处理Suppressed Exception 要求JDK&amp;gt">
 <meta property="og:type" content="article">
@@ -446,9 +446,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-包装类型" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-throw-Exception" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">包装类型</h1>
+        <h1 class="article-title">throw Exception</h1>
     
     <div class="article-meta">
         
@@ -458,7 +458,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="面向对象">面向对象</a>
+                <a  data-rel="java异常">java异常</a>
             
         </span>
         
@@ -472,12 +472,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-26 07:25:56'>2020-04-26 06:08</time>
+        创建时间:<time class="date" title='更新时间: 2020-04-29 23:31:29'>2020-04-29 22:36</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:389</span>
+        <span>字数:659</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -496,7 +496,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#wrapper"><span class="toc-text">wrapper</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JDK为每种基本类型都创建了对应的包装类型："><span class="toc-text">JDK为每种基本类型都创建了对应的包装类型：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#int-lnteger和String的相互转换"><span class="toc-text">int lnteger和String的相互转换</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#抛出异常"><span class="toc-text">抛出异常</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#转换异常"><span class="toc-text">转换异常</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#finally"><span class="toc-text">finally</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#suppressed-exception"><span class="toc-text">suppressed exception</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#getSuppressed-获取所有Suppressed-Exception"><span class="toc-text">getSuppressed()获取所有Suppressed Exception</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -512,90 +512,86 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#wrapper"><span class="toc-text">wrapper</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JDK为每种基本类型都创建了对应的包装类型："><span class="toc-text">JDK为每种基本类型都创建了对应的包装类型：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#int-lnteger和String的相互转换"><span class="toc-text">int lnteger和String的相互转换</span></a></li></ol></li></ol></div><br>|总结|<br>|—|<br>|JDK的包装类型可以把基本类型包装为class|<br>|自动装箱和自动拆箱是编译器完成的|<br>|装箱和拆箱会以向执行效率|<br>|拆箱是可能会发生NullPonterException||||||||||</p>
-<h1 id="wrapper"><a href="#wrapper" class="headerlink" title="wrapper"></a>wrapper</h1><ul>
-<li>定义一个Integer类，包含一个实例字段int</li>
-<li>可以把lnteger看作一个int的包装类型（wrapper）</li>
-</ul>
-<h1 id="JDK为每种基本类型都创建了对应的包装类型："><a href="#JDK为每种基本类型都创建了对应的包装类型：" class="headerlink" title="JDK为每种基本类型都创建了对应的包装类型："></a>JDK为每种基本类型都创建了对应的包装类型：</h1><table>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#抛出异常"><span class="toc-text">抛出异常</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#转换异常"><span class="toc-text">转换异常</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#finally"><span class="toc-text">finally</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#suppressed-exception"><span class="toc-text">suppressed exception</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#getSuppressed-获取所有Suppressed-Exception"><span class="toc-text">getSuppressed()获取所有Suppressed Exception</span></a></li></ol></li></ol></div></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><table>
 <thead>
 <tr>
-<th>基本类型</th>
-<th>对应的引用类型</th>
+<th>printStackTace()可以打印异常的传播栈，调用必备</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>boolean</td>
-<td>Boolean</td>
+<td>捕获异常并再次抛出，应持有原有异常信息</td>
 </tr>
 <tr>
-<td>byte</td>
-<td>Byte</td>
+<td>不在finally中抛出异常</td>
 </tr>
 <tr>
-<td>short</td>
-<td>Short</td>
+<td>如果要在finally中抛出异常，应把新抛出的异常添加到原有异常</td>
 </tr>
 <tr>
-<td>int</td>
-<td>lnterger</td>
+<td>用getSuppressed()可以获取所有添加的Suppressed Exception</td>
 </tr>
 <tr>
-<td>long</td>
-<td>Long</td>
-</tr>
-<tr>
-<td>float</td>
-<td>Float</td>
-</tr>
-<tr>
-<td>double</td>
-<td>Double</td>
-</tr>
-<tr>
-<td>char</td>
-<td>Character</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
+<td>处理Suppressed Exception 要求JDK&gt;=1.7</td>
 </tr>
 </tbody></table>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Integer n=<span class="keyword">new</span> Integer(<span class="number">99</span>);</span><br><span class="line"><span class="keyword">int</span> i=n.intValue();</span><br></pre></td></tr></table></figure>
-<h2 id="int-lnteger和String的相互转换"><a href="#int-lnteger和String的相互转换" class="headerlink" title="int lnteger和String的相互转换"></a>int lnteger和String的相互转换</h2><p>特别注意lnteger.getInteger(String)是从系统环境中读取系统变量。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i=<span class="number">100</span>;</span><br><span class="line">Integer n1= <span class="keyword">new</span> Integer(i);</span><br><span class="line">Integer n2= Integer.valueOf(i);</span><br><span class="line">Integer n3= integer.valueOf(<span class="string">"100"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x1=n1.intValue();</span><br><span class="line"><span class="keyword">int</span> x2=Integer.parseInt(<span class="string">"100"</span>);</span><br><span class="line"></span><br><span class="line">String s=n1.toString();</span><br><span class="line"></span><br><span class="line"><span class="comment">//WARNING:</span></span><br><span class="line">Integer prop=Integer.getInteger(<span class="string">"cpus"</span>);</span><br></pre></td></tr></table></figure>
-
+<p>#异常的传播</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"> <span class="keyword">try</span>&#123;</span><br><span class="line">  process1();</span><br><span class="line"> &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line"> e.printStackTace();</span><br><span class="line"> &#125;</span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">process1</span><span class="params">()</span></span>&#123;</span><br><span class="line">  process2();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">process2</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Integer.parseInt(<span class="keyword">null</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>对于基本类型和它对应包装类型，编译器可以自动在int和lnteger之间转型：</p>
-</li>
-<li><p>自动装箱： auto boxing<br>int-&gt;lnteger </p>
-</li>
-<li><p>自动拆箱：aauto unboxing<br>integer-&gt;int </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lnteger n=<span class="number">99</span>; <span class="comment">//integer.valueOf(99) auto boxing </span></span><br><span class="line"><span class="keyword">int</span> i=n <span class="comment">// auto unboxing</span></span><br></pre></td></tr></table></figure></li>
-<li><p>auto boxing ,auto unboxing 只发生在编译阶段。</p>
-</li>
-<li><p>boxing,unboxing 影响执行效率</p>
-</li>
-<li><p>编译后的class代码时严格区分基本类型和引用类型的</p>
-</li>
-<li><p>integer-&gt;int 执行时可能会报错</p>
+<li>当某个方法抛出异常：</li>
+</ul>
+<blockquote>
+<p>如果当前方法没有捕获异常，异常就被抛到上层调用方法<br>知道遇到某个try…catch被捕获<br>捕获到异常之后，调用printStackTrace(),打印出方法的调用栈。</p>
+</blockquote>
+<ul>
+<li>观察异常传播的调用栈，跟踪找出异常来自于哪行代码</li>
+</ul>
+<h1 id="抛出异常"><a href="#抛出异常" class="headerlink" title="抛出异常"></a>抛出异常</h1><ul>
+<li>创建Exception实例</li>
+<li>用throw语句抛出</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">process1(<span class="string">""</span>);</span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">process1</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="转换异常"><a href="#转换异常" class="headerlink" title="转换异常"></a>转换异常</h1><ul>
+<li>如果一个方法捕获异常以后，在catch子句中抛出新的异常，<br>相当于把异常类型进行了转换。</li>
+<li>新的Exception可以持有原来异常信息（e）。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">process();</span><br><span class="line">&#125;<span class="keyword">catch</span>(NullPointerException e)&#123;</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(e);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h1></li>
+<li>finally子句会保证执行与catch中新抛出的的异常。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">System.out.println(<span class="string">"catched"</span>);</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">System.out.println(<span class="string">"finally"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>如果finally语句抛出异常，则catch语句不再抛出.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line">a(打印catched)&#x3D;&#x3D;&gt;b(finally子句执行)</span><br><span class="line">b&#x3D;&#x3D;finally中没有异常&#x3D;&#x3D;&gt;c[throw new runtimeException]</span><br><span class="line">b&#x3D;&#x3D;finally中有异常&#x3D;&#x3D;&gt;d[抛出finally中的异常]</span><br><span class="line">c&#x3D;&#x3D;&gt;e(end)</span><br><span class="line">d&#x3D;&#x3D;&gt;e</span><br></pre></td></tr></table></figure></li>
+<li>没有被抛出的异常称为 （suppressed exception）,因为<br>java的异常传播只能传播一个异常，后抛出的会把前面抛出且没有<br>被catch的异常覆盖掉，所有前面抛出的异常就丢失了。</li>
+</ul>
+<h1 id="suppressed-exception"><a href="#suppressed-exception" class="headerlink" title="suppressed exception"></a>suppressed exception</h1><ul>
+<li>如何保存所有的异常信息？<ol>
+<li>用origin 变量保存原始异常</li>
+<li>如果存在原始异常，用addSuppressed()添加新异常。</li>
+<li>如果存在原始异常，或者新异常，最后在finally抛出。</li>
+</ol>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Integer x=<span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">int</span> y=x ;<span class="comment">//NullPointerExcetion</span></span><br><span class="line">```  </span><br><span class="line">- 包装类型定义了一些有用静态变量</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">Boolean t=Boolean.TRUE;</span><br><span class="line">Boolean f=Boolean.FALSE;</span><br><span class="line"><span class="keyword">int</span> max=Integer.MAX_VALUE;<span class="number">2147483647</span></span><br><span class="line"><span class="keyword">int</span> sizeOfLong=Long.SIZE;<span class="comment">//64</span></span><br><span class="line"><span class="keyword">int</span> bytesOfLong=Long.BYTES;<span class="comment">//8(bytes)</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>整数和浮点数包装类型继承自Number<pre class="mermaid">graph BT
-a(Byte)-->n(Number)
-i(integer)-->n(Number)
-f(Float)-->n(Number)
-n-->o(Object)</pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Exception origin = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">process1(<span class="string">""</span>);</span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">origin e;</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line"><span class="keyword">if</span>(origin !=<span class="keyword">null</span>)&#123;</span><br><span class="line">origin.addSuppressed(e);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">origin=e;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (origin !=<span class="keyword">null</span>)&#123;</span><br><span class="line"><span class="keyword">throw</span> origin;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>所以,不要在finally中抛出异常</strong></p>
+<h2 id="getSuppressed-获取所有Suppressed-Exception"><a href="#getSuppressed-获取所有Suppressed-Exception" class="headerlink" title="getSuppressed()获取所有Suppressed Exception"></a>getSuppressed()获取所有Suppressed Exception</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">e.printStackTace();</span><br><span class="line"><span class="keyword">for</span>(Throwable t:e.getSuppressed())&#123;</span><br><span class="line">t.printStackTace()</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 
 
-</li>
-</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -605,12 +601,12 @@ n-->o(Object)</pre>
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>包装类型</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">417</span></p>
+    <p><span class="copy-title">文章标题:</span>throw Exception</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">678</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-26, 06:08:00</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-26, 07:25:56</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/26/%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B/" title="包装类型">https://feixiangdjames.github.io/blog/2020/04/26/%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B/</a>
+    <p><span class="copy-title">发布时间:</span>2020-04-29, 22:36:59</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-29, 23:31:29</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/29/throw-Exception/" title="throw Exception">https://feixiangdjames.github.io/blog/2020/04/29/throw-Exception/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
