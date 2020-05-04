@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>封装,方法,构造,方法重载 | James blog</title>
+  <title>JAVA log | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="封装,方法,构造,方法重载 | James blog">
+  <meta name="description" content="JAVA log | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]    总结    自定义异常应该从合适的Exception派生   推荐RuntimeException   自定义异常应该提供多个构造方法   可以使用IDE根据父类快速生成构造方法   JDK定义的常用异常 Runtime Exception  NullPointerException IndexOutOfBoundsException SecurityException Ill">
 <meta property="og:type" content="article">
@@ -518,9 +518,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-封装、方法、构造、方法重载" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-JAVA-log" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">封装,方法,构造,方法重载</h1>
+        <h1 class="article-title">JAVA log</h1>
     
     <div class="article-meta">
         
@@ -530,7 +530,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="面向对象">面向对象</a>
+                <a  data-rel="断言和日志">断言和日志</a>
             
         </span>
         
@@ -544,7 +544,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-17 09:19:21'>2020-04-17 15:03</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-04 09:35:12'>2020-05-04 08:03</time>
         
     </div>
     <div class="article-meta">
@@ -568,7 +568,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数据封装"><span class="toc-text">数据封装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方法特点"><span class="toc-text">方法特点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法定义"><span class="toc-text">方法定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#this"><span class="toc-text">this</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认构造方法"><span class="toc-text">默认构造方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例初始化顺序"><span class="toc-text">实例初始化顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多构造方法"><span class="toc-text">多构造方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Overload"><span class="toc-text">Overload</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Assertion"><span class="toc-text">Assertion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#启用断言"><span class="toc-text">启用断言</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Logging"><span class="toc-text">Logging</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK-Logging"><span class="toc-text">JDK Logging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK-Logging的局限："><span class="toc-text">JDK Logging的局限：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Commons-Logging"><span class="toc-text">Commons Logging</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Log4j"><span class="toc-text">Log4j</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Commons-Logging-可以自动的使用Log4j"><span class="toc-text">Commons Logging 可以自动的使用Log4j:</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -584,158 +584,185 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数据封装"><span class="toc-text">数据封装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方法特点"><span class="toc-text">方法特点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法定义"><span class="toc-text">方法定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#this"><span class="toc-text">this</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认构造方法"><span class="toc-text">默认构造方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例初始化顺序"><span class="toc-text">实例初始化顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多构造方法"><span class="toc-text">多构造方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Overload"><span class="toc-text">Overload</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li></ol></li></ol></div></p>
-<h1 id="数据封装"><a href="#数据封装" class="headerlink" title="数据封装"></a>数据封装</h1><ul>
-<li>一个calss可以包含多个field。</li>
-<li>直接把field用<strong>public</strong> 暴漏给外部，可能会破坏封装。</li>
-<li>praivate 修饰 field更加的安全.可以检查传入的参数值。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Wallent</span></span>=&#123;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">int</span> interMoney;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>用private 修饰 field 可以拒绝外部访问.</li>
-<li>定义public 方法 可以简介修改field.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line"><span class="keyword">this</span>.name=name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//访问field的public 方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>当使用private 定义 field 。外部代码（不属于当前类的）<br>使用变量名.field会编译错误。</p>
-</li>
-<li><p>使用public 方法封装数据访问，更加的安全，可以为访问<br>行为执行行为规范。所以对于private 只可以使用变量.方法名()进行访问。</p>
-</li>
-</ul>
-<h1 id="方法特点"><a href="#方法特点" class="headerlink" title="方法特点"></a>方法特点</h1><table>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Assertion"><span class="toc-text">Assertion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#启用断言"><span class="toc-text">启用断言</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Logging"><span class="toc-text">Logging</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK-Logging"><span class="toc-text">JDK Logging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK-Logging的局限："><span class="toc-text">JDK Logging的局限：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Commons-Logging"><span class="toc-text">Commons Logging</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Log4j"><span class="toc-text">Log4j</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Commons-Logging-可以自动的使用Log4j"><span class="toc-text">Commons Logging 可以自动的使用Log4j:</span></a></li></ol></div></p>
+<h1 id="Assertion"><a href="#Assertion" class="headerlink" title="Assertion"></a>Assertion</h1><table>
 <thead>
 <tr>
-<th>方法</th>
+<th>总结</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>可以让外部代码安全的访问实例字段</td>
+<td>断言是一种调试方式，断言失败会抛出Assertion</td>
 </tr>
 <tr>
-<td>一组执行语句</td>
+<td>只能在开发和测试阶段启用断言</td>
 </tr>
 <tr>
-<td>遇到return返回</td>
+<td>对可恢复的错误不能使用断言，应抛出异常</td>
 </tr>
 <tr>
-<td>void 表示不返回任何值（区别于返回null）</td>
-</tr>
-<tr>
-<td>外部代码通过public 方法操作实例</td>
-</tr>
-<tr>
-<td>内部代码可以调用private 方法</td>
+<td>断言很少被使用，更好的方法是编写测试单元</td>
 </tr>
 </tbody></table>
-<h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><ul>
-<li><p>方法修饰符：</p>
-<ol>
-<li>public  外部可以访问,eclipe会列举出所有的public方法，不包括private 方法。</li>
-<li>private 仅内部可以访问，多个public方法访问同一个public 方法，提高代码复用。 </li>
-</ol>
-</li>
-<li><p>方法返回值</p>
-</li>
-</ul>
-<ol>
-<li>void 没有返回值</li>
-<li>有返回值，定义返回值类型，比如Sring,int 等</li>
-</ol>
+<blockquote>
+<p>断言是一种程序调试方式</p>
+</blockquote>
 <ul>
-<li><p>方法名称<br>驼峰命名法</p>
-</li>
-<li><p>方法的参数列表<br>如果没有参数，可以为空。<br>如果有多个参数，需要用逗号隔开,单一参数是由 参数类型和参数名称组成</p>
-</li>
-<li><p>方法可以包含一行或多行语句，方法的返回值是根据return进行实现的</p>
-</li>
-</ul>
-<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><ul>
-<li><p>方法内部可以使用隐式变量this,this永远指向当前实例。<br>this.field可以访问类的字段(实例字段)</p>
-</li>
-<li><p>在不引起歧义的情况下，可以省略this</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"><span class="keyword">private</span> name;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNameS</span><span class="params">(String nameS)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(sanName==<span class="keyword">null</span>)&#123;</span><br><span class="line">    name=<span class="string">"张三"</span>;<span class="comment">//可以省略this </span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">putblic <span class="keyword">void</span> <span class="title">sanName</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.name=name;<span class="comment">//不可以省略</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">- 局部变量名被优先查找。</span><br><span class="line"></span><br><span class="line">## 方法调用</span><br><span class="line"></span><br><span class="line">变量.方法名</span><br><span class="line"></span><br><span class="line">## 方法参数</span><br><span class="line"></span><br><span class="line">- 基本类型参数</span><br><span class="line"></span><br><span class="line">- 引用类型参数</span><br><span class="line"></span><br><span class="line">方法的参数是按值（基本类型）或按引用传入。方法内部对参数进行了重现赋值，不影响外部的值。</span><br><span class="line">但是，如果，修改了值，是可以对引用值，进行了修改会产生影响的。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 构造方法</span><br><span class="line">&gt; 创建对象时初始化对象实例。</span><br><span class="line">&gt; 方法名就是类名</span><br><span class="line">&gt; 参数没有限制</span><br><span class="line">&gt; 没有返回值，构造方法不能用<span class="keyword">void</span> 修饰。</span><br><span class="line">&gt; 必须用<span class="keyword">new</span> 操作方调用构造方法</span><br><span class="line"></span><br><span class="line">- 如何创建实例？</span><br><span class="line"> ```java</span><br><span class="line"> Person ming=<span class="keyword">new</span> Person();</span><br><span class="line"> ming.setName=(<span class="string">'李雷'</span>);</span><br><span class="line"> ming.setAge=(<span class="number">12</span>);</span><br></pre></td></tr></table></figure></li>
-<li><p>是否创建对象的时候，就可以直接初始化field呢？</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person ming=<span class="keyword">new</span> Person(<span class="string">'李雷'</span>,<span class="number">12</span>);</span><br></pre></td></tr></table></figure>
+<li>使用assert关键字</li>
+<li>断言条件预期为true</li>
+<li>如果断言失败，抛出AssertionError<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(Strging[] args)</span></span>&#123;</span><br><span class="line"><span class="keyword">double</span> x=abs(-<span class="number">123.45</span>);</span><br><span class="line"><span class="keyword">assert</span> x&gt;=<span class="number">0</span>:<span class="string">"x must&gt;=0"</span>;<span class="comment">//可选择的断言消息，随着AssertionError一并抛出</span></span><br><span class="line">System.out.println(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>实现这样功能的方法，就是类的构造方法，构造方法可以用于构造实例。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name,<span class="keyword">int</span> age)</span></span>&#123;</span><br><span class="line"><span class="keyword">this</span>.name=name;</span><br><span class="line"><span class="keyword">this</span>.age=age;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="默认构造方法"><a href="#默认构造方法" class="headerlink" title="默认构造方法"></a>默认构造方法</h2><ul>
-<li>如果一个类没有定义构造方法，编译器会自动生成一个默认构造方法：</li>
-<li><ul>
-<li>无参数</li>
-</ul>
-</li>
-<li><ul>
-<li>无执行语句</li>
-</ul>
 </li>
 </ul>
-<h2 id="实例初始化顺序"><a href="#实例初始化顺序" class="headerlink" title="实例初始化顺序"></a>实例初始化顺序</h2><ul>
-<li>先初始化字段。是的，可以在定义field时候，就进行初始化。</li>
-<li>没有赋值的field，初始化为默认值；<table>
+<blockquote>
+<p>断言的特点：</p>
+</blockquote>
+<ul>
+<li>断言失败时会抛出AssertionError,导致程序结束退出</li>
+<li>不能用于可恢复的程序错误</li>
+<li>只应该用于开发和测试阶段</li>
+</ul>
+<blockquote>
+<p>对于可恢复的程序错误：</p>
+</blockquote>
+<ul>
+<li>不应该使用断言</li>
+<li>应该抛出异常并在上层捕获</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">sort();</span><br><span class="line">&#125;<span class="keyword">catch</span>()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(x==<span class="keyword">null</span>)&#123;</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException&#123;</span><br><span class="line"><span class="string">"array cannot be null"</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="启用断言"><a href="#启用断言" class="headerlink" title="启用断言"></a>启用断言</h2><ul>
+<li>JVM默认是关闭断言指令的<ul>
+<li>给JVM传递-ea参数启用断言<br>选择Class 右键，run as 然后进入 run configurations，进入Arguments修改 VM<br>arguments参数，输入完整类名：-ea:包名+类名</li>
+<li>可以指定特定的类启用断言</li>
+</ul>
+<strong>-ea:com.xxx.Main</strong><ul>
+<li>可以指定特定的包启用断言</li>
+</ul>
+<em>**-ea:com.xxx…</em></li>
+</ul>
+<h1 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h1><table>
 <thead>
 <tr>
-<th>int</th>
-<th>0</th>
+<th>总结</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>boolean</td>
-<td>false</td>
+<td>日志可以定义格式，重定向到文件</td>
 </tr>
 <tr>
-<td>引用类型</td>
-<td>null</td>
+<td>日志可以存档，便于追踪问题</td>
+</tr>
+<tr>
+<td>日志记录可以按级别分类，便于打开或关闭某些级别</td>
+</tr>
+<tr>
+<td>可以根据配置文件调整日志，无需修改代码</td>
+</tr>
+<tr>
+<td>JDK提供了 Logging:java.util.logging</td>
 </tr>
 </tbody></table>
-</li>
-<li>执行构造方法代码</li>
+<blockquote>
+<p>什么是日志？</p>
+</blockquote>
+<ul>
+<li>为了取代System.out.println();println不具备下述能力。</li>
+<li>设置输出样式</li>
+<li>设置级别，进制某些级别输出</li>
+<li>可以被重定向到文件</li>
+<li>可以按包名控制日志级别</li>
 </ul>
-<h2 id="多构造方法"><a href="#多构造方法" class="headerlink" title="多构造方法"></a>多构造方法</h2><ul>
-<li>可以定义多个构造方法，编译器通过构造方法的参数数量、位置和类型区分</li>
-<li>我们可以在一个构造方法中调用另一个构造方法。this();</li>
+<h2 id="JDK-Logging"><a href="#JDK-Logging" class="headerlink" title="JDK Logging"></a>JDK Logging</h2><ul>
+<li>JDK内置了Logging，在java.util.logging</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line"><span class="keyword">this</span>(name,<span class="number">12</span>);<span class="comment">//我们可以在一个构造方法中调用另一个构造方法。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(<span class="keyword">int</span> age)</span></span>&#123;</span><br><span class="line"><span class="keyword">this</span>(<span class="string">"张三"</span>,age);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name,<span class="keyword">int</span> age)</span></span>&#123;</span><br><span class="line"><span class="keyword">this</span>.name=name;</span><br><span class="line"><span class="keyword">this</span>.age=age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(<span class="keyword">int</span>[] args)</span></span>&#123;</span><br><span class="line"><span class="keyword">for</span>(n:args)&#123;</span><br><span class="line"><span class="keyword">if</span>(n&gt;<span class="number">1</span>)&#123;</span><br><span class="line"><span class="keyword">this</span>.name=<span class="string">"李四"</span>;</span><br><span class="line"><span class="keyword">this</span>.age=n-<span class="number">1</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line"><span class="keyword">this</span>.age=n;</span><br><span class="line"><span class="keyword">this</span>.name=<span class="string">"张三"</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Overload"><a href="#Overload" class="headerlink" title="Overload"></a>Overload</h2><p>Overload 更像一种编写思路</p>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
-<li>多个方法名相同</li>
-<li>参数不同：个数，位置，类型</li>
-<li>方法返回值相同</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.logging.Level;</span><br><span class="line"><span class="keyword">import</span> java.util.logging.Logger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">   Logger logger=Logger.getGlobal();</span><br><span class="line">   logger.info(<span class="string">"start..."</span>);</span><br><span class="line">   logger.log(Level.WARNING,<span class="string">"warning..."</span>);</span><br><span class="line">   logger.warning(<span class="string">"start..."</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>JDK Logging定义了7个日志级别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SEVERE</td>
+</tr>
+<tr>
+<td>VARNING</td>
+</tr>
+<tr>
+<td>INFO 默认级别</td>
+</tr>
+<tr>
+<td>CONFIG</td>
+</tr>
+<tr>
+<td>FINE</td>
+</tr>
+<tr>
+<td>FINER</td>
+</tr>
+<tr>
+<td>FINEST</td>
+</tr>
+</tbody></table>
+<h2 id="JDK-Logging的局限："><a href="#JDK-Logging的局限：" class="headerlink" title="JDK Logging的局限："></a>JDK Logging的局限：</h2><ul>
+<li>JVM 启动就需要读取配置文件并初始化完成</li>
+<li>JVM 启动后无法修改配置</li>
+<li>需要在JVM启动时传递参数(-Djava.util.loggin.config.file=config-file-name)</li>
 </ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>重载方法应该完成相同的功能，参考String的indexOf();</li>
-<li>重载方法依靠参数类型和数量区分<ol>
-<li>indexOf(String str)</li>
-<li>indexOf(String str,int fromlndex)</li>
-</ol>
-</li>
-<li>不要去交互参数顺序，来实现重载；虽然可以执行，但是没有意义</li>
-<li>重载方法返回值类型应该相同  </li>
+<h1 id="Commons-Logging"><a href="#Commons-Logging" class="headerlink" title="Commons Logging"></a>Commons Logging</h1><ul>
+<li>Commons Logging是使用最方法的日志模块</li>
+<li>Commons Logging的API非常简单</li>
+<li>Commons Logging可以自动使用其他日志模块</li>
 </ul>
-<p>类的构造方法就是一种 Overload的表现.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hello</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">over</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">over</span><span class="params">(<span class="keyword">int</span> age)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">over</span><span class="params">(String name,<span class="keyword">int</span> age)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Commons Logging 是Apache创建的日志模块：</p>
+</blockquote>
+<ul>
+<li>可以挂载不同的日志系统</li>
+<li>可以通过配置文件指定挂接的日志系统</li>
+<li>自动搜索并使用Log4j</li>
+<li>使用JDK Logging</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"> Log log=LogFactory.getLog(Main<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"> log.info(<span class="string">"start..."</span>);</span><br><span class="line"> log.warn(<span class="string">"end."</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>日志级别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FATAL 非常严重</td>
+</tr>
+<tr>
+<td>ERROR 普通错误</td>
+</tr>
+<tr>
+<td>WARNING</td>
+</tr>
+<tr>
+<td>INFO 默认</td>
+</tr>
+<tr>
+<td>DEBUG</td>
+</tr>
+<tr>
+<td>TRACE 更底层的调试信息</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在静态方法中引用Log:</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> Log log=LogFactory.getLog(Main.calss);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实例方法中引用Log:</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"><span class="keyword">final</span> Log log=LogFactory.getLog(getClass());</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//父类中实例化Log:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">final</span> Log log=LogFactory.getLog(getClass());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<h1 id="Log4j"><a href="#Log4j" class="headerlink" title="Log4j"></a>Log4j</h1><p>前面介绍了Commons Logging，可以作为“日志接口”来使用。而真正的“日志实现”可以使用Log4j。</p>
+<p>Log4j是一种非常流行的日志框架，最新版本是2.x。</p>
+<p>Log4j是一个组件化设计的日志系统，它的架构大致如下：</p>
+<p>log.info(“User signed in.”);<br> │<br> │   ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐<br> ├──&gt;│ Appender │───&gt;│  Filter  │───&gt;│  Layout  │───&gt;│ Console  │<br> │   └──────────┘    └──────────┘    └──────────┘    └──────────┘<br> │<br> │   ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐<br> ├──&gt;│ Appender │───&gt;│  Filter  │───&gt;│  Layout  │───&gt;│   File   │<br> │   └──────────┘    └──────────┘    └──────────┘    └──────────┘<br> │<br> │   ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐<br> └──&gt;│ Appender │───&gt;│  Filter  │───&gt;│  Layout  │───&gt;│  Socket  │<br>     └──────────┘    └──────────┘    └──────────┘    └──────────┘<br>当我们使用Log4j输出一条日志时，Log4j自动通过不同的Appender把同一条日志输出到不同的目的地。例如：</p>
+<p>console：输出到屏幕；<br>file：输出到文件；<br>socket：通过网络输出到远程计算机；<br>jdbc：输出到数据库<br>在输出日志的过程中，通过Filter来过滤哪些log需要被输出，哪些log不需要被输出。例如，仅输出ERROR级别的日志。</p>
+<p>最后，通过Layout来格式化日志信息，例如，自动添加日期、时间、方法名称等信息。</p>
+<p>上述结构虽然复杂，但我们在实际使用的时候，并不需要关心Log4j的API，而是通过配置文件来配置它。</p>
+<p>以XML配置为例，使用Log4j的时候，我们把一个log4j2.xml的文件放到classpath下就可以让Log4j读取配置文件并按照我们的配置来输出日志。下面是一个配置文件的例子：</p>
+<h1 id="Commons-Logging-可以自动的使用Log4j"><a href="#Commons-Logging-可以自动的使用Log4j" class="headerlink" title="Commons Logging 可以自动的使用Log4j:"></a>Commons Logging 可以自动的使用Log4j:</h1><ul>
+<li>Commons Logging 如果在classpath中发现了log4j,就会使用log4j</li>
+</ul>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -745,12 +772,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>封装,方法,构造,方法重载</p>
+    <p><span class="copy-title">文章标题:</span>JAVA log</p>
     <p><span class="copy-title">文章字数:</span><span class="post-count">1.2k</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-17, 15:03:05</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-17, 09:19:21</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/17/%E5%B0%81%E8%A3%85%E3%80%81%E6%96%B9%E6%B3%95%E3%80%81%E6%9E%84%E9%80%A0%E3%80%81%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/" title="封装,方法,构造,方法重载">https://feixiangdjames.github.io/blog/2020/04/17/%E5%B0%81%E8%A3%85%E3%80%81%E6%96%B9%E6%B3%95%E3%80%81%E6%9E%84%E9%80%A0%E3%80%81%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-04, 08:03:50</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-04, 09:35:12</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/04/JAVA-log/" title="JAVA log">https://feixiangdjames.github.io/blog/2020/05/04/JAVA-log/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
