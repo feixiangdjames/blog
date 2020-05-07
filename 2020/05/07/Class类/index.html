@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>流程控制[输入，输出] | James blog</title>
+  <title>Class类 | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="流程控制[输入，输出] | James blog">
+  <meta name="description" content="Class类 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc] 前情 .class文件时JVM看到的最小文件，大型程序需要很多Class,并生成一堆.class文件，不便于管理，所以，jar文件就是class文件容器。大型JAVA程序会生成自己的jar文件,JVM自带的库文件（rt.jar 60M）第三方的jar文件。所以如果需要运行一般都是这样写的。  1java -cp app.jar;a.jar;b.jar com.james.sample">
 <meta property="og:type" content="article">
@@ -534,9 +534,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-输入和输出" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Class类" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">流程控制[输入，输出]</h1>
+        <h1 class="article-title">Class类</h1>
     
     <div class="article-meta">
         
@@ -546,7 +546,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="程序基础">程序基础</a>
+                <a  data-rel="反射与泛型">反射与泛型</a>
             
         </span>
         
@@ -560,12 +560,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-15 08:38:27'>2020-04-15 15:03</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-07 08:47:59'>2020-05-07 06:32</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:335</span>
+        <span>字数:815</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -584,7 +584,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#输出"><span class="toc-text">输出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#输入"><span class="toc-text">输入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#格式化输出"><span class="toc-text">格式化输出</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#class"><span class="toc-text">class</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Refection"><span class="toc-text">Refection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何获取一个Class实例？"><span class="toc-text">如何获取一个Class实例？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Class实例比较-VS-instanceof"><span class="toc-text">Class实例比较 VS instanceof</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Refection目的"><span class="toc-text">Refection目的</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#创建class-实例"><span class="toc-text">创建class 实例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#动态加载"><span class="toc-text">动态加载</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -600,65 +600,133 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#输出"><span class="toc-text">输出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#输入"><span class="toc-text">输入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#格式化输出"><span class="toc-text">格式化输出</span></a></li></ol></li></ol></div></p>
-<h1 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h1><ul>
-<li>System.out.println();输出并换行</li>
-<li>System.out.print();输出不换行</li>
-</ul>
-<h1 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h1><pre class="mermaid">graph TD
-A[import<br>java.util.Scanner]==>B["Scanner scanner=new Scanner(System.in)"]
-B-->C("Scanner.nextLine()")</pre>
-
-<p>下面的代码会有警告，先忽略，到I/O的时候，再解释。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;<span class="comment">//0.导入java.util.Scanner </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">Scanner scanner=<span class="keyword">new</span> Scanner(System.in); <span class="comment">//1.创建Scanner，并传入System.in </span></span><br><span class="line">System.out.print(<span class="string">"Input your name:"</span>);</span><br><span class="line">String name=scanner.nextLine();<span class="comment">//2.使用scanner.nextLine() 读取输入的字符串字符串</span></span><br><span class="line">System.out.print(<span class="string">"Input your age: "</span>);</span><br><span class="line"><span class="keyword">int</span> age = scanner.nextInt();<span class="comment">//3.使用Scanner.nextInt()读整数</span></span><br><span class="line">System.out.println(<span class="string">"Hi,"</span>+name+<span class="string">",you are "</span>+age);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h2><ul>
-<li>System.out.printf(占位符参数,v1…);不会自动换行，我们自己加\n </li>
-</ul>
-<blockquote>
-<p>为了更好的阅读体验</p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#class"><span class="toc-text">class</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Refection"><span class="toc-text">Refection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何获取一个Class实例？"><span class="toc-text">如何获取一个Class实例？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Class实例比较-VS-instanceof"><span class="toc-text">Class实例比较 VS instanceof</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Refection目的"><span class="toc-text">Refection目的</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#创建class-实例"><span class="toc-text">创建class 实例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#动态加载"><span class="toc-text">动态加载</span></a></li></ol></div><br>|总结|<br>|–|<br>|JVM为每个加载的class创建对应的Class实例来保存 class所有信息|<br>|获取一个class对应的Class实例后，就可以获取该class的所有信息|<br>|通过Class实例获取class信息的方法称为反射|<br>|JVM总是动态加载class,可以在运行期更具条件控制加载class|</p>
+<h1 id="class"><a href="#class" class="headerlink" title="class"></a>class</h1><blockquote>
+<p>java 除基本类型外都是class（包括interface）</p>
 </blockquote>
 <ul>
-<li>格式化输出使用 System.out.printf();</li>
-<li>使用占位符%xxx</li>
+<li>Sring</li>
+<li>Object</li>
+<li>Runnable</li>
+<li>Exception<br>…</li>
+</ul>
+<blockquote>
+<p>class的本质是数据类型。<br>无继承关系的数据类型无法赋值。JAVA 定义了一种强类型的数据关系。<br>并且，编译器会检查数据类型，不符合数据类型要求的，编译器会报错。</p>
+</blockquote>
+<p><strong>class/interface 的数据类型是Class</strong></p>
+<ul>
+<li>每加载一个class，JVM就为其创建一个Class类型的实例，并关联起来</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//fake code</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">Class</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line">Class cls=<span class="keyword">new</span> Class(String);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">a(加载String类：读取String.class文件)--&gt;b(为String类创建一个Class实例：class cls&#x3D;new Class(String));</span><br></pre></td></tr></table></figure>
+<ul>
+<li>JVM持有的每个Class实例都指向一个数据类型(class / interface)</li>
 </ul>
 <table>
 <thead>
 <tr>
-<th>%d</th>
-<th>整数</th>
+<th>Class实例</th>
+<th></th>
+<th></th>
 </tr>
 </thead>
 <tbody><tr>
-<td>%x</td>
-<td>16进制整数</td>
+<td>name</td>
+<td>“java.lang.String”</td>
+<td>Sring</td>
 </tr>
 <tr>
-<td>%f</td>
-<td>浮点</td>
+<td>name</td>
+<td>“java.util.Random”</td>
+<td>Random</td>
 </tr>
 <tr>
-<td>%s</td>
-<td>字符串</td>
-</tr>
-<tr>
-<td>%%</td>
-<td>%字符本身</td>
-</tr>
-<tr>
-<td>%.2</td>
-<td>2位小数</td>
+<td>name</td>
+<td>“java.lang.Runnable”</td>
+<td>Runnable</td>
 </tr>
 </tbody></table>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">double</span> P=<span class="number">3.1415926</span>;</span><br><span class="line">System.out.println(P);</span><br><span class="line">System.out.printf(<span class="string">"PI=%.2f\n"</span>,P);</span><br><span class="line">System.out.printf(<span class="string">"PI=%5.2f\n"</span>,P);</span><br><span class="line">System.out.printf(<span class="string">"PI=%ef\n"</span>,P);<span class="comment">//科学计数法打印</span></span><br><span class="line">System.out.printf(<span class="string">"PI=%+.2f\n"</span>,P);<span class="comment">//带符号位</span></span><br><span class="line">System.out.printf(<span class="string">"%s\n"</span>,<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;); <span class="comment">//%s 打印出字符串</span></span><br><span class="line">System.out.printf(<span class="string">"%s %s\n"</span>,<span class="string">"A"</span>,<span class="string">"B"</span>); </span><br><span class="line">System.out.printf(<span class="string">"%2$s %1$s\n"</span>,<span class="string">"A"</span>,<span class="string">"B"</span>);  <span class="comment">//调整参数顺序</span></span><br><span class="line"><span class="comment">// java format string syntax 可以获得你可以使用哪些占位符</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
+<ul>
+<li>一个Class实例包含了该class的完整实例。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Class实例</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>“java.lang.String”</td>
+</tr>
+<tr>
+<td>package</td>
+<td>“java.lang”</td>
+</tr>
+<tr>
+<td>super</td>
+<td>java.lang.Object</td>
+</tr>
+<tr>
+<td>interface</td>
+<td>CharSequence,…</td>
+</tr>
+<tr>
+<td>field</td>
+<td>value[],hash,..</td>
+</tr>
+<tr>
+<td>method</td>
+<td>indexOf,valueOf</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>JVM 为每个加载的class创建对应的Class实例，并在实例中保存该class的所有信息<br>如果获取了某个Class实例，则可以获取到该实例对应的class的所有信息<br>通过Class实例获取的class信息的方式称为反射(Refection)</p>
+</blockquote>
+<h1 id="Refection"><a href="#Refection" class="headerlink" title="Refection"></a>Refection</h1><h2 id="如何获取一个Class实例？"><a href="#如何获取一个Class实例？" class="headerlink" title="如何获取一个Class实例？"></a>如何获取一个Class实例？</h2><ul>
+<li>Type.class</li>
+<li>getClass()</li>
+<li>Class.forName()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Class cls1=String.calss;</span><br><span class="line"></span><br><span class="line">String s=<span class="string">"Hello"</span>;</span><br><span class="line">Class cls2=s.getClass();</span><br><span class="line"></span><br><span class="line">Class cls3=Class.forName(<span class="string">"java.lang.String"</span>);<span class="comment">//必须是完整类名</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>JVM中，一个class对应唯一的一个Class实例；也就是说Class实例在JVM中式唯一的。</li>
+<li><ul>
+<li>可以用==比较两个Class实例</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> b1=cls1==cls2;<span class="comment">//true</span></span><br><span class="line"><span class="keyword">boolean</span> b2=cls2==cls3;<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h3 id="Class实例比较-VS-instanceof"><a href="#Class实例比较-VS-instanceof" class="headerlink" title="Class实例比较 VS instanceof"></a>Class实例比较 VS instanceof</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Integer n=<span class="keyword">new</span> Inter(<span class="number">123</span>);</span><br><span class="line"><span class="keyword">boolean</span> b3= n <span class="keyword">instanceof</span> Integer;<span class="comment">//true</span></span><br><span class="line"><span class="keyword">boolean</span> b4= n <span class="keyword">instanceof</span> Number;<span class="comment">//true </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> b1=n.getClass()==Integer<span class="class">.<span class="keyword">class</span></span>;<span class="comment">//true</span></span><br><span class="line"><span class="keyword">boolean</span> b2=n.getClass()== Number<span class="class">.<span class="keyword">class</span></span>;<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<p>Class实例比较只能精确判断。所有在判断数据类型的时候，我们使用instanceof，因为<br>面向抽象编程的时候，我们不关心具体的子类型。</p>
+<h2 id="Refection目的"><a href="#Refection目的" class="headerlink" title="Refection目的"></a>Refection目的</h2><blockquote>
+<p>反射的目的式当获得某个Object实例时，我们可以获取该Object的class信息</p>
+</blockquote>
+<p>从Class实例获取的calss信息：</p>
+<ul>
+<li>getName();</li>
+<li>getSimpleName();</li>
+<li>getPackage();<br>从Class实例判断class类型：</li>
+<li>isInterface()</li>
+<li>isEnum()</li>
+<li>isArray()</li>
+<li>isPrimitive()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String[]<span class="class">.<span class="keyword">class</span>.<span class="title">isArray</span>()</span>;<span class="comment">//true</span></span><br><span class="line"><span class="keyword">int</span><span class="class">.<span class="keyword">class</span>.<span class="title">isPrimitive</span>()</span>;<span class="comment">//true</span></span><br><span class="line">java.time.Month<span class="class">.<span class="keyword">class</span>.<span class="title">isEnum</span>()//<span class="title">true</span></span></span><br><span class="line"><span class="class">//虽然基本类型变量本身不是<span class="title">class</span>，但是,<span class="title">JVM</span>内部会创建<span class="title">int</span>.<span class="title">class</span>这几种基本类型对应的<span class="title">class</span>实例</span></span><br></pre></td></tr></table></figure>
+<h1 id="创建class-实例"><a href="#创建class-实例" class="headerlink" title="创建class 实例"></a>创建class 实例</h1><ul>
+<li>newInstance()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class cls=String.calss;</span><br><span class="line"><span class="comment">//new String();</span></span><br><span class="line"></span><br><span class="line">String s=(String) cls.newInstance();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>局限性，我们只能调用不带参数的String类默认构造方法</li>
+</ul>
+<h1 id="动态加载"><a href="#动态加载" class="headerlink" title="动态加载"></a>动态加载</h1><p>利用JVM动态加载class的特性：</p>
+<ul>
+<li>可以在运行期根据条件加载不同的实现类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实现Commons Logging 优先使用Log4j;</span></span><br><span class="line"></span><br><span class="line">LogFactory factory;</span><br><span class="line"><span class="keyword">if</span>(isClassPresent(<span class="string">"org.apache.loggin.log4j.Logger"</span>))&#123;</span><br><span class="line">factory=creatLog4j();</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">factory =createJdkLog();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//上面的代码运行时，并没有引用Log4j class 本身，代码执行时，没有log4j的jar包也不会报错。</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isClassPresent</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">Class.forName(name);</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -673,12 +741,12 @@ B-->C("Scanner.nextLine()")</pre>
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>流程控制[输入，输出]</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">345</span></p>
+    <p><span class="copy-title">文章标题:</span>Class类</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">842</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-15, 15:03:05</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-15, 08:38:27</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/15/%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA/" title="流程控制[输入，输出]">https://feixiangdjames.github.io/blog/2020/04/15/%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-07, 06:32:24</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-07, 08:47:59</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/07/Class%E7%B1%BB/" title="Class类">https://feixiangdjames.github.io/blog/2020/05/07/Class%E7%B1%BB/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
