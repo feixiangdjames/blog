@@ -14,7 +14,7 @@
 <meta property="og:description" content="@[toc]    总结    JVM为每个加载的class创建对应的Class实例来保存 class所有信息   获取一个class对应的Class实例后，就可以获取该class的所有信息   通过Class实例获取class信息的方法称为反射   JVM总是动态加载class,可以在运行期更具条件控制加载class   class java 除基本类型外都是class（包括interface）">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-06T22:32:24.000Z">
-<meta property="article:modified_time" content="2020-05-07T00:52:23.935Z">
+<meta property="article:modified_time" content="2020-05-07T01:00:43.230Z">
 <meta property="article:author" content="James">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -560,12 +560,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-05-07 08:52:23'>2020-05-07 06:32</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-07 09:00:43'>2020-05-07 06:32</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:814</span>
+        <span>字数:813</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -604,20 +604,20 @@
 <table>
 <thead>
 <tr>
-<th align="center">总结</th>
+<th>总结</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">JVM为每个加载的class创建对应的Class实例来保存 class所有信息</td>
+<td>JVM为每个加载的class创建对应的Class实例来保存 class所有信息</td>
 </tr>
 <tr>
-<td align="center">获取一个class对应的Class实例后，就可以获取该class的所有信息</td>
+<td>获取一个class对应的Class实例后，就可以获取该class的所有信息</td>
 </tr>
 <tr>
-<td align="center">通过Class实例获取class信息的方法称为反射</td>
+<td>通过Class实例获取class信息的方法称为反射</td>
 </tr>
 <tr>
-<td align="center">JVM总是动态加载class,可以在运行期更具条件控制加载class</td>
+<td>JVM总是动态加载class,可以在运行期更具条件控制加载class</td>
 </tr>
 </tbody></table>
 <h1 id="class"><a href="#class" class="headerlink" title="class"></a>class</h1><blockquote>
@@ -636,10 +636,11 @@
 <ul>
 <li>每加载一个class，JVM就为其创建一个Class类型的实例，并关联起来</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//fake code</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">Class</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line">Class cls=<span class="keyword">new</span> Class(String);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//fake code</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">Class</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line">Class cls=<span class="keyword">new</span> ClassString;</span><br></pre></td></tr></table></figure>
 
-<pre class="mermaid">graph TD
-a(加载String类：读取String.class文件)-->b(为String类创建一个Class实例：class cls=new Class(String));</pre>
+<pre class="mermaid">
+graph TD
+a(加载String类:<br>读取String.class文件)-->b(为String类创建一个Class实例:<br>class cls=new Class(String))</pre>
 <ul>
 <li>JVM持有的每个Class实例都指向一个数据类型(class / interface)</li>
 </ul>
@@ -762,10 +763,10 @@ a(加载String类：读取String.class文件)-->b(为String类创建一个Class�
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>Class类</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">841</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">840</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
     <p><span class="copy-title">发布时间:</span>2020-05-07, 06:32:24</p>
-    <p><span class="copy-title">最后更新:</span>2020-05-07, 08:52:23</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-07, 09:00:43</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/07/Class%E7%B1%BB/" title="Class类">https://feixiangdjames.github.io/blog/2020/05/07/Class%E7%B1%BB/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
