@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>接口 | James blog</title>
+  <title>访问字段 | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="接口 | James blog">
+  <meta name="description" content="访问字段 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]|总结||–||Field对象封装了字段的所有信息||通过Class实例的方法可以获得Field实例||getField&#x2F;getFields&#x2F;getDeclaredField&#x2F;getDeclaredFields||通过Field实例可以获取字段信息：getName&#x2F;getType&#x2F;getModifiers||通过Field实例可以读取或设置对象字段get(Oject instance)">
 <meta property="og:type" content="article">
@@ -542,9 +542,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-interface" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-访问字段" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">接口</h1>
+        <h1 class="article-title">访问字段</h1>
     
     <div class="article-meta">
         
@@ -554,7 +554,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="面向对象">面向对象</a>
+                <a  data-rel="反射与泛型">反射与泛型</a>
             
         </span>
         
@@ -568,12 +568,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-21 08:04:25'>2020-04-17 18:03</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-08 11:09:28'>2020-05-07 22:26</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:502</span>
+        <span>字数:520</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -592,7 +592,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#interface"><span class="toc-text">interface</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#区分"><span class="toc-text">区分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#abstract-class-VS-interface"><span class="toc-text">abstract class VS interface</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#default"><span class="toc-text">default</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#interface-继承"><span class="toc-text">interface 继承</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Field-对象"><span class="toc-text">Field 对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SecurityManager"><span class="toc-text">SecurityManager</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -608,103 +608,42 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#interface"><span class="toc-text">interface</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#区分"><span class="toc-text">区分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#abstract-class-VS-interface"><span class="toc-text">abstract class VS interface</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#default"><span class="toc-text">default</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#interface-继承"><span class="toc-text">interface 继承</span></a></li></ol></li></ol></div></p>
-<h1 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h1><table>
-<thead>
-<tr>
-<th>总结</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>接口定义了纯抽象规范</td>
-</tr>
-<tr>
-<td>接口可以实现多个接口</td>
-</tr>
-<tr>
-<td>接口也是数据类型，适用于向上转型和向下转型</td>
-</tr>
-<tr>
-<td>接口不能定义field</td>
-</tr>
-<tr>
-<td>接口可以定义default方法</td>
-</tr>
-<tr>
-<td>default方法和抽象类的普通方法是有所不同的。因为interface没有字段，default方法无法访问字段，而抽象类的普通方法可以访问实例字段。</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p>如果一个抽象类没有字段，所有的方法全部是抽象方法，就可以把该抽象类<br>改写为interface</p>
-</li>
-<li><p>使用 interface 声明一个结果</p>
-</li>
-<li><p>接口定义的方法默认是public abstract，接口中可以默认不写。</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>interface 是Java内置的纯抽象接口</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Hello</span></span>&#123;</span><br><span class="line"><span class="function">String <span class="title">hello</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">String <span class="title">goodbye</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>实现interface 使用implements </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Hello</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>可以实现多个interface <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Robot</span> <span class="keyword">implements</span> <span class="title">Hello</span>,<span class="title">Comparable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="区分"><a href="#区分" class="headerlink" title="区分"></a>区分</h2><blockquote>
-<p>Java的接口特质interface 定义的接口，只定义方法签名<br>编程接口泛指接口规范，如方法签名，数据格式，网络协议等</p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Field-对象"><span class="toc-text">Field 对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SecurityManager"><span class="toc-text">SecurityManager</span></a></li></ol></div><br>|总结|<br>|–|<br>|Field对象封装了字段的所有信息|<br>|通过Class实例的方法可以获得Field实例|<br>|getField/getFields/getDeclaredField/getDeclaredFields|<br>|通过Field实例可以获取字段信息：getName/getType/getModifiers|<br>|通过Field实例可以读取或设置对象字段get(Oject instance)/fieldInstance.set(Oi,O fieldvalue))|<br>|通过setAccessible(true)来访问非public字段|||||</p>
+<blockquote>
+<p>通过Class实例可以获取field信息：</p>
 </blockquote>
-</li>
+<ul>
+<li>getField(name):获取某个public field（包括父类）</li>
+<li>getDeclaredField(name):仅获取当前类的某个field</li>
+<li>getFields():获取所有public 的 field (包括父类)</li>
+<li>getDeclaredFields():获取当前类的所有field（不包括父类）</li>
 </ul>
-<h1 id="abstract-class-VS-interface"><a href="#abstract-class-VS-interface" class="headerlink" title="abstract class VS interface"></a>abstract class VS interface</h1><table>
-<thead>
-<tr>
-<th></th>
-<th align="center">absctract</th>
-<th align="center">interface</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>继承</td>
-<td align="center">一个子类只能extends一个calss</td>
-<td align="center">一个子类可以implements多个interface</td>
-</tr>
-<tr>
-<td>field</td>
-<td align="center">可以定义实例字段</td>
-<td align="center">不能定义实例字段</td>
-</tr>
-<tr>
-<td>抽象方法</td>
-<td align="center">可以定义</td>
-<td align="center">可以定义</td>
-</tr>
-<tr>
-<td>非抽象方法</td>
-<td align="center">可以定义非抽象方法</td>
-<td align="center">可以定义default方法</td>
-</tr>
-</tbody></table>
-<h2 id="default"><a href="#default" class="headerlink" title="default"></a>default</h2><ul>
-<li>interface 中 所有的 抽象方法，都要求子类去实现。</li>
-<li>子类的子类并不需要去实现祖父类的,抽象方法仅是限定在父子关系中。</li>
-<li>default 不是抽象方法，需要加函数体。</li>
-</ul>
-<h2 id="interface-继承"><a href="#interface-继承" class="headerlink" title="interface 继承"></a>interface 继承</h2><ul>
-<li>一个interface可以继承自另一个interface</li>
-<li>interface 的继承使用 extends</li>
-<li>相当于扩展了接口，子类需要讲需要实现的接口上的方法，一一实现。</li>
+<h1 id="Field-对象"><a href="#Field-对象" class="headerlink" title="Field 对象"></a>Field 对象</h1><blockquote>
+<p>Field对象包含一个field的所有信息</p>
+</blockquote>
+<ul>
+<li>getName()</li>
+<li>getType()</li>
+<li>getModifiers() //获取修饰关键字 public,private,protected</li>
 </ul>
 <blockquote>
-<p>合理设计interface 和 abstract class 的继承关系<br>公共逻辑放在 abstract class<br>接口层次代表抽象程度</p>
+<p>获取 field的值：</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List list=<span class="keyword">new</span> ArrayList();</span><br><span class="line">Collection coll=list;</span><br><span class="line">Iterable it=coll;</span><br></pre></td></tr></table></figure>
-
-
-
+<ul>
+<li>get(Object)获取一个实例的该字段的值</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Integer n=<span class="keyword">new</span> Integer(<span class="number">123</span>);</span><br><span class="line">Class cls=n.getClass();</span><br><span class="line">Field f=cls.getDeclaredField(<span class="string">"value"</span>);</span><br><span class="line">f.get(n);<span class="comment">//123,相当于n.value，但是不能运行成功。因为value时private的</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>设置field的值：</p>
+</blockquote>
+<ul>
+<li>set(Object,Object)设置一个实例的该字段的值。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f.set(n,<span class="number">456</span>);</span><br><span class="line"><span class="comment">//相当于n.value=456</span></span><br></pre></td></tr></table></figure>
+<h1 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h1><blockquote>
+<p>setAccessible(true) 可以访问一个private field;<br>setAccessible(true)可能会失败，如果JVM定义了一个 SecurityManager<br>SecurityManager的规则阻止对该Field设置accessible:<br>  例如：规则应用于所有java和javax开头的package的类，那么对于java核心类<br>  就不能访问他们的private字段</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">		String name = <span class="string">"Xiao Ming"</span>;</span><br><span class="line">		<span class="keyword">int</span> age = <span class="number">20</span>;</span><br><span class="line">		Person p = <span class="keyword">new</span> Person();</span><br><span class="line">		<span class="comment">// <span class="doctag">TODO:</span> 利用反射给name和age字段赋值:</span></span><br><span class="line">        Class cls=p.getClass();</span><br><span class="line">        Field[] f=cls.getDeclaredFields();</span><br><span class="line">		</span><br><span class="line">        <span class="keyword">for</span>(Field n:f) &#123;</span><br><span class="line">        	System.out.println(n.getName());</span><br><span class="line">        	System.out.println(n.getType());</span><br><span class="line">        	System.out.println(n.getModifiers());</span><br><span class="line">           	System.out.println(<span class="string">"isPrivate："</span>+Modifier.isPrivate(n.getModifiers()));</span><br><span class="line">           	<span class="keyword">if</span> (n.getName()==<span class="string">"name"</span>) &#123;</span><br><span class="line">           		n.set(p, name);</span><br><span class="line">            System.out.println(<span class="string">"Field name:"</span>+n.get(p));</span><br><span class="line">           	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">           	n.setAccessible(<span class="keyword">true</span>);<span class="comment">//private 不能访问；使用Field提供的方法 setAccessible 强制访问</span></span><br><span class="line">           	<span class="keyword">boolean</span> boo=n.getName()==<span class="string">"num"</span>;</span><br><span class="line">        </span><br><span class="line">             <span class="keyword">if</span>(boo) &#123;</span><br><span class="line">            	</span><br><span class="line">            	 n.set(<span class="keyword">null</span>, <span class="number">250</span>);</span><br><span class="line">             System.out.println(<span class="string">"静态字段不需要传入实例"</span>+n.get(<span class="keyword">null</span>));</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">if</span>(!boo) n.set(p,<span class="number">30</span>);</span><br><span class="line">               System.out.println(n.getName()+<span class="string">":"</span>+n.get(p));</span><br><span class="line">           	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">		System.out.println(p.getName()); <span class="comment">// "Xiao Ming"</span></span><br><span class="line">		System.out.println(<span class="string">"age:"</span>+p.getAge()); <span class="comment">// 20</span></span><br><span class="line">		System.out.println(Person.num); </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -715,12 +654,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>接口</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">511</span></p>
+    <p><span class="copy-title">文章标题:</span>访问字段</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">525</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-17, 18:03:05</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-21, 08:04:25</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/17/interface/" title="接口">https://feixiangdjames.github.io/blog/2020/04/17/interface/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-07, 22:26:16</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-08, 11:09:28</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/07/%E8%AE%BF%E9%97%AE%E5%AD%97%E6%AE%B5/" title="访问字段">https://feixiangdjames.github.io/blog/2020/05/07/%E8%AE%BF%E9%97%AE%E5%AD%97%E6%AE%B5/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
