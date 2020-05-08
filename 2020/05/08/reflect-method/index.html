@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>抽象类 | James blog</title>
+  <title>reflect method | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="抽象类 | James blog">
+  <meta name="description" content="reflect method | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]  Field对象封装了字段的所有信息   通过Class实例的方法可以获得Field实例 getField&#x2F;getFields&#x2F;getDeclaredField&#x2F;getDeclaredFields 通过Field实例可以获取字段信息：getName&#x2F;getType&#x2F;getModifiers 通过Field实例可以读取或设置对象字段get(Oject instance)&#x2F;fieldIn">
 <meta property="og:type" content="article">
@@ -550,9 +550,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-抽象类" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-reflect-method" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">抽象类</h1>
+        <h1 class="article-title">reflect method</h1>
     
     <div class="article-meta">
         
@@ -562,7 +562,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="面向对象">面向对象</a>
+                <a  data-rel="反射与泛型">反射与泛型</a>
             
         </span>
         
@@ -576,12 +576,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-26 07:24:41'>2020-04-17 18:03</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-08 21:38:01'>2020-05-08 18:49</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:504</span>
+        <span>字数:600</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -600,7 +600,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#抽象类"><span class="toc-text">抽象类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#我们可以把父类的方法声明为一个抽象方法。"><span class="toc-text">我们可以把父类的方法声明为一个抽象方法。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无法实例化的抽象类有什么用？"><span class="toc-text">无法实例化的抽象类有什么用？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#面向抽象编程"><span class="toc-text">面向抽象编程</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Method"><span class="toc-text">Method</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Method-对象信息"><span class="toc-text">Method 对象信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SecurityManager"><span class="toc-text">SecurityManager</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态"><span class="toc-text">多态</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -616,63 +616,72 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#抽象类"><span class="toc-text">抽象类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#我们可以把父类的方法声明为一个抽象方法。"><span class="toc-text">我们可以把父类的方法声明为一个抽象方法。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无法实例化的抽象类有什么用？"><span class="toc-text">无法实例化的抽象类有什么用？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#面向抽象编程"><span class="toc-text">面向抽象编程</span></a></li></ol></div></p>
-<h1 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h1><table>
-<thead>
-<tr>
-<th>总结</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>抽象方法定义了子类必须实现的抽象接口规范</td>
-</tr>
-<tr>
-<td>定义了抽象方法的类就是抽象类</td>
-</tr>
-<tr>
-<td>抽象类继承的子类必须首先抽象方法</td>
-</tr>
-<tr>
-<td>如果不直线抽象方法，则该子类仍是一个抽象类</td>
-</tr>
-<tr>
-<td></td>
-</tr>
-<tr>
-<td>- 子类可以覆写父类的方法【不能是final】，这种行为被称为多态。</td>
-</tr>
-<tr>
-<td>-  如果父类的方法没有实际意义，可否去掉方法的执行语句？</td>
-</tr>
-<tr>
-<td>不行，子类会编译错误。</td>
-</tr>
-<tr>
-<td>去掉父类方法，丧失多态。</td>
-</tr>
-</tbody></table>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;<span class="comment">//去掉执行语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="我们可以把父类的方法声明为一个抽象方法。"><a href="#我们可以把父类的方法声明为一个抽象方法。" class="headerlink" title="我们可以把父类的方法声明为一个抽象方法。"></a>我们可以把父类的方法声明为一个抽象方法。</h2><pre><code>- 抽象方法没有执行语句，使用abstract修饰。
-- 因为无法执行抽象方法，这里类必须也声明为抽象类。
-- 无法实例化一个抽象类.只能实例化一个子类，比如人永远是概念。</code></pre>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;<span class="comment">//抽象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">super</span>.run()+<span class="string">""</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="无法实例化的抽象类有什么用？"><a href="#无法实例化的抽象类有什么用？" class="headerlink" title="无法实例化的抽象类有什么用？"></a>无法实例化的抽象类有什么用？</h2><ul>
-<li>抽象类用于被继承。</li>
-<li>抽象类可以强迫子类实现其定义的抽象方法（否则编译错误）。</li>
-<li>抽象方法实际上相当于定义了”规范”，防止异化。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这样可以不关心,employee如何实现run方法，直接在</span></span><br><span class="line"><span class="comment">//person 上调用，e总是会实现它实际类型的方法。</span></span><br><span class="line"></span><br><span class="line">Person e= <span class="keyword">new</span> Eemployee();</span><br></pre></td></tr></table></figure>
-<h1 id="面向抽象编程"><a href="#面向抽象编程" class="headerlink" title="面向抽象编程"></a>面向抽象编程</h1><ul>
-<li>上层代码只定义规范 abstract </li>
-<li>不需要子类就可以实现业务逻辑（正常编译）。</li>
-<li>具体的业务逻辑由不同的子类实现，调用者并不关心。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">area</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Method"><span class="toc-text">Method</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Method-对象信息"><span class="toc-text">Method 对象信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SecurityManager"><span class="toc-text">SecurityManager</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态"><span class="toc-text">多态</span></a></li></ol></li></ol></div></p>
+<p>|总结|<br>|Method对象封装了方法所有信息|<br>|通过Class实例的方法可以获取Method实例:getMethod,getMethods,getDeclaredMethod,getDecharedMethods|<br>|通过Method实例可以获取方法的信息 getName、getReturnType、getParameterTypes、getModifiers|<br>|通过Method实例可以调用某个对象的方法：Object invoke(Object instance,Object…parameters)|<br>|通过设置setAccessible(true)来访问非public方法||</p>
+<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><blockquote>
+<p>通过Class实例获取method实例：</p>
+</blockquote>
 <ul>
-<li><p>对于main方法调用子类的方法，我们只关系子类是否有方法（可以进行业务编译）<br>我们并不关心方法是如何编写或实现的。</p>
+<li>getMethod(name,Class…):获取某个public的method(包括父类)</li>
+<li>getDeclaredMethod(name,Class…)获取当前类的某个method(不包括父类)</li>
+<li>getMethods():获取所有public的method（包括父类）</li>
+<li>getDecharedMethods():获取当前类的所有method</li>
+</ul>
+<p><strong>注意：</strong> getMethod定义了一个可变参数（Class…）,其实就是数组参数，只是写起来更简单。</p>
+<h2 id="Method-对象信息"><a href="#Method-对象信息" class="headerlink" title="Method 对象信息"></a>Method 对象信息</h2><blockquote>
+<p>Method对象包含一个method的所有信息：</p>
+</blockquote>
+<ul>
+<li>getName()</li>
+<li>getReturnType()</li>
+<li>getParameterTypes()</li>
+<li>getModifiers()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Integer n = <span class="keyword">new</span> Integer(<span class="number">123</span>);</span><br><span class="line">Class cls=n.getClass();</span><br><span class="line">Method[] ms=cls.getMethods();</span><br><span class="line"><span class="keyword">for</span>(Method m:ms)&#123;</span><br><span class="line">m.getName();</span><br><span class="line">Class ret=m.getReturnType();</span><br><span class="line">Class[] params=m.getParameterTypes();</span><br><span class="line">m.getModifiers();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>调用无参数Method:</p>
+</blockquote>
+<ul>
+<li>Object invoke(Object obj)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Ingeger n=<span class="keyword">new</span> Integer(<span class="number">123</span>);</span><br><span class="line">Class cls=n.getClass();</span><br><span class="line">Method m=cls.getMethod(<span class="string">"toString"</span>);</span><br><span class="line">String s=(String) m.invoke(n);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>调用带参数的Method:</p>
+</blockquote>
+<ul>
+<li>Object invoke(Object obj,Object…args)</li>
+</ul>
+<h2 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h2><ul>
+<li>setAccessible(true) 可能会失败：</li>
+<li><ul>
+<li>定义了SecurityManager</li>
+</ul>
 </li>
-<li><p>实现一个糟糕的没有抽象类的方法。</p>
+<li><ul>
+<li>SecurityManager 的规则阻止了对该Method设置accessible:<br>例如，规则应用于所有Java和javax开头的package的类</li>
+</ul>
 </li>
 </ul>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>当从父类获取到方法对象，然后传入子类的实例：</p>
+<ul>
+<li>实际是调用Student覆写的方法</li>
+<li>保证了多态的正确性</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Class Person&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">System.out.println(<span class="string">"Person:hello"</span>)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Class Student extends Person&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">System.out.prinln(<span class="string">"Student: hello"</span>)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">Method m=Person.class.getMethod("hello");</span><br><span class="line">m.invoke(<span class="keyword">new</span> Student());</span><br></pre></td></tr></table></figure>
+<p>反射调用方法和JAVA调用方法实际上是一致的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.itranswarp.learnjava;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Learn Java from https://www.liaoxuefeng.com/</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> liaoxuefeng</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		String name = <span class="string">"Xiao Ming"</span>;</span><br><span class="line">		<span class="keyword">int</span> age = <span class="number">20</span>;</span><br><span class="line">		Person p = <span class="keyword">new</span> Person();</span><br><span class="line">		<span class="comment">// <span class="doctag">TODO:</span> 利用反射调用setName和setAge方法:</span></span><br><span class="line">        Class cls=p.getClass();</span><br><span class="line">        Method m=cls.getMethod(<span class="string">"getName"</span>);</span><br><span class="line">        System.out.println(<span class="string">"getName:"</span>+m.getName());</span><br><span class="line">        System.out.println(<span class="string">"getParameters:"</span>+m.getParameters());</span><br><span class="line">        System.out.println(<span class="string">"getReturnType:"</span>+m.getReturnType());</span><br><span class="line">        System.out.println(<span class="string">"getModifiers:"</span>+m.getModifiers());</span><br><span class="line">        Method m1=cls.getMethod(<span class="string">"setName"</span>,String<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        System.out.println(<span class="string">"getName:"</span>+m1.getName());</span><br><span class="line">        System.out.println(<span class="string">"getParameters:"</span>+m1.getParameters());</span><br><span class="line">        System.out.println(<span class="string">"getReturnType:"</span>+m1.getReturnType());</span><br><span class="line">        System.out.println(<span class="string">"getModifiers:"</span>+m1.getModifiers());</span><br><span class="line">        String ms=(String) m.invoke(p);</span><br><span class="line">        m1.invoke(p,<span class="string">"james"</span>);</span><br><span class="line">        <span class="comment">//代码可以通过编译</span></span><br><span class="line">    	System.out.println(p.getName()+<span class="string">":"</span>+ms); </span><br><span class="line">        Method m2=cls.getMethod(<span class="string">"setAge"</span>,<span class="keyword">int</span><span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        m2.invoke(p, <span class="number">35</span>);</span><br><span class="line">     </span><br><span class="line">      </span><br><span class="line">    	System.out.println(p.getName()+<span class="string">":"</span>+ms); <span class="comment">// "Xiao Ming"</span></span><br><span class="line">		System.out.println(p.getAge()); <span class="comment">// 20</span></span><br><span class="line">		<span class="comment">//override</span></span><br><span class="line">		 Method m3=Person.class.getDeclaredMethod("hello");</span><br><span class="line">		 <span class="comment">//m3.setAccessible(true);</span></span><br><span class="line">	     Student s=<span class="keyword">new</span> Student();</span><br><span class="line">		  m3.invoke(s);</span><br><span class="line">	      m3.invoke(p);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -682,12 +691,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>抽象类</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">546</span></p>
+    <p><span class="copy-title">文章标题:</span>reflect method</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">609</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-17, 18:03:05</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-26, 07:24:41</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/17/%E6%8A%BD%E8%B1%A1%E7%B1%BB/" title="抽象类">https://feixiangdjames.github.io/blog/2020/04/17/%E6%8A%BD%E8%B1%A1%E7%B1%BB/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-08, 18:49:45</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-08, 21:38:01</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/08/reflect-method/" title="reflect method">https://feixiangdjames.github.io/blog/2020/05/08/reflect-method/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
