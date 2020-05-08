@@ -6,15 +6,15 @@
   <meta name="keywords" content=" java ">
   <meta name="description" content="reflect method | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="@[toc]  Field对象封装了字段的所有信息   通过Class实例的方法可以获得Field实例 getField&#x2F;getFields&#x2F;getDeclaredField&#x2F;getDeclaredFields 通过Field实例可以获取字段信息：getName&#x2F;getType&#x2F;getModifiers 通过Field实例可以读取或设置对象字段get(Oject instance)&#x2F;fieldIn">
+<meta name="description" content="@[toc]    总结    Method对象封装了方法所有信息   通过Class实例的方法可以获取Method实例:getMethod,getMethods,getDeclaredMethod,getDecharedMethods   通过Method实例可以获取方法的信息 getName、getReturnType、getParameterTypes、getModifiers   通过Me">
 <meta property="og:type" content="article">
-<meta property="og:title" content="访问字段">
-<meta property="og:url" content="https://feixiangdjames.github.io/blog/2020/05/07/%E8%AE%BF%E9%97%AE%E5%AD%97%E6%AE%B5/index.html">
+<meta property="og:title" content="reflect method">
+<meta property="og:url" content="https://feixiangdjames.github.io/blog/2020/05/08/reflect-method/index.html">
 <meta property="og:site_name" content="James blog">
-<meta property="og:description" content="@[toc]  Field对象封装了字段的所有信息   通过Class实例的方法可以获得Field实例 getField&#x2F;getFields&#x2F;getDeclaredField&#x2F;getDeclaredFields 通过Field实例可以获取字段信息：getName&#x2F;getType&#x2F;getModifiers 通过Field实例可以读取或设置对象字段get(Oject instance)&#x2F;fieldIn">
+<meta property="og:description" content="@[toc]    总结    Method对象封装了方法所有信息   通过Class实例的方法可以获取Method实例:getMethod,getMethods,getDeclaredMethod,getDecharedMethods   通过Method实例可以获取方法的信息 getName、getReturnType、getParameterTypes、getModifiers   通过Me">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-05-07T14:26:16.000Z">
-<meta property="article:modified_time" content="2020-05-08T03:12:05.642Z">
+<meta property="article:published_time" content="2020-05-08T10:49:45.000Z">
+<meta property="article:modified_time" content="2020-05-08T13:39:41.381Z">
 <meta property="article:author" content="James">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -576,7 +576,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-05-08 21:38:01'>2020-05-08 18:49</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-08 21:39:41'>2020-05-08 18:49</time>
         
     </div>
     <div class="article-meta">
@@ -617,7 +617,28 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Method"><span class="toc-text">Method</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Method-对象信息"><span class="toc-text">Method 对象信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SecurityManager"><span class="toc-text">SecurityManager</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态"><span class="toc-text">多态</span></a></li></ol></li></ol></div></p>
-<p>|总结|<br>|Method对象封装了方法所有信息|<br>|通过Class实例的方法可以获取Method实例:getMethod,getMethods,getDeclaredMethod,getDecharedMethods|<br>|通过Method实例可以获取方法的信息 getName、getReturnType、getParameterTypes、getModifiers|<br>|通过Method实例可以调用某个对象的方法：Object invoke(Object instance,Object…parameters)|<br>|通过设置setAccessible(true)来访问非public方法||</p>
+<table>
+<thead>
+<tr>
+<th>总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Method对象封装了方法所有信息</td>
+</tr>
+<tr>
+<td>通过Class实例的方法可以获取Method实例:getMethod,getMethods,getDeclaredMethod,getDecharedMethods</td>
+</tr>
+<tr>
+<td>通过Method实例可以获取方法的信息 getName、getReturnType、getParameterTypes、getModifiers</td>
+</tr>
+<tr>
+<td>通过Method实例可以调用某个对象的方法：Object invoke(Object instance,Object…parameters)</td>
+</tr>
+<tr>
+<td>通过设置setAccessible(true)来访问非public方法</td>
+</tr>
+</tbody></table>
 <h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><blockquote>
 <p>通过Class实例获取method实例：</p>
 </blockquote>
@@ -695,7 +716,7 @@
     <p><span class="copy-title">文章字数:</span><span class="post-count">609</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
     <p><span class="copy-title">发布时间:</span>2020-05-08, 18:49:45</p>
-    <p><span class="copy-title">最后更新:</span>2020-05-08, 21:38:01</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-08, 21:39:41</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/08/reflect-method/" title="reflect method">https://feixiangdjames.github.io/blog/2020/05/08/reflect-method/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
