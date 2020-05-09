@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>作用域 | James blog</title>
+  <title>获取继承关系 | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="作用域 | James blog">
+  <meta name="description" content="获取继承关系 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]  Constuctor 对象封装了构造方法的所有信息   通过Class实例的方法可以获得Constructor实例：getConstructor&#x2F;getConstructors&#x2F;getDeclaredConstructor&#x2F;getDeclaredConstructors 通过Constructor实例可以创建一个实例对象：newInstance(Object…paramenters">
 <meta property="og:type" content="article">
@@ -566,9 +566,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-作用域" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-获取继承关系" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">作用域</h1>
+        <h1 class="article-title">获取继承关系</h1>
     
     <div class="article-meta">
         
@@ -578,7 +578,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="面向对象">面向对象</a>
+                <a  data-rel="反射与泛型">反射与泛型</a>
             
         </span>
         
@@ -592,12 +592,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-22 10:03:11'>2020-04-21 18:03</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-10 07:08:19'>2020-05-10 06:01</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:854</span>
+        <span>字数:314</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -616,7 +616,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#访问权限"><span class="toc-text">访问权限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#private"><span class="toc-text">private</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义在一个class的内部的class称为inner-class"><span class="toc-text">定义在一个class的内部的class称为inner class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#protected"><span class="toc-text">protected</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#package"><span class="toc-text">package</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#局部变量"><span class="toc-text">局部变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final"><span class="toc-text">final</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#classpath"><span class="toc-text">classpath</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jar包"><span class="toc-text">jar包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#jar包生成"><span class="toc-text">jar包生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jar包的其他功能"><span class="toc-text">jar包的其他功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK的class"><span class="toc-text">JDK的class</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#getSuerclass"><span class="toc-text">getSuerclass()</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -632,146 +632,34 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#访问权限"><span class="toc-text">访问权限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#private"><span class="toc-text">private</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义在一个class的内部的class称为inner-class"><span class="toc-text">定义在一个class的内部的class称为inner class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#protected"><span class="toc-text">protected</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#package"><span class="toc-text">package</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#局部变量"><span class="toc-text">局部变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final"><span class="toc-text">final</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#classpath"><span class="toc-text">classpath</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jar包"><span class="toc-text">jar包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#jar包生成"><span class="toc-text">jar包生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jar包的其他功能"><span class="toc-text">jar包的其他功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK的class"><span class="toc-text">JDK的class</span></a></li></ol></li></ol></div></p>
-<h1 id="访问权限"><a href="#访问权限" class="headerlink" title="访问权限"></a>访问权限</h1><table>
-<thead>
-<tr>
-<th>总结</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>JAVA内建的访问权限包括public、protected、private、package</td>
-</tr>
-<tr>
-<td>局部变量的作用域从变量声明开始，到一个块结束</td>
-</tr>
-<tr>
-<td>一个JAVA文件只能包含一个public class，但可以包含多个非public class</td>
-</tr>
-</tbody></table>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#getSuerclass"><span class="toc-text">getSuerclass()</span></a></li></ol></div></p>
+<h1 id="getSuerclass"><a href="#getSuerclass" class="headerlink" title="getSuerclass()"></a>getSuerclass()</h1><blockquote>
+<p>获取父类的Class：</p>
+</blockquote>
 <ul>
-<li><p>JAVA的类、接口、字段和方法都可以设置访问权限</p>
-</li>
-<li><p>访问权限有public、 protected、private 和 package四种。</p>
-<table>
-<thead>
-<tr>
-<th>定义为public的field、method可以被其他类访问</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>定义为private的field、method无法被其他类访问</td>
-</tr>
-</tbody></table>
-<h2 id="private"><a href="#private" class="headerlink" title="private"></a>private</h2></li>
-<li><p>private 访问权限限定在class的内部，与方法的声明顺序无关</p>
-</li>
-<li><p>建议把public放在private前面，因为public对外提供了方法，首先应该被关注。</p>
-</li>
-<li><p>定义为private 的class 无法被其他类访问</p>
-</li>
-<li><p>访问private class 被限定在外层class 的内部</p>
-<h2 id="定义在一个class的内部的class称为inner-class"><a href="#定义在一个class的内部的class称为inner-class" class="headerlink" title="定义在一个class的内部的class称为inner class"></a>定义在一个class的内部的class称为inner class</h2><h2 id="protected"><a href="#protected" class="headerlink" title="protected"></a>protected</h2><p>定义为protected的字段和方法可以被子类访问</p>
-<h2 id="package"><a href="#package" class="headerlink" title="package"></a>package</h2><p>包作用域是指一个类允许访问同一个package的。</p>
-</li>
-<li><p>没有public、private修饰的class</p>
-</li>
-<li><p>没有public 、protected、private修饰的字段和方法。</p>
-</li>
-<li><p>包没有继承关系，package权限 包名必须一致。</p>
-<table>
-<thead>
-<tr>
-<th>最佳实践</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>如果不确定是否需要public ，就不声明为public ，即尽可以能少暴露对外方法</td>
-</tr>
-<tr>
-<td>因为权限从小改大容易，从大改小要非常小心</td>
-</tr>
-<tr>
-<td></td>
-</tr>
-</tbody></table>
-<h2 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h2></li>
-<li><p>在方法内部定义的变量称为局部变量，方法名也是局部变量。</p>
-</li>
-<li><p>局部变量作用域从变量声明处开始到对应的块结束。</p>
-</li>
-<li><p>尽可能的把局部变量作用域缩小。</p>
-</li>
-<li><p>尽可能的延后声明局部变量.</p>
-<p>注意：在一个java文件中，只能定义一个public class,但是可以定义多个非<br>public class.并且保存在同一个java 文件中。</p>
-<h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2></li>
-<li><p>final 修饰方法，阻止覆写。</p>
-</li>
-<li><p>final 修饰类，不能继承。</p>
-</li>
-<li><p>final field 不能重新赋值。</p>
-<h1 id="classpath"><a href="#classpath" class="headerlink" title="classpath"></a>classpath</h1></li>
-<li><p>classpath 是一个环境变量</p>
-</li>
-<li><p>classpath 指示JVM如何搜索class</p>
-</li>
-<li><p>classpath 设置的搜索路径与操作系统相关</p>
-</li>
-<li><p>window中;fenge</p>
-</li>
-<li><p>mac OS 是使用： 分割</p>
-<p>例如设置的classpash是 .;C::\work\project1\bin;c:\shared</p>
-</li>
-<li><p>JVM在加载com.feiyangedu.Hello这个类时，依次查找</p>
-</li>
+<li>Class getSuerclass()</li>
+<li>Object 的父类是null</li>
+<li>interface的父类是null</li>
 </ul>
-<ol>
-<li>当前目录 \com\feiyangedu\Hello.class</li>
-<li>C:\work\project1\bin\com\feiyangedu\Hello.class</li>
-<li>C:\shared\com\feiyangedu\Hello.class</li>
-</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class sup=Integer<span class="class">.<span class="keyword">class</span>.<span class="title">getSuerclass</span>()</span>;</span><br><span class="line">Object<span class="class">.<span class="keyword">class</span>.<span class="title">getSuerclass</span>()</span>;<span class="comment">//null</span></span><br><span class="line">Runnable<span class="class">.<span class="keyword">class</span>.<span class="title">getSuerclass</span>()</span>;<span class="comment">//null</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>获取当前类直接实现的interface:</p>
+</blockquote>
 <ul>
-<li><p>在某个路径下找到了，就不继续了</p>
-</li>
-<li><p>如果都没有就报错</p>
-<p>classpath的设置方法：</p>
-</li>
-<li><p>直接在系统环境中设置classpath 环境变量（不推荐）</p>
-</li>
-<li><p>在启动JVM时设置classpath变量（推荐）</p>
-</li>
-<li><p>java -classpath C:\work\bin;C:\shared com.feiyangedu.Hello</p>
-</li>
-<li><p>java -cp C:\work\bin;c:\shared com.feiyangedu.Hello</p>
-</li>
-<li><p>没有设置环境变量，也没有设置-CP参数，默认的classpath为.当前目录</p>
-</li>
-<li><p>在Eclips中运行JAVA程序，eclipse自动传入-cp参数是当前工程的bin目录和引入的jar</p>
-<h1 id="jar包"><a href="#jar包" class="headerlink" title="jar包"></a>jar包</h1></li>
-<li><p>jar包是zip格式的压缩文件，包含若干.class 文件中。</p>
-</li>
-<li><p>jar 包相当于目录</p>
-</li>
-<li><p>classpath可以包含jar文件 C:\WORK\bin\all.jar</p>
-</li>
-<li><p>查找com.feiyangedu.Hello类将在C:\work\bin\all.jar文件中所有</p>
-<h2 id="jar包生成"><a href="#jar包生成" class="headerlink" title="jar包生成"></a>jar包生成</h2></li>
-<li><p>使用JDK自带的jar命令</p>
-</li>
-<li><p>使用构建工具如Maven等</p>
-<h3 id="jar包的其他功能"><a href="#jar包的其他功能" class="headerlink" title="jar包的其他功能"></a>jar包的其他功能</h3></li>
-<li><p>jar包可以包含一个特殊的/META-INF/MANIFEST.MF文件</p>
-</li>
-<li><p>MANIFEST.MF是纯文本，可以指定Main-Class和其他信息</p>
-</li>
-<li><p>jar包可以包含其他jar包</p>
-<h2 id="JDK的class"><a href="#JDK的class" class="headerlink" title="JDK的class"></a>JDK的class</h2></li>
-<li><p>JVM运行时会自动加载JDK自带的class</p>
-</li>
-<li><p>JDK自带的class被打包在rt.jar</p>
-</li>
-<li><p>不需要在classpath中引用rt.jar</p>
-</li>
+<li>Class[] getInterfaces();</li>
+<li>不包括间接实现的interface;</li>
+<li>没有interface的class返回空数组；</li>
+<li>interface返回继承的interface;</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Class[] ifs=Integer<span class="class">.<span class="keyword">class</span>.<span class="title">getIngerfaces</span>()</span>;<span class="comment">//[Comparable.class]</span></span><br><span class="line">Class[] ifs=java.util.ArrayList<span class="class">.<span class="keyword">class</span>.<span class="title">getIngerfaces</span>()</span>;</span><br><span class="line"><span class="comment">//[List.class,RandomAccess.class,Cloneable.class,Serializable.class]</span></span><br><span class="line">Class[] ifs=Math<span class="class">.<span class="keyword">class</span>.<span class="title">getInterfaces</span>()</span>;<span class="comment">//[]</span></span><br><span class="line">Class[] ifs=java.util.List<span class="class">.<span class="keyword">class</span>.<span class="title">getInterfaces</span>()</span>;<span class="comment">//[Colleaction.calss]</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>isAssignableFrom()<br>  根据class 对象判断向上转型是否成立。</p>
+</blockquote>
+<ul>
+<li>判断向上转型是否成立：</li>
+<li>bool isAssignableFrom(Class)<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Integer i=...</span></span><br><span class="line"><span class="comment">// Number x=i ?</span></span><br><span class="line">Number<span class="class">.<span class="keyword">class</span>.<span class="title">isAssignableFrom</span>(<span class="title">Integer</span>.<span class="title">class</span>)</span>;<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	Class cls=Student<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">	printSuperClass(cls);</span><br><span class="line">	System.out.println(<span class="string">"--------printInterfaces-------"</span>);</span><br><span class="line">	printInterfaces(cls);</span><br><span class="line">	System.out.println(<span class="string">"--------_printAllIngerfaces-------"</span>);</span><br><span class="line">	_printAllIngerfaces(cls);</span><br><span class="line">	System.out.println(<span class="string">"--------isAssignableFrom-------"</span>);</span><br><span class="line">	System.out.println(Person<span class="class">.<span class="keyword">class</span>.<span class="title">isAssignableFrom</span>(<span class="title">Student</span>.<span class="title">class</span>))</span>;</span><br><span class="line">	System.out.println(Student<span class="class">.<span class="keyword">class</span>.<span class="title">isAssignableFrom</span>(<span class="title">Person</span>.<span class="title">class</span>))</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">_printAllIngerfaces</span><span class="params">(Class c)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">	Class[] ifs=c.getInterfaces();</span><br><span class="line">	<span class="keyword">for</span>(Class i:ifs) &#123;</span><br><span class="line">		 System.out.print(i.getSimpleName());</span><br><span class="line">		 System.out.print(<span class="string">","</span>);</span><br><span class="line">		 _printAllIngerfaces(i);</span><br><span class="line">	&#125;</span><br><span class="line">	Class sup=c.getSuperclass();</span><br><span class="line">	<span class="keyword">if</span>(sup!=<span class="keyword">null</span>) &#123;</span><br><span class="line">		_printAllIngerfaces(sup);</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printSuperClass</span><span class="params">(Class c)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">    System.out.print(c.getSimpleName());</span><br><span class="line">    Class s=c.getSuperclass();</span><br><span class="line">    <span class="keyword">if</span>(s==<span class="keyword">null</span>) &#123;</span><br><span class="line">    	System.out.println();</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    	System.out.print(<span class="string">":"</span>);</span><br><span class="line">    	printSuperClass(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printInterfaces</span><span class="params">(Class c)</span> </span>&#123;</span><br><span class="line">	Class[] ifs=c.getInterfaces();</span><br><span class="line">	<span class="comment">//getIngerfaces并不会返回父类实现的interface</span></span><br><span class="line">	System.out.println(c.getSimpleName()+<span class="string">"implements"</span>+Arrays.toString(ifs));</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -782,12 +670,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>作用域</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">887</span></p>
+    <p><span class="copy-title">文章标题:</span>获取继承关系</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">316</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-21, 18:03:05</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-22, 10:03:11</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/21/%E4%BD%9C%E7%94%A8%E5%9F%9F/" title="作用域">https://feixiangdjames.github.io/blog/2020/04/21/%E4%BD%9C%E7%94%A8%E5%9F%9F/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-10, 06:01:49</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-10, 07:08:19</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/10/%E8%8E%B7%E5%8F%96%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB/" title="获取继承关系">https://feixiangdjames.github.io/blog/2020/05/10/%E8%8E%B7%E5%8F%96%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

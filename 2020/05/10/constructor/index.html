@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>作用域 | James blog</title>
+  <title>constructor | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="作用域 | James blog">
+  <meta name="description" content="constructor | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]  Constuctor 对象封装了构造方法的所有信息   通过Class实例的方法可以获得Constructor实例：getConstructor&#x2F;getConstructors&#x2F;getDeclaredConstructor&#x2F;getDeclaredConstructors 通过Constructor实例可以创建一个实例对象：newInstance(Object…paramenters">
 <meta property="og:type" content="article">
@@ -566,9 +566,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-作用域" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-constructor" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">作用域</h1>
+        <h1 class="article-title">constructor</h1>
     
     <div class="article-meta">
         
@@ -578,7 +578,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="面向对象">面向对象</a>
+                <a  data-rel="反射与泛型">反射与泛型</a>
             
         </span>
         
@@ -592,12 +592,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-22 10:03:11'>2020-04-21 18:03</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-10 05:27:32'>2020-05-10 04:16</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:854</span>
+        <span>字数:379</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -616,7 +616,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#访问权限"><span class="toc-text">访问权限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#private"><span class="toc-text">private</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义在一个class的内部的class称为inner-class"><span class="toc-text">定义在一个class的内部的class称为inner class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#protected"><span class="toc-text">protected</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#package"><span class="toc-text">package</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#局部变量"><span class="toc-text">局部变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final"><span class="toc-text">final</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#classpath"><span class="toc-text">classpath</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jar包"><span class="toc-text">jar包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#jar包生成"><span class="toc-text">jar包生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jar包的其他功能"><span class="toc-text">jar包的其他功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK的class"><span class="toc-text">JDK的class</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#构造方法"><span class="toc-text">构造方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SecurityManager"><span class="toc-text">SecurityManager</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -632,147 +632,45 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#访问权限"><span class="toc-text">访问权限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#private"><span class="toc-text">private</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义在一个class的内部的class称为inner-class"><span class="toc-text">定义在一个class的内部的class称为inner class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#protected"><span class="toc-text">protected</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#package"><span class="toc-text">package</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#局部变量"><span class="toc-text">局部变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final"><span class="toc-text">final</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#classpath"><span class="toc-text">classpath</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jar包"><span class="toc-text">jar包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#jar包生成"><span class="toc-text">jar包生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jar包的其他功能"><span class="toc-text">jar包的其他功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK的class"><span class="toc-text">JDK的class</span></a></li></ol></li></ol></div></p>
-<h1 id="访问权限"><a href="#访问权限" class="headerlink" title="访问权限"></a>访问权限</h1><table>
-<thead>
-<tr>
-<th>总结</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>JAVA内建的访问权限包括public、protected、private、package</td>
-</tr>
-<tr>
-<td>局部变量的作用域从变量声明开始，到一个块结束</td>
-</tr>
-<tr>
-<td>一个JAVA文件只能包含一个public class，但可以包含多个非public class</td>
-</tr>
-</tbody></table>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#构造方法"><span class="toc-text">构造方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SecurityManager"><span class="toc-text">SecurityManager</span></a></li></ol></div></p>
+<blockquote>
+<p>Constuctor 对象封装了构造方法的所有信息</p>
+</blockquote>
 <ul>
-<li><p>JAVA的类、接口、字段和方法都可以设置访问权限</p>
-</li>
-<li><p>访问权限有public、 protected、private 和 package四种。</p>
-<table>
-<thead>
-<tr>
-<th>定义为public的field、method可以被其他类访问</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>定义为private的field、method无法被其他类访问</td>
-</tr>
-</tbody></table>
-<h2 id="private"><a href="#private" class="headerlink" title="private"></a>private</h2></li>
-<li><p>private 访问权限限定在class的内部，与方法的声明顺序无关</p>
-</li>
-<li><p>建议把public放在private前面，因为public对外提供了方法，首先应该被关注。</p>
-</li>
-<li><p>定义为private 的class 无法被其他类访问</p>
-</li>
-<li><p>访问private class 被限定在外层class 的内部</p>
-<h2 id="定义在一个class的内部的class称为inner-class"><a href="#定义在一个class的内部的class称为inner-class" class="headerlink" title="定义在一个class的内部的class称为inner class"></a>定义在一个class的内部的class称为inner class</h2><h2 id="protected"><a href="#protected" class="headerlink" title="protected"></a>protected</h2><p>定义为protected的字段和方法可以被子类访问</p>
-<h2 id="package"><a href="#package" class="headerlink" title="package"></a>package</h2><p>包作用域是指一个类允许访问同一个package的。</p>
-</li>
-<li><p>没有public、private修饰的class</p>
-</li>
-<li><p>没有public 、protected、private修饰的字段和方法。</p>
-</li>
-<li><p>包没有继承关系，package权限 包名必须一致。</p>
-<table>
-<thead>
-<tr>
-<th>最佳实践</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>如果不确定是否需要public ，就不声明为public ，即尽可以能少暴露对外方法</td>
-</tr>
-<tr>
-<td>因为权限从小改大容易，从大改小要非常小心</td>
-</tr>
-<tr>
-<td></td>
-</tr>
-</tbody></table>
-<h2 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h2></li>
-<li><p>在方法内部定义的变量称为局部变量，方法名也是局部变量。</p>
-</li>
-<li><p>局部变量作用域从变量声明处开始到对应的块结束。</p>
-</li>
-<li><p>尽可能的把局部变量作用域缩小。</p>
-</li>
-<li><p>尽可能的延后声明局部变量.</p>
-<p>注意：在一个java文件中，只能定义一个public class,但是可以定义多个非<br>public class.并且保存在同一个java 文件中。</p>
-<h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2></li>
-<li><p>final 修饰方法，阻止覆写。</p>
-</li>
-<li><p>final 修饰类，不能继承。</p>
-</li>
-<li><p>final field 不能重新赋值。</p>
-<h1 id="classpath"><a href="#classpath" class="headerlink" title="classpath"></a>classpath</h1></li>
-<li><p>classpath 是一个环境变量</p>
-</li>
-<li><p>classpath 指示JVM如何搜索class</p>
-</li>
-<li><p>classpath 设置的搜索路径与操作系统相关</p>
-</li>
-<li><p>window中;fenge</p>
-</li>
-<li><p>mac OS 是使用： 分割</p>
-<p>例如设置的classpash是 .;C::\work\project1\bin;c:\shared</p>
-</li>
-<li><p>JVM在加载com.feiyangedu.Hello这个类时，依次查找</p>
+<li>通过Class实例的方法可以获得Constructor实例：<br>getConstructor/getConstructors/getDeclaredConstructor/getDeclaredConstructors</li>
+<li>通过Constructor实例可以创建一个实例对象：<br>newInstance(Object…paramenters)</li>
+<li>通过设置setAccessible(true) 可以访问一个private Constructor;</li>
+</ul>
+<h1 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h1><blockquote>
+<p>Class.newInstance()只能调用public无参数的构造方法</p>
+</blockquote>
+<ul>
+<li>String s=(String) String.class.newInstance();</li>
+<li>Ingeger 没有定义无参数的构造方法。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//错误</span></span><br><span class="line">Integer n= (Integer) Ingeger<span class="class">.<span class="keyword">class</span>.<span class="title">newInstance</span>()</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Constructor对象包含一个构造方法的所有信息，可以创建一个实例：</p>
+</blockquote>
 </li>
 </ul>
-<ol>
-<li>当前目录 \com\feiyangedu\Hello.class</li>
-<li>C:\work\project1\bin\com\feiyangedu\Hello.class</li>
-<li>C:\shared\com\feiyangedu\Hello.class</li>
-</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Integer(int)</span></span><br><span class="line"></span><br><span class="line">Class cls=Integer<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line"><span class="comment">//参数是基本类型和包装类型是不同的，int.class和Ingeger.class是不同的。</span></span><br><span class="line">Constructor cons1=cls.getConstructor(<span class="keyword">int</span><span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">Integer n1=(Ingeger) cons1.newInstance(<span class="number">123</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Integer(String)</span></span><br><span class="line">Constructor cons2=cls.getConstructor(String<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">Ingeger n2=(Ingeger) cons2.newInstance(<span class="string">"123"</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过Class实例获取Constructor信息：</p>
+</blockquote>
 <ul>
-<li><p>在某个路径下找到了，就不继续了</p>
-</li>
-<li><p>如果都没有就报错</p>
-<p>classpath的设置方法：</p>
-</li>
-<li><p>直接在系统环境中设置classpath 环境变量（不推荐）</p>
-</li>
-<li><p>在启动JVM时设置classpath变量（推荐）</p>
-</li>
-<li><p>java -classpath C:\work\bin;C:\shared com.feiyangedu.Hello</p>
-</li>
-<li><p>java -cp C:\work\bin;c:\shared com.feiyangedu.Hello</p>
-</li>
-<li><p>没有设置环境变量，也没有设置-CP参数，默认的classpath为.当前目录</p>
-</li>
-<li><p>在Eclips中运行JAVA程序，eclipse自动传入-cp参数是当前工程的bin目录和引入的jar</p>
-<h1 id="jar包"><a href="#jar包" class="headerlink" title="jar包"></a>jar包</h1></li>
-<li><p>jar包是zip格式的压缩文件，包含若干.class 文件中。</p>
-</li>
-<li><p>jar 包相当于目录</p>
-</li>
-<li><p>classpath可以包含jar文件 C:\WORK\bin\all.jar</p>
-</li>
-<li><p>查找com.feiyangedu.Hello类将在C:\work\bin\all.jar文件中所有</p>
-<h2 id="jar包生成"><a href="#jar包生成" class="headerlink" title="jar包生成"></a>jar包生成</h2></li>
-<li><p>使用JDK自带的jar命令</p>
-</li>
-<li><p>使用构建工具如Maven等</p>
-<h3 id="jar包的其他功能"><a href="#jar包的其他功能" class="headerlink" title="jar包的其他功能"></a>jar包的其他功能</h3></li>
-<li><p>jar包可以包含一个特殊的/META-INF/MANIFEST.MF文件</p>
-</li>
-<li><p>MANIFEST.MF是纯文本，可以指定Main-Class和其他信息</p>
-</li>
-<li><p>jar包可以包含其他jar包</p>
-<h2 id="JDK的class"><a href="#JDK的class" class="headerlink" title="JDK的class"></a>JDK的class</h2></li>
-<li><p>JVM运行时会自动加载JDK自带的class</p>
-</li>
-<li><p>JDK自带的class被打包在rt.jar</p>
-</li>
-<li><p>不需要在classpath中引用rt.jar</p>
+<li>getConstructor(Class…):获取某个public的Contructor</li>
+<li>getDeclaredConstructor(Class…):获取某个Constructor</li>
+<li>getConstructors():获取所有bulic的Constructor</li>
+<li>getDeclaredConstructors():获取所有的Constructor<blockquote>
+<p>注意：Constructor是和继承没有关系的，所以我们总是获取<br>当前的实例的构造方法，不可能和父类有什么关系。</p>
+</blockquote>
 </li>
 </ul>
+<h1 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h1><blockquote>
+<p>setAccessible(true) 可以访问一个private Constructor;<br>setAccessible(true)可能会失败，如果JVM定义了一个 SecurityManager<br>SecurityManager的规则阻止对该Constructor设置accessible:<br>  例如：规则应用于所有java和javax开头的package的类，那么对于java核心类<br>  就不能访问他们的private字段</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">"---------feflecton start:----------"</span>);</span><br><span class="line">		<span class="comment">//reflection</span></span><br><span class="line">		Class cls=Student<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">		Constructor cons1=cls.getDeclaredConstructor(String<span class="class">.<span class="keyword">class</span>,<span class="title">int</span>.<span class="title">class</span>)</span>;</span><br><span class="line">		<span class="comment">//print constructor info</span></span><br><span class="line">		printConstructorInfo(cons1);</span><br><span class="line">		cons1.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">		Student s2=(Student) cons1.newInstance(<span class="string">"mengmeng"</span>,<span class="number">5</span>);</span><br><span class="line">		s2.hello();</span><br></pre></td></tr></table></figure>
+
+
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -782,12 +680,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>作用域</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">887</span></p>
+    <p><span class="copy-title">文章标题:</span>constructor</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">385</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-21, 18:03:05</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-22, 10:03:11</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/21/%E4%BD%9C%E7%94%A8%E5%9F%9F/" title="作用域">https://feixiangdjames.github.io/blog/2020/04/21/%E4%BD%9C%E7%94%A8%E5%9F%9F/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-10, 04:16:20</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-10, 05:27:32</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/10/constructor/" title="constructor">https://feixiangdjames.github.io/blog/2020/05/10/constructor/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
