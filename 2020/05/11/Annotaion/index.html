@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>基本结构,变量,常量,整数,浮点,数的运算,布尔 | James blog</title>
+  <title>Annotaion | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="基本结构,变量,常量,整数,浮点,数的运算,布尔 | James blog">
+  <meta name="description" content="Annotaion | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]    总结    可以在运行期通过反射读取RUNTIME类型的注解   不要漏写 @Retention(RetentionPolicy.RUNTIME)   可以通过工具处理直接来实相应功能   对JavaBean 的属性值按照规则进行检查   JUnit 会自动运行@Test的注解的测试方法   Annotaion 注解是放在JAVA 源码的class,function,field">
 <meta property="og:type" content="article">
@@ -574,9 +574,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-基本结构,变量,常量,整数,浮点,数的运算,布尔" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Annotaion" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">基本结构,变量,常量,整数,浮点,数的运算,布尔</h1>
+        <h1 class="article-title">Annotaion</h1>
     
     <div class="article-meta">
         
@@ -586,7 +586,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="程序基础">程序基础</a>
+                <a  data-rel="反射与泛型">反射与泛型</a>
             
         </span>
         
@@ -600,12 +600,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-05-07 04:20:31'>2020-04-11 11:03</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-11 08:33:01'>2020-05-11 05:45</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.2k</span>
+        <span>字数:714</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -624,7 +624,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关键字"><span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hello程序结构"><span class="toc-text">Hello程序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类的命名规则"><span class="toc-text">类的命名规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据类型"><span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本类型"><span class="toc-text">基本类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#整型"><span class="toc-text">整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点型"><span class="toc-text">浮点型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#字符型-char"><span class="toc-text">字符型 char</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#boolean"><span class="toc-text">boolean</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常量"><span class="toc-text">常量</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Annotaion"><span class="toc-text">Annotaion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见注解"><span class="toc-text">常见注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注解可以定义配置参数："><span class="toc-text">注解可以定义配置参数：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定义注解"><span class="toc-text">定义注解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#元注解"><span class="toc-text">元注解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Target"><span class="toc-text">@Target</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Retention"><span class="toc-text">@Retention</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Annotaion的生命周期"><span class="toc-text">Annotaion的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Repeatable定义Annotation是否可以重复"><span class="toc-text">@Repeatable定义Annotation是否可以重复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inherted"><span class="toc-text">@Inherted</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定义个Annotation"><span class="toc-text">定义个Annotation</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#处理注解"><span class="toc-text">处理注解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#反射API-读取Annotation"><span class="toc-text">反射API 读取Annotation:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#读取方法参数的Annotation"><span class="toc-text">读取方法参数的Annotation:</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -640,107 +640,216 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关键字"><span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hello程序结构"><span class="toc-text">Hello程序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类的命名规则"><span class="toc-text">类的命名规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据类型"><span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本类型"><span class="toc-text">基本类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#整型"><span class="toc-text">整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点型"><span class="toc-text">浮点型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#字符型-char"><span class="toc-text">字符型 char</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#boolean"><span class="toc-text">boolean</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常量"><span class="toc-text">常量</span></a></li></ol></div></p>
-<ul>
-<li>JAVA提供了两种变量类型：基本类型、引用类型。</li>
-<li>JAVA定义基本类型：整（type,short,int,long）,浮点型（float,double）,boolean,char</li>
-<li>变量可以重新赋值；等号是赋值语句，不是数学符号。</li>
-<li>常量初始化之后，不能重新赋值；为了避免magic number. 常量修饰关键字是final</li>
-</ul>
-<h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><blockquote>
-<p>Java关键字是对Java编译器有特殊含义的字符串，是编译器和程序员的一个约定，程序员利用关键字来告诉编译器其声明的变量类型、类、方法特性等信息。<br>声明变量要避开关键字。</p>
-</blockquote>
-<h2 id="Hello程序结构"><a href="#Hello程序结构" class="headerlink" title="Hello程序结构"></a>Hello程序结构</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 双星符号开头，是区别于其他多行注释的；可以自动创建文档。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">System.out.println(<span class="string">"Hello,world"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在Java程序中，注释是一种给人阅读的文本，不是程序的一部分，所以编译器会自动忽略注释.在JAVA中有3种注释。</p>
-</blockquote>
-<p>  1.// 单行注释<br>  2.<kbd>/<em>~</em>/</kbd>多行注释<br>  3.<kbd>/<em>*~</em>/</kbd> 可以自动创建文档的注释。</p>
-<blockquote>
-<p>java 的基本单位是关键字class,一个.java 文件有且只有一个class<br>class 的访问修饰符是public，表示可以在命令行运行<br>public static void main 是JAVA程序的固定入口；参数必须是String[ ] args;方法定义了一组执行语句，方法内部的代码将会被依次顺序执行。main 不是关键字只是 JAVA的主函数入口。<br>System.out.println 打印方法的执行，参数是”Hello,world”</p>
-</blockquote>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Annotaion"><span class="toc-text">Annotaion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见注解"><span class="toc-text">常见注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注解可以定义配置参数："><span class="toc-text">注解可以定义配置参数：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定义注解"><span class="toc-text">定义注解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#元注解"><span class="toc-text">元注解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Target"><span class="toc-text">@Target</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Retention"><span class="toc-text">@Retention</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Annotaion的生命周期"><span class="toc-text">Annotaion的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Repeatable定义Annotation是否可以重复"><span class="toc-text">@Repeatable定义Annotation是否可以重复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inherted"><span class="toc-text">@Inherted</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定义个Annotation"><span class="toc-text">定义个Annotation</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#处理注解"><span class="toc-text">处理注解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#反射API-读取Annotation"><span class="toc-text">反射API 读取Annotation:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#读取方法参数的Annotation"><span class="toc-text">读取方法参数的Annotation:</span></a></li></ol></li></ol></li></ol></div></p>
 <table>
 <thead>
 <tr>
-<th>关键字</th>
-<th>说明</th>
+<th>总结</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>public</td>
-<td>公共</td>
+<td>可以在运行期通过反射读取RUNTIME类型的注解</td>
 </tr>
 <tr>
-<td>static</td>
-<td>静态</td>
+<td>不要漏写 @Retention(RetentionPolicy.RUNTIME)</td>
 </tr>
 <tr>
-<td>void</td>
-<td>没有返回值</td>
+<td>可以通过工具处理直接来实相应功能</td>
+</tr>
+<tr>
+<td>对JavaBean 的属性值按照规则进行检查</td>
+</tr>
+<tr>
+<td>JUnit 会自动运行@Test的注解的测试方法</td>
 </tr>
 </tbody></table>
-<blockquote>
-<p>方法代码每一行用；结束</p>
-</blockquote>
-<h3 id="类的命名规则"><a href="#类的命名规则" class="headerlink" title="类的命名规则"></a>类的命名规则</h3><ul>
-<li>class name 必须是英文字母，后接数字和下划线。</li>
-<li>常用惯例是声明类名称用大写字母开头，使用驼峰命名法。<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2></li>
-<li>什么是变量？<br>变量是对数据本身的引用。在java中会用变量名来指代。</li>
-<li>变量的行为？<br>变量必须先定义，后使用。<br>变量在同一个作用域（代码块中）不能被重复声明。<br>变量定义后可以多次赋值。<br>变量的命名是以小写字母开头后可以加数值；惯例上当多个单词组合成变量名使用驼峰命名法。<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1>java 变量分为两种基本类型和引用类型。<h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><blockquote>
-<p>存储在栈内存中，CPU可以直接进行运算的类型。<br>计算机内存的最小存储单元是字节（byte），一个字节就是一个8位二进制数，即8个bit。二进制的表示是0000_0000~1111_1111.一个bit就是一个内存地址。<br>不同的数据类型所占用的字节数是不同的。</p>
-</blockquote>
-<h3 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h3><table>
+<h1 id="Annotaion"><a href="#Annotaion" class="headerlink" title="Annotaion"></a>Annotaion</h1><ul>
+<li>注解是放在JAVA 源码的class,function,field,参数前的一种标签。</li>
+<li>注解本身对代码逻辑没有任何影响</li>
+<li>如何使用注解由工具决定</li>
+</ul>
+<h2 id="常见注解"><a href="#常见注解" class="headerlink" title="常见注解"></a>常见注解</h2><ul>
+<li>@Verride:</li>
+<li>@Deprecated:方法作废标记</li>
+<li>@SuppressWarnings：忽略方法内部错误</li>
+</ul>
+<h2 id="注解可以定义配置参数："><a href="#注解可以定义配置参数：" class="headerlink" title="注解可以定义配置参数："></a>注解可以定义配置参数：</h2><ul>
+<li><p>配置参数由注解类型定义</p>
+</li>
+<li><p>配置参数包括：</p>
+<table>
 <thead>
 <tr>
-<th>数据类型</th>
-<th>字长</th>
-<th>说明</th>
+<th>所有基本类型</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>byte</td>
-<td>1</td>
-<td>整数类型,代表10进制的范围是-2^7~2^7-1,第一位是符号位，0是正，1是负；涉及到反码和补码知识</td>
+<td>String</td>
 </tr>
 <tr>
-<td>short</td>
-<td>2</td>
-<td>整数类型</td>
+<td>枚举类型</td>
 </tr>
 <tr>
-<td>int</td>
-<td>4</td>
-<td>整数类型</td>
-</tr>
-<tr>
-<td>long</td>
-<td>8</td>
-<td>整数类型</td>
+<td>数组 String,枚举类型，基本类型</td>
 </tr>
 </tbody></table>
 </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"><span class="keyword">int</span> i=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> i2=<span class="number">2000_0000_000000000</span>;</span><br><span class="line"><span class="keyword">int</span> i3=<span class="number">0xffff</span>;<span class="comment">//0x开头的是16进制，f就是代表1111,是十进制的15</span></span><br><span class="line"><span class="keyword">int</span> i4=<span class="number">0b100000000</span>;<span class="comment">//0b 开头定义的是2进制</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不同进制下的数字是相同的，15==0xf==0b1111;</p>
-<h3 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h3><p>浮点类型的数就是小数，整数也可以用小数表示的，使用科学计数法。<br>定义小数类型的关键字是 float double<br>|类型|字长(byte)|说明|<br>|–|–|–|<br>|float|4|浮点类型32bit|<br>|double|8|长浮点类型，定义不需要末尾加f|</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span>       m=<span class="number">3.00e2f</span>;<span class="comment">//代表m 是一个3.00 * 10^2的浮点数，float 关键字定义的末尾必须加f</span></span><br><span class="line"><span class="keyword">double</span>      n=<span class="number">3.00</span>;<span class="comment">//n 是一个double型的数值</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>不同于可以准确定义整数，小数是不准确，比如0.1+0.2===0.3 在不采用任何处理方式的情况下，结果是false.所以,在做小数结果的比较时候，要在一定精度范围内比较，才可以得出正确结果。 </li>
-</ul>
-<h4 id="字符型-char"><a href="#字符型-char" class="headerlink" title="字符型 char"></a>字符型 char</h4><ul>
-<li>字符类型用单引号表示，只用有一个字符；<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> name=<span class="string">'A'</span>;</span><br></pre></td></tr></table></figure>
-注意：字符和字符串不同；字符属于基本类型，字符串是引用类型。</li>
-</ul>
-<h4 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h4><ul>
-<li>只有两个值 ture 、false;</li>
-<li>通常表示比较的结果；<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> oneBoolean=<span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">int</span> age =<span class="number">7</span>;</span><br><span class="line"><span class="keyword">int</span> oneKid=<span class="number">6</span>;</span><br><span class="line"><span class="keyword">boolean</span> shouldGoToSchool = age==oneKid;</span><br><span class="line">System.out.println(shouldGoToSchool);<span class="comment">//==&gt;false</span></span><br></pre></td></tr></table></figure>
-<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2></li>
-<li>如果变量用final修饰的话，就是常量；</li>
-<li>为了方便理解程序,用来代替Magic Number。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">double</span> PI=<span class="number">3.14</span>;</span><br><span class="line"><span class="keyword">double</span> r=<span class="number">5.0</span>;</span><br><span class="line"><span class="keyword">double</span> area=PI*r*r;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>常量初始化以后不能再次赋值。否则会报编译异常。<br>常量名通常全部大写<br>常量用来避免意外赋值</p>
-</blockquote>
+<li><p>配置参数必须是常量</p>
+</li>
+<li><p>缺少配置参数将使用默认值<br>如果只写常量，相当于忽略了value<br>@Check(value=99) === @Check(99)</p>
+</li>
+<li><p>如果只写注解相当于全部使用默认值</p>
 </li>
 </ul>
+<h1 id="定义注解"><a href="#定义注解" class="headerlink" title="定义注解"></a>定义注解</h1><blockquote>
+<p>使用 @interface定义Annotaion</p>
+</blockquote>
+<ul>
+<li>注解的参数类似无参数方式</li>
+<li>可以设定一个默认值</li>
+<li>把最常用的参数命名为value</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Report&#123;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">type</span><span class="params">()</span> <span class="keyword">default</span> 0</span>;</span><br><span class="line"><span class="function">String <span class="title">level</span><span class="params">()</span> <span class="keyword">default</span> "info"</span>;</span><br><span class="line"><span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(&#123;</span><br><span class="line">ElementType.METHOD,</span><br><span class="line">.....</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h3><blockquote>
+<p>使用@Target定义Annotation可以被应用于源码的哪个位置：</p>
+</blockquote>
+<ul>
+<li>类或接口：ElementType.TYPE</li>
+<li>字段： ElementType.FIELD</li>
+<li>方法： ElementType.METHOD</li>
+<li>构造方法：ElementType.CONSTRUCTOR</li>
+<li>方法参数：ElementType.PARAMETER</li>
+</ul>
+<h3 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h3><blockquote>
+<p>使用@Retention定义Annotation的生命周期：</p>
+</blockquote>
+<ul>
+<li>仅编译：RetentionPolicy.SOURCE</li>
+<li>仅class文件:RetentionPolicy.CLASS</li>
+<li>运行时：RetentionPolicy.RUNTIME</li>
+<li>如果@Retention不存在，则该Annotation默认为CLASS</li>
+<li>通常自定义的Annotation都是RUNTIME</li>
+</ul>
+<h1 id="Annotaion的生命周期"><a href="#Annotaion的生命周期" class="headerlink" title="Annotaion的生命周期"></a>Annotaion的生命周期</h1><ul>
+<li>RetentionPolicy.SOURCE : 编译时直接丢弃，只在源码中使用</li>
+<li>RetentionPolicy.CLASS:仅存在class文件中</li>
+<li>RetentionPolicy.RUNTIME：在运行期可以读取该Annotation</li>
+</ul>
+<h3 id="Repeatable定义Annotation是否可以重复"><a href="#Repeatable定义Annotation是否可以重复" class="headerlink" title="@Repeatable定义Annotation是否可以重复"></a>@Repeatable定义Annotation是否可以重复</h3><blockquote>
+<p>如果使用 @Repeatable修饰一个Annotation，则这个Annotation可以反复使用</p>
+</blockquote>
+<h3 id="Inherted"><a href="#Inherted" class="headerlink" title="@Inherted"></a>@Inherted</h3><p>  子类是否可以继承父类的Annotaiton</p>
+<ul>
+<li>针对@Target为TYPE类型的Annotation</li>
+<li>仅针对class的继承</li>
+<li>对Interface的继承无效</li>
+</ul>
+<h1 id="定义个Annotation"><a href="#定义个Annotation" class="headerlink" title="定义个Annotation"></a>定义个Annotation</h1><ul>
+<li>用@interface定义注解</li>
+<li>用元注解（meta annotation）配置注解<ul>
+<li>Target :必须设置</li>
+<li>Retention:一般设置为RUNTIME</li>
+<li>通常不必写@Inherted，@Repeatable</li>
+<li>定义注解参数和默认值</li>
+</ul>
+</li>
+</ul>
+<h1 id="处理注解"><a href="#处理注解" class="headerlink" title="处理注解"></a>处理注解</h1><ul>
+<li>RetentionPolicy.SOURCE : 编译时直接丢弃</li>
+<li>RetentionPolicy.CLASS:仅存在class文件中</li>
+<li>RetentionPolicy.RUNTIME：在运行期可以读取该Annotation</li>
+</ul>
+<blockquote>
+<p>SOURCE 只在编译器中有效，编译时就丢弃了</p>
+</blockquote>
+<blockquote>
+<p>读取RUNTIME类型的注解：</p>
+</blockquote>
+<ul>
+<li>Annotaion 也是class</li>
+<li>所有Annotation继承自java.lang.annotation.Annotaion</li>
+<li>使用反射API</li>
+</ul>
+<h2 id="反射API-读取Annotation"><a href="#反射API-读取Annotation" class="headerlink" title="反射API 读取Annotation:"></a>反射API 读取Annotation:</h2><ul>
+<li>Class.isAnnotationPresent(Class)</li>
+<li>Field.isAnnotationPresent(Class)</li>
+<li>Method.isAnnotationPresent(Class)</li>
+<li>Constructor.isAnnotationPresent(Class)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Class cls=Person<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line"><span class="comment">//判断@Report 是否存在</span></span><br><span class="line">cls.isAnnotationPresent(Report<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">Report report=cls.getAnnotation(Report<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"><span class="keyword">int</span> type=<span class="function">report <span class="title">type</span><span class="params">()</span></span>;</span><br><span class="line">String level=report.level();</span><br></pre></td></tr></table></figure>
+<h3 id="读取方法参数的Annotation"><a href="#读取方法参数的Annotation" class="headerlink" title="读取方法参数的Annotation:"></a>读取方法参数的Annotation:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Method m=...</span><br><span class="line">Annotaion[][] annos=m.getAnnotation();</span><br><span class="line">Annotaion[] annosOfName=annos[];</span><br><span class="line"><span class="keyword">for</span>(Annotaion anno:annosOfName)&#123;</span><br><span class="line"><span class="keyword">if</span>(anno <span class="keyword">instanceof</span> Range)&#123;</span><br><span class="line">  Range r=(Range) anno;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -750,12 +859,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>基本结构,变量,常量,整数,浮点,数的运算,布尔</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.2k</span></p>
+    <p><span class="copy-title">文章标题:</span>Annotaion</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">774</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-11, 11:03:05</p>
-    <p><span class="copy-title">最后更新:</span>2020-05-07, 04:20:31</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/11/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84,%E5%8F%98%E9%87%8F,%E5%B8%B8%E9%87%8F,%E6%95%B4%E6%95%B0,%E6%B5%AE%E7%82%B9,%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97,%E5%B8%83%E5%B0%94/" title="基本结构,变量,常量,整数,浮点,数的运算,布尔">https://feixiangdjames.github.io/blog/2020/04/11/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84,%E5%8F%98%E9%87%8F,%E5%B8%B8%E9%87%8F,%E6%95%B4%E6%95%B0,%E6%B5%AE%E7%82%B9,%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97,%E5%B8%83%E5%B0%94/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-11, 05:45:06</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-11, 08:33:01</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/11/Annotaion/" title="Annotaion">https://feixiangdjames.github.io/blog/2020/05/11/Annotaion/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
