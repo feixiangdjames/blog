@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>数的运算 | James blog</title>
+  <meta name="keywords" content=" java ">
+  <meta name="description" content="数的运算 | James blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="@[toc]    总结    可以在运行期通过反射读取RUNTIME类型的注解   不要漏写 @Retention(RetentionPolicy.RUNTIME)   可以通过工具处理直接来实相应功能   对JavaBean 的属性值按照规则进行检查   JUnit 会自动运行@Test的注解的测试方法   Annotaion 注解是放在JAVA 源码的class,function,field">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Annotaion">
+<meta property="og:url" content="https://feixiangdjames.github.io/blog/2020/05/10/Annotaion/index.html">
+<meta property="og:site_name" content="James blog">
+<meta property="og:description" content="@[toc]    总结    可以在运行期通过反射读取RUNTIME类型的注解   不要漏写 @Retention(RetentionPolicy.RUNTIME)   可以通过工具处理直接来实相应功能   对JavaBean 的属性值按照规则进行检查   JUnit 会自动运行@Test的注解的测试方法   Annotaion 注解是放在JAVA 源码的class,function,field">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-10T21:45:06.000Z">
+<meta property="article:modified_time" content="2020-05-11T00:33:01.711Z">
+<meta property="article:author" content="James">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar1.jpg">
+
+<link href="/blog/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/blog/css/hl_theme/sublime.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/blog/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/blog/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="/blog">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/blog/" class="avatar_target">
+    <img class="avatar" src="/blog/img/avatar1.jpg" />
+</a>
+<div class="author">
+    <span>James</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/feixiangdjames" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:feixiangdjames@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=174455864&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(38)</small></div></li>
+    
+        
+            
+            <li><div data-rel="JAVA"><i class="fold iconfont icon-right"></i>JAVA<small>(35)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="java入门">java入门<small>(3)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="程序基础">程序基础<small>(6)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="面向对象">面向对象<small>(14)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="java异常">java异常<small>(4)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="断言和日志">断言和日志<small>(1)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="反射与泛型">反射与泛型<small>(7)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+            <li><div data-rel="CSS"><i class="fold iconfont icon-right"></i>CSS<small>(1)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="filter var">filter var<small>(1)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+            <li><div data-rel="git">git<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="linux">linux<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="38">
+<input type="hidden" id="yelog_site_word_count" value="22k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color5">java</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">CSS3</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">linux</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="JAVA java入门 "
+           href="/blog/2020/04/11/%E4%BD%BF%E7%94%A8IDE/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="使用IDE">使用IDE</span>
+            <span class="post-date" title="2020-04-11 23:01:44">2020/04/11</span>
+        </a>
+        
+        <a  class="JAVA java入门 "
+           href="/blog/2020/04/11/%E7%AC%AC%E4%B8%80%E4%B8%AAJava/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="第一个Java">第一个Java</span>
+            <span class="post-date" title="2020-04-11 23:01:13">2020/04/11</span>
+        </a>
+        
+        <a  class="JAVA java入门 "
+           href="/blog/2020/04/09/java%E5%85%A5%E9%97%A8/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="java入门">java入门</span>
+            <span class="post-date" title="2020-04-09 20:32:38">2020/04/09</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/10/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84,%E5%8F%98%E9%87%8F,%E5%B8%B8%E9%87%8F,%E6%95%B4%E6%95%B0,%E6%B5%AE%E7%82%B9,%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97,%E5%B8%83%E5%B0%94/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="基本结构,变量,常量,整数,浮点,数的运算,布尔">基本结构,变量,常量,整数,浮点,数的运算,布尔</span>
+            <span class="post-date" title="2020-04-10 23:03:05">2020/04/10</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/14/%E5%AD%97%E7%AC%A6,%E5%AD%97%E7%AC%A6%E4%B8%B2,%E6%95%B0%E7%BB%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="字符,字符串,数组">字符,字符串,数组</span>
+            <span class="post-date" title="2020-04-14 23:03:05">2020/04/14</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/15/%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="流程控制[输入，输出]">流程控制[输入，输出]</span>
+            <span class="post-date" title="2020-04-15 03:03:05">2020/04/15</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/11/%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="数的运算">数的运算</span>
+            <span class="post-date" title="2020-04-11 23:05:00">2020/04/11</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/15/%E6%95%B0%E7%BB%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="数组">数组</span>
+            <span class="post-date" title="2020-04-15 03:03:05">2020/04/15</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/15/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%A6%82%E5%BF%B5/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="面向对象概念">面向对象概念</span>
+            <span class="post-date" title="2020-04-15 03:03:05">2020/04/15</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/16/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6if,switch,doWhile/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="流程控制[if,switch,doWhile]">流程控制[if,switch,doWhile]</span>
+            <span class="post-date" title="2020-04-16 03:03:05">2020/04/16</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/17/%E5%B0%81%E8%A3%85%E3%80%81%E6%96%B9%E6%B3%95%E3%80%81%E6%9E%84%E9%80%A0%E3%80%81%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="封装,方法,构造,方法重载">封装,方法,构造,方法重载</span>
+            <span class="post-date" title="2020-04-17 03:03:05">2020/04/17</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/17/%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="继承和Polymorphic">继承和Polymorphic</span>
+            <span class="post-date" title="2020-04-17 06:03:05">2020/04/17</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/17/%E6%8A%BD%E8%B1%A1%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="抽象类">抽象类</span>
+            <span class="post-date" title="2020-04-17 06:03:05">2020/04/17</span>
+        </a>
+        
+        <a  class="CSS filter var "
+           href="/blog/2020/04/18/CSS/"
+           data-tag="CSS3"
+           data-author="" >
+            <span class="post-title" title="CSS（filter,Scoped Css VARIABLES）">CSS（filter,Scoped Css VARIABLES）</span>
+            <span class="post-date" title="2020-04-18 20:32:38">2020/04/18</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/17/interface/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="接口">接口</span>
+            <span class="post-date" title="2020-04-17 06:03:05">2020/04/17</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/21/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5%E5%92%8C%E6%96%B9%E6%B3%95,package/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="静态字段和方法,package">静态字段和方法,package</span>
+            <span class="post-date" title="2020-04-21 06:03:05">2020/04/21</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/21/%E4%BD%9C%E7%94%A8%E5%9F%9F/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="作用域">作用域</span>
+            <span class="post-date" title="2020-04-21 06:03:05">2020/04/21</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/22/%E6%A0%B8%E5%BF%83String/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="核心String">核心String</span>
+            <span class="post-date" title="2020-04-22 19:43:03">2020/04/22</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/24/String-Builder/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="String Builder">String Builder</span>
+            <span class="post-date" title="2020-04-24 11:59:24">2020/04/24</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/25/JavaBean/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaBean">JavaBean</span>
+            <span class="post-date" title="2020-04-25 18:42:57">2020/04/25</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/25/%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="包装类型">包装类型</span>
+            <span class="post-date" title="2020-04-25 18:08:00">2020/04/25</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/26/jdk-util-class/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="jdk util class">jdk util class</span>
+            <span class="post-date" title="2020-04-26 20:09:23">2020/04/26</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/26/%E6%9E%9A%E4%B8%BE%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="枚举类">枚举类</span>
+            <span class="post-date" title="2020-04-26 09:15:32">2020/04/26</span>
+        </a>
+        
+        <a  class="JAVA java异常 "
+           href="/blog/2020/04/27/java%E7%9A%84%E5%BC%82%E5%B8%B8/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="java的异常">java的异常</span>
+            <span class="post-date" title="2020-04-27 12:24:57">2020/04/27</span>
+        </a>
+        
+        <a  class="JAVA java异常 "
+           href="/blog/2020/04/28/%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="异常捕获">异常捕获</span>
+            <span class="post-date" title="2020-04-28 09:24:57">2020/04/28</span>
+        </a>
+        
+        <a  class="JAVA java异常 "
+           href="/blog/2020/04/29/throw-Exception/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="throw Exception">throw Exception</span>
+            <span class="post-date" title="2020-04-29 10:36:59">2020/04/29</span>
+        </a>
+        
+        <a  class="JAVA java异常 "
+           href="/blog/2020/05/01/defined-exception/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="defined exception">defined exception</span>
+            <span class="post-date" title="2020-05-01 13:45:33">2020/05/01</span>
+        </a>
+        
+        <a  class="git "
+           href="/blog/2020/04/29/git/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="服务器搭建git">服务器搭建git</span>
+            <span class="post-date" title="2020-04-29 19:01:42">2020/04/29</span>
+        </a>
+        
+        <a  class="linux "
+           href="/blog/2020/04/29/mkdir/"
+           data-tag="linux"
+           data-author="" >
+            <span class="post-title" title="mkdir">mkdir</span>
+            <span class="post-date" title="2020-04-29 20:09:37">2020/04/29</span>
+        </a>
+        
+        <a  class="JAVA 断言和日志 "
+           href="/blog/2020/05/03/JAVA-log/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JAVA log">JAVA log</span>
+            <span class="post-date" title="2020-05-03 20:03:50">2020/05/03</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/05/06/modules/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="modules">modules</span>
+            <span class="post-date" title="2020-05-06 09:50:50">2020/05/06</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/06/Class%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Class类">Class类</span>
+            <span class="post-date" title="2020-05-06 18:32:24">2020/05/06</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/07/%E8%AE%BF%E9%97%AE%E5%AD%97%E6%AE%B5/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="访问字段">访问字段</span>
+            <span class="post-date" title="2020-05-07 10:26:16">2020/05/07</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/08/reflect-method/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="reflect method">reflect method</span>
+            <span class="post-date" title="2020-05-08 06:49:45">2020/05/08</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/09/constructor/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="constructor">constructor</span>
+            <span class="post-date" title="2020-05-09 16:16:20">2020/05/09</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/09/%E8%8E%B7%E5%8F%96%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="获取继承关系">获取继承关系</span>
+            <span class="post-date" title="2020-05-09 18:01:49">2020/05/09</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/10/Annotaion/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Annotaion">Annotaion</span>
+            <span class="post-date" title="2020-05-10 17:45:06">2020/05/10</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/12/%E6%B3%9B%E5%9E%8B/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="泛型">泛型</span>
+            <span class="post-date" title="2020-05-12 06:52:34">2020/05/12</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-数的运算" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">数的运算</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="JAVA">JAVA</a>/
+            
+                <a  data-rel="程序基础">程序基础</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color5">java</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-14 22:28:55'>2020-04-11 23:05</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:1.1k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#整数运算"><span class="toc-text">整数运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#整数"><span class="toc-text">整数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#移位运算"><span class="toc-text">移位运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位运算"><span class="toc-text">位运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异或运算"><span class="toc-text">异或运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非运算"><span class="toc-text">非运算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#浮点数运算"><span class="toc-text">浮点数运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#boolean-运算"><span class="toc-text">boolean 运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#三元运算符"><span class="toc-text">三元运算符</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字符和字符串"><span class="toc-text">字符和字符串</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#整数运算"><span class="toc-text">整数运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#整数"><span class="toc-text">整数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#移位运算"><span class="toc-text">移位运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位运算"><span class="toc-text">位运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异或运算"><span class="toc-text">异或运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非运算"><span class="toc-text">非运算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#浮点数运算"><span class="toc-text">浮点数运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#boolean-运算"><span class="toc-text">boolean 运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#三元运算符"><span class="toc-text">三元运算符</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字符和字符串"><span class="toc-text">字符和字符串</span></a></li></ol></div></p>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="整数运算"><a href="#整数运算" class="headerlink" title="整数运算"></a>整数运算</h1><ul>
+<li>整数运算结果永远精确。</li>
+<li>预算结果的类型会自动提升。</li>
+<li>强制转型，可能会损失。<h2 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h2></li>
+<li>依照四则预算规则，如果变量是整型，则结果也是整形；</li>
+<li>如果定义的变量是整型，则计算的算子都只能是整型。如果定义的变量是浮点型，则算子可以有浮点型。</li>
+<li>被除数是0，不会影响编译；JVM运行字节码的时候会报错。</li>
+<li>++ 和 – 运算符，这里要注意++的位置，在变量之前，是先加后引用；在变量之后是先引用，之后自身加1.</li>
+<li>+= 相当于 n+=1==&gt;n=n+1;<blockquote>
+<p>注意：java 中的整数是有符号的整数。在计算机中的整数都是以二进制补码形式进行存储的。</p>
+</blockquote>
+</li>
+</ul>
+<p>|类型|说明|<br>|正数|源码，补码，反码都是该数字本身；整数的符号位是0|<br>|负数|负数的符号位是1，计算机的二进制代码是补码；想得到这个数字的源码，先获取反码，然后+1，获得补码|<br>|0|+0-0|都是0|</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//11111111111111111111111111111111</span></span><br><span class="line">System.out.println(Integer.toBinaryString(-<span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+<ul>
+<li>11111111111111111111111111111111 </li>
+<li>先取反码 获得1—31个0，然后补码-》末尾+1，结果就是1–0001,高位的1代表负数，就是-1.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Div</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">int</span> i=<span class="number">99</span>/<span class="number">9</span>;</span><br><span class="line">	System.out.println(Integer.toBinaryString(i));</span><br><span class="line">	System.out.println(i);</span><br><span class="line">    <span class="keyword">boolean</span> a=i&gt;<span class="number">7</span>;  </span><br><span class="line">    System.out.println(a);</span><br><span class="line">    <span class="keyword">double</span> f=i/<span class="number">1</span>;<span class="comment">//返回的结果是浮点数11.0</span></span><br><span class="line">		<span class="comment">/*因为byte 最大的数是127.这里会抛出异常；</span></span><br><span class="line"><span class="comment">	但是由于计算结果加了强制转换(byte),这里就会把128的二进制代码作为有符号二进制转换得出-128.</span></span><br><span class="line"><span class="comment">	注意：这里如果没有(byte)会抛出异常。*/</span></span><br><span class="line">	<span class="keyword">byte</span> x=(<span class="keyword">byte</span>)(<span class="number">127</span>+<span class="number">1</span>);</span><br><span class="line">    System.out.println(x);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*在运算过程中，计算结果为较大类型的整型，</span></span><br><span class="line"><span class="comment">	可以将结果进行强制转型。(类型),可以高位转低位，也可以低位转高位。*/</span></span><br><span class="line">	<span class="keyword">int</span> x=(<span class="keyword">byte</span>) (<span class="number">127</span>+<span class="number">1</span>);</span><br><span class="line">	<span class="comment">//-128 因为先进行了强制转换，然后值分配了更多的位数，相当于将-128作为int类型进行了存储。</span></span><br><span class="line">    System.out.println(x);</span><br><span class="line">	<span class="comment">//不影响编译，这条代码以上的部分，还是可以执行；当执行到这里的时候，JVM 会抛异常。</span></span><br><span class="line">	<span class="keyword">int</span> s=i/<span class="number">0</span>;</span><br><span class="line">    System.out.println(f);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="移位运算"><a href="#移位运算" class="headerlink" title="移位运算"></a>移位运算</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int n1&#x3D;5;  &#x2F;&#x2F;0...101;5</span><br><span class="line">int n2&#x3D;n1&lt;&lt;2;&#x2F;&#x2F;0...10100;左移两位，16+4&#x3D;20;</span><br><span class="line">int n3&#x3D;n1&lt;&lt;&lt;3;&#x2F;&#x2F;无条件左移3位，左移可能没有意义，当右边移动时候，就会将符号位进行移动。</span><br></pre></td></tr></table></figure>
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><ul>
+<li>首先位对齐，然后依次对每位进行运算。</li>
+<li>1 &amp; 0 // 结果是0</li>
+<li>1 | 0 ///结果是1</li>
+</ul>
+<h3 id="异或运算"><a href="#异或运算" class="headerlink" title="异或运算"></a>异或运算</h3><ul>
+<li>位相等的时候是 0,位不同的是1</li>
+</ul>
+<h3 id="非运算"><a href="#非运算" class="headerlink" title="非运算"></a>非运算</h3><ul>
+<li>~1=0</li>
+<li>~0=1</li>
+</ul>
+<h1 id="浮点数运算"><a href="#浮点数运算" class="headerlink" title="浮点数运算"></a>浮点数运算</h1><ul>
+<li>浮点数无法精确表示。</li>
+<li>计算有误差。</li>
+<li>计算过程中，整型会自动提升到浮点型。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> d1=<span class="number">1.2</span>+<span class="number">24.0</span>/<span class="number">5</span>;<span class="comment">//6.0</span></span><br></pre></td></tr></table></figure></li>
+<li>以下情况类型不自动提升<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">floatOps</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">double</span> i=<span class="number">24.0</span>/<span class="number">5</span> +<span class="number">1</span>; </span><br><span class="line">	System.out.println(i);</span><br><span class="line">	<span class="keyword">double</span> m=<span class="number">20</span>/<span class="number">5</span>;</span><br><span class="line">	System.out.println(<span class="string">"m:"</span>+m);<span class="comment">//m:4.0</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>浮点数除0，是有别于整数的。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NaN</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">double</span> d1=<span class="number">0.0</span>/<span class="number">0</span>; <span class="comment">//NaN</span></span><br><span class="line">	System.out.println(d1);</span><br><span class="line">	<span class="keyword">double</span> d2=<span class="number">1.0</span>/<span class="number">0</span>; <span class="comment">//Infinity</span></span><br><span class="line">	System.out.println(d2);<span class="comment">//- Infinity</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>浮点型强制转型，并不会四舍五入，而是直接扔掉小数位位数。</li>
+<li>浮点型四舍五入的技巧是加0.5</li>
+<li>超出整型范围的浮点型转型，会便问最大值<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n1 = (<span class="keyword">int</span>) <span class="number">12.3</span>;<span class="comment">// 12</span></span><br><span class="line">	<span class="keyword">int</span> n2 = (<span class="keyword">int</span>) <span class="number">12.7</span>;<span class="comment">// 12</span></span><br><span class="line">	<span class="keyword">int</span> n3 = (<span class="keyword">int</span>) (<span class="number">12.7</span> + <span class="number">0.5</span>);<span class="comment">// 13,这是一个可以四舍五入的技巧</span></span><br><span class="line">	<span class="keyword">int</span> n4 = (<span class="keyword">int</span>) <span class="number">1.2e20</span>;<span class="comment">// 2147483647</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="boolean-运算"><a href="#boolean-运算" class="headerlink" title="boolean 运算"></a>boolean 运算</h1><ul>
+<li>短路运算符 &amp;&amp; 和 ||</li>
+<li>&amp;&amp;<br>boolean and =false&amp;&amp;(5/0&gt;0);//并不会报错,因为第一个值计算为false<br>boolean and=false &amp;&amp; (5/0&gt;0);//false<br>boolean or=true||(5/0&gt;0);//true,有一个ture就不会运行后面的代码<br>  }<h2 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符"></a>三元运算符</h2><blockquote>
+<p>b?x:y;根据条件的结果，计算X或Y中的一个。这里要注意 X 和 Y 类型必须相同。<br>三元运算符有点儿短路运算符的意思。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> abs=<span class="keyword">true</span>?<span class="number">1</span>+<span class="number">2</span>:<span class="number">5</span>/<span class="number">0</span>; <span class="comment">//不会发生运行时的错误</span></span><br></pre></td></tr></table></figure>
+<h1 id="字符和字符串"><a href="#字符和字符串" class="headerlink" title="字符和字符串"></a>字符和字符串</h1></li>
+</ul>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>数的运算</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.1k</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-04-11, 23:05:00</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-14, 22:28:55</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/11/%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97/" title="数的运算">https://feixiangdjames.github.io/blog/2020/04/11/%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2020 james</p>
+
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/blog/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/blog/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#java','#CSS3','#git','#linux',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+        /* 渲染*/
+        function HTMLDecode(text) {
+            var temp = document.createElement("div");
+            temp.innerHTML = text;
+            var output = temp.innerText || temp.textContent;
+            temp = null;
+            return output;
+        }
+        if (window.mermaid){
+            window.mermaid = null
+        }
+        $.getScript("//cdn.jsdelivr.net/npm/mermaid@8.4.2/dist/mermaid.min.js", function () {
+            var mermaidOptions = JSON.parse(HTMLDecode("{&#34;theme&#34;:&#34;default&#34;,&#34;startOnLoad&#34;:true,&#34;flowchart&#34;:{&#34;useMaxWidth&#34;:false,&#34;htmlLabels&#34;:true}}"))
+            if (window.mermaid) {
+                mermaid.initialize(mermaidOptions)
+                mermaid.contentLoaded()
+            }
+        })
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
