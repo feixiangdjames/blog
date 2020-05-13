@@ -6,15 +6,15 @@
   <meta name="keywords" content=" CSS3 ">
   <meta name="description" content="CSS（filter,Scoped Css VARIABLES） | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="@[toc]    总结    可以在运行期通过反射读取RUNTIME类型的注解   不要漏写 @Retention(RetentionPolicy.RUNTIME)   可以通过工具处理直接来实相应功能   对JavaBean 的属性值按照规则进行检查   JUnit 会自动运行@Test的注解的测试方法   Annotaion 注解是放在JAVA 源码的class,function,field">
+<meta name="description" content="@[toc]    总结    泛型就是编写模板代码来执行任何类型   不必对类型进行强制转换   编译器将对类型进行检查   注意泛型的继承关系：   可以把ArrayList 向上转型为 List T的类型不能改变   使用泛型，把泛型参数换成需要的class类型   可以省略编译能够推断的类型：   List list&#x3D;new ArrayList&lt;&gt;()   不指定泛型参数，编译">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Annotaion">
-<meta property="og:url" content="https://feixiangdjames.github.io/blog/2020/05/10/Annotaion/index.html">
+<meta property="og:title" content="泛型定义和使用">
+<meta property="og:url" content="https://feixiangdjames.github.io/blog/2020/05/12/%E6%B3%9B%E5%9E%8B/index.html">
 <meta property="og:site_name" content="James blog">
-<meta property="og:description" content="@[toc]    总结    可以在运行期通过反射读取RUNTIME类型的注解   不要漏写 @Retention(RetentionPolicy.RUNTIME)   可以通过工具处理直接来实相应功能   对JavaBean 的属性值按照规则进行检查   JUnit 会自动运行@Test的注解的测试方法   Annotaion 注解是放在JAVA 源码的class,function,field">
+<meta property="og:description" content="@[toc]    总结    泛型就是编写模板代码来执行任何类型   不必对类型进行强制转换   编译器将对类型进行检查   注意泛型的继承关系：   可以把ArrayList 向上转型为 List T的类型不能改变   使用泛型，把泛型参数换成需要的class类型   可以省略编译能够推断的类型：   List list&#x3D;new ArrayList&lt;&gt;()   不指定泛型参数，编译">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-05-10T21:45:06.000Z">
-<meta property="article:modified_time" content="2020-05-11T00:33:01.711Z">
+<meta property="article:published_time" content="2020-05-12T10:52:34.000Z">
+<meta property="article:modified_time" content="2020-05-12T19:16:06.142Z">
 <meta property="article:author" content="James">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -100,11 +100,11 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(38)</small></div></li>
+    <li><div class="all active">全部文章<small>(40)</small></div></li>
     
         
             
-            <li><div data-rel="JAVA"><i class="fold iconfont icon-right"></i>JAVA<small>(35)</small></div>
+            <li><div data-rel="JAVA"><i class="fold iconfont icon-right"></i>JAVA<small>(37)</small></div>
                 
                     <ul class="sub hide">
                         
@@ -128,7 +128,7 @@
                             
                         </li>
                             
-                        <li><div data-rel="反射与泛型">反射与泛型<small>(7)</small></div>
+                        <li><div data-rel="反射与泛型">反射与泛型<small>(9)</small></div>
                             
                         </li>
                             
@@ -208,8 +208,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="38">
-<input type="hidden" id="yelog_site_word_count" value="22k">
+<input type="hidden" id="yelog_site_posts_number" value="40">
+<input type="hidden" id="yelog_site_word_count" value="23.4k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -566,8 +566,24 @@
            href="/blog/2020/05/12/%E6%B3%9B%E5%9E%8B/"
            data-tag="java"
            data-author="" >
-            <span class="post-title" title="泛型">泛型</span>
+            <span class="post-title" title="泛型定义和使用">泛型定义和使用</span>
             <span class="post-date" title="2020-05-12 06:52:34">2020/05/12</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/12/%E6%93%A6%E6%8B%AD%E6%B3%95/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="擦拭法">擦拭法</span>
+            <span class="post-date" title="2020-05-12 20:51:41">2020/05/12</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/12/%E7%BC%96%E5%86%99%E6%B3%9B%E5%9E%8B/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="编写泛型">编写泛型</span>
+            <span class="post-date" title="2020-05-12 15:03:54">2020/05/12</span>
         </a>
         
     </nav>

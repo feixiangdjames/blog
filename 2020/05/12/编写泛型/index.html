@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>静态字段和方法,package | James blog</title>
+  <title>编写泛型 | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="静态字段和方法,package | James blog">
+  <meta name="description" content="编写泛型 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]    总结    泛型就是编写模板代码来执行任何类型   不必对类型进行强制转换   编译器将对类型进行检查   注意泛型的继承关系：   可以把ArrayList 向上转型为 List T的类型不能改变   使用泛型，把泛型参数换成需要的class类型   可以省略编译能够推断的类型：   List list&#x3D;new ArrayList&lt;&gt;()   不指定泛型参数，编译">
 <meta property="og:type" content="article">
@@ -598,9 +598,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-静态字段和方法,package" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-编写泛型" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">静态字段和方法,package</h1>
+        <h1 class="article-title">编写泛型</h1>
     
     <div class="article-meta">
         
@@ -610,7 +610,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="面向对象">面向对象</a>
+                <a  data-rel="反射与泛型">反射与泛型</a>
             
         </span>
         
@@ -624,12 +624,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-25 18:48:22'>2020-04-21 06:03</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-12 15:42:36'>2020-05-12 15:03</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:993</span>
+        <span>字数:448</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -648,7 +648,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#static-field"><span class="toc-text">static field</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特点"><span class="toc-text">特点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#static-function"><span class="toc-text">static function</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特点-1"><span class="toc-text">特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#静态方法经常用于工具类"><span class="toc-text">静态方法经常用于工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JAVA的入口main-方法，也是静态方法"><span class="toc-text">JAVA的入口main 方法，也是静态方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Package"><span class="toc-text">Package</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#包作用域"><span class="toc-text">包作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引用其他的类"><span class="toc-text">引用其他的类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java编译器最终编译出的-class-文件只使用完整类名，因此，在代码中，"><span class="toc-text">Java编译器最终编译出的.class 文件只使用完整类名，因此，在代码中，</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#编写泛型类"><span class="toc-text">编写泛型类</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -664,103 +664,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#static-field"><span class="toc-text">static field</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特点"><span class="toc-text">特点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#static-function"><span class="toc-text">static function</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特点-1"><span class="toc-text">特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#静态方法经常用于工具类"><span class="toc-text">静态方法经常用于工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JAVA的入口main-方法，也是静态方法"><span class="toc-text">JAVA的入口main 方法，也是静态方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Package"><span class="toc-text">Package</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#包作用域"><span class="toc-text">包作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引用其他的类"><span class="toc-text">引用其他的类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java编译器最终编译出的-class-文件只使用完整类名，因此，在代码中，"><span class="toc-text">Java编译器最终编译出的.class 文件只使用完整类名，因此，在代码中，</span></a></li></ol></li></ol></li></ol></div></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><table>
-<thead>
-<tr>
-<th>static field 是实例共享字段，实际上是属于class的字段</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>调用静态方法不需要实例，因此无法访问this</td>
-</tr>
-<tr>
-<td>静态方法可以访问静态字段和静态方法</td>
-</tr>
-<tr>
-<td>静态方法用于工具类和辅助方法</td>
-</tr>
-</tbody></table>
-<h1 id="static-field"><a href="#static-field" class="headerlink" title="static field"></a>static field</h1><ul>
-<li>用static 修饰的字段称为静态字段</li>
-<li>普通字段在每个实例中都有自己的独立空间</li>
-<li>静态字段只有一个共享“空间”,所有实例都共享该字段.</li>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#编写泛型类"><span class="toc-text">编写泛型类</span></a></li></ol></div></p>
+<p>|编写泛型，需要定义泛型类型<T>|<br>|静态方法不能引用泛型类型<T>,必须定义其他类型<K>来实现泛型|<br>|public static <K> Pair<K> creat(K frist,K end )<br>|泛型可以同时定义多种类型&lt;T,K&gt;|||||||</p>
+<h1 id="编写泛型类"><a href="#编写泛型类" class="headerlink" title="编写泛型类"></a>编写泛型类</h1><ul>
+<li>编写泛型类比普通类复杂</li>
+<li>泛型类一般用在集合类中ArrayList<T></li>
+<li>很少需要编写泛型类</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"><span class="keyword">public</span> String name;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">        ┌──────────────────┐</span><br><span class="line">ming ──&gt;│Person instance   │</span><br><span class="line">        ├──────────────────┤</span><br><span class="line">        │name = "Xiao Ming"│</span><br><span class="line">        │age = 12          │</span><br><span class="line">        │number ───────────┼──┐    ┌─────────────┐</span><br><span class="line">        └──────────────────┘  │    │Person class │</span><br><span class="line">                              │    ├─────────────┤</span><br><span class="line">                              ├───&gt;│number = 99  │</span><br><span class="line">        ┌──────────────────┐  │    └─────────────┘</span><br><span class="line">hong ──&gt;│Person instance   │  │</span><br><span class="line">        ├──────────────────┤  │</span><br><span class="line">        │name = "Xiao Hong"│  │</span><br><span class="line">        │age = 15          │  │</span><br><span class="line">        │number ───────────┼──┘</span><br><span class="line">        └──────────────────┘</span><br></pre></td></tr></table></figure>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>所有实例共享一个静态字段</li>
-<li>不推荐使用实例变量访问静态字段，实例变量之所以可以访问，是因为javac 把变量名转换成了类名</li>
-<li>推荐使用类名访问静态字段，Person.number</li>
-<li>静态字段是用来描述class本身的(非实例字段)</li>
-</ul>
-<h1 id="static-function"><a href="#static-function" class="headerlink" title="static function"></a>static function</h1><ul>
-<li>用static 修饰的方法称为静态方法</li>
-<li>调用实例方法是使用实例变量。例如：s1.age</li>
-<li>调用静态方法不需要实例变量，是要使用类名。</li>
-</ul>
-<h2 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>静态方法不能访问this变量，因为this指向的是实例。</li>
-<li>不能访问实例字段。</li>
-<li>可以访问静态字段。</li>
-</ul>
-<h3 id="静态方法经常用于工具类"><a href="#静态方法经常用于工具类" class="headerlink" title="静态方法经常用于工具类"></a>静态方法经常用于工具类</h3><ul>
-<li>Arrays.sort();<h3 id="JAVA的入口main-方法，也是静态方法"><a href="#JAVA的入口main-方法，也是静态方法" class="headerlink" title="JAVA的入口main 方法，也是静态方法"></a>JAVA的入口main 方法，也是静态方法</h3></li>
-</ul>
-<h1 id="Package"><a href="#Package" class="headerlink" title="Package"></a>Package</h1><p>如何解决类名冲突？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line"><span class="keyword">private</span> T frist;</span><br><span class="line"><span class="keyword">private</span> T last;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T first,T last)</span></span>&#123;</span><br><span class="line"><span class="keyword">this</span>.first=frist;</span><br><span class="line"><span class="keyword">this</span>.last=last;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getLast</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>在Java中，我们定义了名字空间：包<br>包名+类名=完整类名</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xiaoming;</span><br><span class="line"><span class="comment">//xiaoming.Person 是完整类名</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> xiaohong;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>JVM 只看完整类名，只要包名不同，类就不同；编译后的class文件都是完整类名。</p>
-</li>
-<li><p>包可以是多层结构<br> java.util.Arrays</p>
-</li>
-<li><p>包没有父子关系<br>java.util和java.util.zip是不同的包，没有关系</p>
-</li>
-<li><p>没有定义包名的class，它使用的是默认包，非常容易引起名字冲突，因此，不推荐不写包名的做法。</p>
-</li>
-</ul>
-<h2 id="包作用域"><a href="#包作用域" class="headerlink" title="包作用域"></a>包作用域</h2><ul>
-<li>位于同一个包的类，可以访问包作用域的字段和方法。不用public、protected、private修饰的字段和方法就是包作用域。</li>
-<li>不用public protected private 修饰的field 字段和方法就是包作用域。</li>
-</ul>
-<h2 id="引用其他的类"><a href="#引用其他的类" class="headerlink" title="引用其他的类"></a>引用其他的类</h2><blockquote>
-<p>有三种方法引用其他类 </p>
+<p>泛型类型<T>不能用于静态方法：</p>
 </blockquote>
 <ul>
-<li>使用完整类名</li>
-<li>先 import，再使用类名</li>
-<li>可以使用 * 不推荐<br> 我们一般不推荐这种写法，因为在导入了多个包后，很难看出Arrays类属于哪个包。</li>
-<li>还有一种import static的语法，它可以导入可以导入一个类的静态字段和静态方法。</li>
+<li>编译错误</li>
+<li>编译器无法在静态字段或静态方法中使用泛型类型<T></li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.* <span class="comment">//不推荐</span></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays</span><br><span class="line"></span><br><span class="line">java.util.Arrays.sort();</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.System.*;<span class="comment">//导入System类的所有静态字段和静态方法:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Java编译器最终编译出的-class-文件只使用完整类名，因此，在代码中，"><a href="#Java编译器最终编译出的-class-文件只使用完整类名，因此，在代码中，" class="headerlink" title="Java编译器最终编译出的.class 文件只使用完整类名，因此，在代码中，"></a>Java编译器最终编译出的.class 文件只使用完整类名，因此，在代码中，</h3><p>当编译器遇到一个class 名称时：</p>
-<pre class="mermaid">graph TB
-a[查找当前package是否存在这个class]--Y-->r(编译成功)
-a--N-->b[查找import的包]
-b--Y-->r
-b--N-->c[查找java.lang包是否包含整个class]
-c--Y-->r
-c--N-->e(无法确定类名,编译报错)</pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//错误</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Pair &lt;T&gt; creat(T first T end)&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> Pair&lt;T&gt;(first,last)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>静态方法可以单独改写为“泛型”方法：</p>
+</blockquote>
 <ul>
-<li><p>因此，编写class的时候，编译器会自动帮我们做两个import动作：</p>
-</li>
-<li><p>默认自动import当前package的其他class；</p>
-</li>
-<li><p>默认自动import java.lang.*。</p>
-</li>
+<li>使用另一个类型<K></li>
 </ul>
-<p><strong>注意：自动导入的是java.lang包，但类似java.lang.reflect这些包仍需要手动导入。</strong></p>
-<p>最佳实践<br>为了避免名字冲突，我们需要确定唯一的包名。推荐的做法是使用倒置的域名来确保唯一性。例如：</p>
-<p>org.apache<br>org.apache.commons.log<br>com.liaoxuefeng.sample<br>子包就可以根据功能自行命名。</p>
-<p>要注意不要和java.lang包的类重名，即自己的类不要使用这些名字：</p>
-<p>String<br>System<br>Runtime<br>…<br>要注意也不要和JDK常用类重名：</p>
-<p>java.util.List<br>java.text.Format<br>java.math.BigInteger</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;K&gt; Pair &lt;K&gt; creat(K first K end)&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> Pair&lt;K&gt;(first,last)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>泛型可以支持多种类型：</p>
+</blockquote>
+<p>public class Pair&lt;T,K&gt;{…}</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.james.sample;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Pair&lt;String&gt; p=Pair.creat(<span class="string">"james"</span>, <span class="string">"wang"</span>);</span><br><span class="line">		<span class="comment">//Pair&lt;String&gt; p=new Pair&lt;&gt;("xiao","ming");</span></span><br><span class="line">		String first=p.getFirst();</span><br><span class="line">		String end=p.getEnd();</span><br><span class="line">		System.out.println(first);</span><br><span class="line">		System.out.println(end);</span><br><span class="line">		<span class="comment">//不存在针对不同的泛型，存在不同的Class</span></span><br><span class="line">		System.out.println(p.getClass()==Pair<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"><span class="keyword">private</span> T first;</span><br><span class="line"><span class="keyword">private</span> T end;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T first,T end)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.setFirst(first);</span><br><span class="line">	<span class="keyword">this</span>.setEnd(end);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFirst</span><span class="params">(T first)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.first = first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getEnd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> end;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEnd</span><span class="params">(T end)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.end = end;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"Pair("</span>+first+<span class="string">","</span>+end+<span class="string">")"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//泛型静态方法，这里的K 和 T没有关系</span></span><br><span class="line"><span class="function"><span class="keyword">static</span>&lt;K&gt; Pair&lt;K&gt; <span class="title">creat</span><span class="params">(K first,K end)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> Pair &lt;K&gt;(first,end);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -770,12 +713,12 @@ c--N-->e(无法确定类名,编译报错)</pre>
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>静态字段和方法,package</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.1k</span></p>
+    <p><span class="copy-title">文章标题:</span>编写泛型</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">454</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-21, 06:03:05</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-25, 18:48:22</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/21/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5%E5%92%8C%E6%96%B9%E6%B3%95,package/" title="静态字段和方法,package">https://feixiangdjames.github.io/blog/2020/04/21/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5%E5%92%8C%E6%96%B9%E6%B3%95,package/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-12, 15:03:54</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-12, 15:42:36</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/12/%E7%BC%96%E5%86%99%E6%B3%9B%E5%9E%8B/" title="编写泛型">https://feixiangdjames.github.io/blog/2020/05/12/%E7%BC%96%E5%86%99%E6%B3%9B%E5%9E%8B/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
