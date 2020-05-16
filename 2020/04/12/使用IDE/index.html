@@ -6,15 +6,15 @@
   <meta name="keywords" content=" java ">
   <meta name="description" content="使用IDE | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="@[toc]    总结    使用类型&lt;?extends Number&gt; 通配符作为方法参数时候表示：   方法内部可以调用获取Number引用的方法   Number n&#x3D;obj.getXxx()   方法内部无法调用传入Number引用的方法（null）   obj.setXxx(Number n)   使用类似   泛型类型限定为Number或Number的子类   exten">
+<meta name="description" content="@[toc]    总结    使用类似&lt;? super Integer&gt;通配符作为方法参数时表示：   方法内部可以调用传入Integer引用的方法obj.setXxx(Integer n)   方法内部无法调用获取Integer引用的方法(Object 除外)   使用类似 定义 泛型时表示：   泛型类型限定为Intege或Integer的超类   无限定通配符&lt;?&gt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="extends通配符">
-<meta property="og:url" content="https://feixiangdjames.github.io/blog/2020/05/15/extends%E9%80%9A%E9%85%8D%E7%AC%A6/index.html">
+<meta property="og:title" content="super通配符">
+<meta property="og:url" content="https://feixiangdjames.github.io/blog/2020/05/16/super%E9%80%9A%E9%85%8D%E7%AC%A6/index.html">
 <meta property="og:site_name" content="James blog">
-<meta property="og:description" content="@[toc]    总结    使用类型&lt;?extends Number&gt; 通配符作为方法参数时候表示：   方法内部可以调用获取Number引用的方法   Number n&#x3D;obj.getXxx()   方法内部无法调用传入Number引用的方法（null）   obj.setXxx(Number n)   使用类似   泛型类型限定为Number或Number的子类   exten">
+<meta property="og:description" content="@[toc]    总结    使用类似&lt;? super Integer&gt;通配符作为方法参数时表示：   方法内部可以调用传入Integer引用的方法obj.setXxx(Integer n)   方法内部无法调用获取Integer引用的方法(Object 除外)   使用类似 定义 泛型时表示：   泛型类型限定为Intege或Integer的超类   无限定通配符&lt;?&gt;">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-05-14T18:04:40.000Z">
-<meta property="article:modified_time" content="2020-05-15T21:04:33.640Z">
+<meta property="article:published_time" content="2020-05-15T21:07:54.000Z">
+<meta property="article:modified_time" content="2020-05-16T03:25:56.932Z">
 <meta property="article:author" content="James">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
