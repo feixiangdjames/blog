@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>String Builder | James blog</title>
+  <title>反射与泛型 | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="String Builder | James blog">
+  <meta name="description" content="反射与泛型 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]    总结    使用类似&lt;? super Integer&gt;通配符作为方法参数时表示：   方法内部可以调用传入Integer引用的方法obj.setXxx(Integer n)   方法内部无法调用获取Integer引用的方法(Object 除外)   使用类似 定义 泛型时表示：   泛型类型限定为Intege或Integer的超类   无限定通配符&lt;?&gt;">
 <meta property="og:type" content="article">
@@ -622,9 +622,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-String-Builder" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-反射与泛型" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">String Builder</h1>
+        <h1 class="article-title">反射与泛型</h1>
     
     <div class="article-meta">
         
@@ -634,7 +634,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="面向对象">面向对象</a>
+                <a  data-rel="反射与泛型">反射与泛型</a>
             
         </span>
         
@@ -648,12 +648,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-25 01:05:21'>2020-04-24 23:59</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-16 20:38:55'>2020-05-16 19:23</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:210</span>
+        <span>字数:767</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -672,7 +672,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#StringBuffer"><span class="toc-text">StringBuffer</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Class是泛型："><span class="toc-text">Class是泛型：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Constructor-也是泛型"><span class="toc-text">Constructor 也是泛型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型数组"><span class="toc-text">泛型数组</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -688,7 +688,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#StringBuffer"><span class="toc-text">StringBuffer</span></a></li></ol></div></p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Class是泛型："><span class="toc-text">Class是泛型：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Constructor-也是泛型"><span class="toc-text">Constructor 也是泛型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型数组"><span class="toc-text">泛型数组</span></a></li></ol></div></p>
 <table>
 <thead>
 <tr>
@@ -696,40 +696,145 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>StringBuilder用来高效拼接字符串</td>
+<td>部分反射API是泛型：Class<T>,Constructor<T></td>
 </tr>
 <tr>
-<td>append支持链式写法，因为拼接完成后会返回this</td>
+<td>可以声明带泛型的数组，但不能直接创建带泛型的数组，必须强制转型</td>
 </tr>
 <tr>
-<td>StringBuffer是线程安全版本的StringBuilder 很少使用</td>
+<td>可以通过Array.newInstance(Class<T>,int) 创建T[]数组，需要强制转型</td>
 </tr>
 </tbody></table>
-<p>#StringBuilder</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String =<span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> t=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)&#123;</span><br><span class="line">s=s+String.valueOf(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>String 可以用+ 拼接</li>
-<li>每次循环都会创建新的字符串</li>
-<li>绝大部分都是临时对象，浪费内存</li>
-<li>影响GC效率</li>
+<h1 id="Class是泛型："><a href="#Class是泛型：" class="headerlink" title="Class是泛型："></a>Class<T>是泛型：</h1><ul>
+<li>使用Class不带T的时候，有警告；因为Class是泛型。</li>
 </ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//compile warning:</span></span><br><span class="line">Class clazz=String<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">String str=(String) clazz.newInstance();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用Class 泛型，不需要强制转型：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;String&gt; clazz=String<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">String str=clazz.newInstance();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Class &lt;? super T&gt; getSuperclass()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class &lt;?<span class="keyword">super</span> String&gt; sup=clazz.getSuperclass();</span><br></pre></td></tr></table></figure>
+
+<h1 id="Constructor-也是泛型"><a href="#Constructor-也是泛型" class="headerlink" title="Constructor 也是泛型"></a>Constructor<T> 也是泛型</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;Integer&gt; clazz=Integer<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">Constructor&lt;Integer&gt; cons=clazz.getConstrucotr(<span class="keyword">int</span><span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">Integer i=cons.newInstance(<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="泛型数组"><a href="#泛型数组" class="headerlink" title="泛型数组"></a>泛型数组</h1><blockquote>
+<p>可以声明带泛型的数组，但不能用new 创建带泛型的数组：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Pair&lt;String&gt;[] ps=<span class="keyword">null</span>;</span><br><span class="line">Pair&lt;String&gt;[] ps=<span class="keyword">new</span> Pair&lt;String&gt;[<span class="number">2</span>];<span class="comment">//错误</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>StringBuilder 类可以高效拼接字符串</p>
+<p>必须通过强制转型实现带泛型的数组</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@suppressWarning</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">Pair&lt;String&gt;[] ps=(Pair&lt;String&gt;[]) <span class="keyword">new</span> Pair[<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用泛型数组要注意，数组在运行时是没有泛型的，编译器<br>可以强制检查数组 ps类型,但是不会检查原始的变量 arr,因为arr不是泛型数组。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不安全的使用泛型数组：</span></span><br><span class="line">Pair[] arr=<span class="keyword">new</span> Pair[<span class="number">2</span>];</span><br><span class="line">Pair&lt;String&gt;[] ps=(Pair&lt;String&gt;[]) arr;</span><br><span class="line"></span><br><span class="line">ps[<span class="number">0</span>]=<span class="keyword">new</span> Pair&lt;String&gt;(<span class="string">"a"</span>,<span class="string">"b"</span>);</span><br><span class="line">arr[<span class="number">1</span>]=<span class="keyword">new</span> Pair&lt;Integer&gt;(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//ClassCastException:</span></span><br><span class="line">Pair&lt;String&gt; p=ps[<span class="number">1</span>];</span><br><span class="line">String s=p.getFirst();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>安全地使用带泛型的数组</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//拿不到原始数组arr的引用，则对泛型数组ps操作是安全的。</span></span><br><span class="line"><span class="meta">@suppressWarning</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">Pair&lt;String&gt;[] ps=(Pair&lt;String&gt;[]) <span class="keyword">new</span> Pair[<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>待泛型的数组时间上是编译器的类型擦除：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Pair[] arr=<span class="keyword">new</span> Pair[<span class="number">2</span>];</span><br><span class="line">Pair&lt;String&gt;[] ps=(Pair&lt;String&gt;[]) arr;</span><br><span class="line"></span><br><span class="line">System.out.println(ps.getClass()==Pair[]<span class="class">.<span class="keyword">class</span>)</span>;<span class="comment">//true;</span></span><br><span class="line"></span><br><span class="line">String s1=(String) arr[<span class="number">0</span>].getFirst();</span><br><span class="line">String s2=ps[<span class="number">0</span>].getFirst();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>不能直接创建T[]数组</p>
 </blockquote>
 <ul>
-<li>StrinBuilder是可变对象</li>
-<li>StringBuilder可以预分配缓冲区</li>
+<li>因为擦拭后代码变为new Object[5]</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder sb=<span class="keyword">new</span> StringBuilder(<span class="number">1024</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)&#123;</span><br><span class="line">sb.append(String.valueOf(i));</span><br><span class="line">&#125;</span><br><span class="line">String s=sb.toString();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//compile error:</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Abc</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">      T[] createArray()&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> T[<span class="number">5</span>];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>必须借助Class<T></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span>(T[]) Array.newInstance(cls,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>利用可变参数创建T[]数组：</p>
+</blockquote>
 <ul>
-<li>StringBuilder可以进行链式操作</li>
+<li>@SafeVarargs消除编译器警告</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder sb=<span class="keyword">new</span> StringBuilder(<span class="number">1024</span>);</span><br><span class="line">String s=sb.append(<span class="string">"Mr "</span>)</span><br><span class="line">.append(name)</span><br><span class="line">.append(<span class="string">"!"</span>)</span><br><span class="line">.insert(<span class="number">0</span>,<span class="string">"Hello,"</span>)</span><br><span class="line">.toString();</span><br></pre></td></tr></table></figure>
-<h2 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h2><ul>
-<li>StringBuilder 和 StringBuffer接口完全相同</li>
-<li>StringBuffer是StringBuilder的线程安全版本。</li>
-<li>没有必要使用StringBuffer（跨线程做字符串拼接）</li>
-</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayHelper</span></span>&#123;</span><br><span class="line"><span class="meta">@SafeVarargs</span></span><br><span class="line"><span class="keyword">static</span>&lt;T&gt; T[] asArray(T... objs)&#123;</span><br><span class="line">    <span class="keyword">return</span> objs;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">String[] ss=ArrayHelper.asArray(<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">	Class&lt;String&gt; clazz=String<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@SuppressWarnings</span>(<span class="string">"deprecation"</span>)</span><br><span class="line">	String s1=clazz.newInstance();</span><br><span class="line">	System.out.println(<span class="string">"s1:"</span>+s1);</span><br><span class="line">	</span><br><span class="line">	Constructor&lt;String&gt; cons=clazz.getConstructor(String<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">	String s2=cons.newInstance(<span class="string">"Hello"</span>);</span><br><span class="line">	System.out.println(<span class="string">"s2:"</span>+s2);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//泛型数组</span></span><br><span class="line">	<span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">	<span class="comment">//不能实现化一个泛型数组，只能实例化一个Pair数组，然后强制转型成泛型数组</span></span><br><span class="line">	Pair&lt;String&gt;[] ps=(Pair&lt;String&gt;[]) <span class="keyword">new</span> Pair[<span class="number">2</span>];</span><br><span class="line">	<span class="comment">//扔掉对Pair的引用，就可以安全的对ps进行操作</span></span><br><span class="line">	ps[<span class="number">0</span>]=<span class="keyword">new</span> Pair&lt;&gt;(<span class="string">"a"</span>,<span class="string">"b"</span>);</span><br><span class="line">	ps[<span class="number">1</span>]=<span class="keyword">new</span> Pair&lt;&gt;(<span class="string">"x"</span>,<span class="string">"y"</span>);</span><br><span class="line">	System.out.println(Arrays.toString(ps));</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-------</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"><span class="keyword">private</span> T first;</span><br><span class="line"><span class="keyword">private</span> T last;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T first,T last)</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.first=first;</span><br><span class="line">	<span class="keyword">this</span>.last=last;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFirst</span><span class="params">(T first)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.first=first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getLast</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> last;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLast</span><span class="params">(T last)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.last=last;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"Pair("</span>+<span class="keyword">this</span>.first+<span class="string">","</span>+<span class="keyword">this</span>.last+<span class="string">")"</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -739,12 +844,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>String Builder</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">212</span></p>
+    <p><span class="copy-title">文章标题:</span>反射与泛型</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">781</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-24, 23:59:24</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-25, 01:05:21</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/24/String-Builder/" title="String Builder">https://feixiangdjames.github.io/blog/2020/04/24/String-Builder/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-16, 19:23:05</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-16, 20:38:55</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/16/%E5%8F%8D%E5%B0%84%E4%B8%8E%E6%B3%9B%E5%9E%8B/" title="反射与泛型">https://feixiangdjames.github.io/blog/2020/05/16/%E5%8F%8D%E5%B0%84%E4%B8%8E%E6%B3%9B%E5%9E%8B/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
