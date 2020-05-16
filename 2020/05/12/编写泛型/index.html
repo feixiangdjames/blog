@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>擦拭法 | James blog</title>
+  <title>编写泛型 | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="擦拭法 | James blog">
+  <meta name="description" content="编写泛型 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]    总结    使用类型&lt;?extends Number&gt; 通配符作为方法参数时候表示：   方法内部可以调用获取Number引用的方法   Number n&#x3D;obj.getXxx()   方法内部无法调用传入Number引用的方法（null）   obj.setXxx(Number n)   使用类似   泛型类型限定为Number或Number的子类   exten">
 <meta property="og:type" content="article">
@@ -614,9 +614,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-擦拭法" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-编写泛型" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">擦拭法</h1>
+        <h1 class="article-title">编写泛型</h1>
     
     <div class="article-meta">
         
@@ -640,12 +640,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-05-13 11:35:39'>2020-05-13 08:51</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-16 11:25:54'>2020-05-12 15:03</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:498</span>
+        <span>字数:448</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -664,7 +664,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#擦拭法-Type-Erasure"><span class="toc-text">擦拭法 (Type Erasure)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型继承"><span class="toc-text">泛型继承</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Type"><span class="toc-text">Type</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#编写泛型类"><span class="toc-text">编写泛型类</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -680,56 +680,62 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#擦拭法-Type-Erasure"><span class="toc-text">擦拭法 (Type Erasure)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型继承"><span class="toc-text">泛型继承</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Type"><span class="toc-text">Type</span></a></li></ol></div></p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#编写泛型类"><span class="toc-text">编写泛型类</span></a></li></ol></div></p>
+<table>
+<thead>
+<tr>
+<th>编写泛型，需要定义泛型类型<T></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>静态方法不能引用泛型类型<T>,必须定义其他类型<K>来实现泛型</td>
+</tr>
+<tr>
+<td>public static <K> Pair<K> creat(K frist,K end )</td>
+</tr>
+<tr>
+<td>泛型可以同时定义多种类型&lt;T,K&gt;</td>
+</tr>
+</tbody></table>
+<h1 id="编写泛型类"><a href="#编写泛型类" class="headerlink" title="编写泛型类"></a>编写泛型类</h1><ul>
+<li>编写泛型类比普通类复杂</li>
+<li>泛型类一般用在集合类中ArrayList<T></li>
+<li>很少需要编写泛型类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line"><span class="keyword">private</span> T frist;</span><br><span class="line"><span class="keyword">private</span> T last;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T first,T last)</span></span>&#123;</span><br><span class="line"><span class="keyword">this</span>.first=frist;</span><br><span class="line"><span class="keyword">this</span>.last=last;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getLast</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>Java的泛型是采用擦拭法实现的<br>擦拭法决定泛型<T>:</p>
+<p>泛型类型<T>不能用于静态方法：</p>
 </blockquote>
 <ul>
-<li>不能是基本类型，例如int</li>
-<li>不能获取带有泛型类型的Class,例如： Pair<String>.class</li>
-<li>不能判断带有泛型类型的类型 </li>
-<li>不能实例化T类型，例如：new T()</li>
-<li>泛型方法要防止重复定义方法：例如:public boolean queals</li>
-<li>子类型可以获取夫类型的泛型类型<T></li>
+<li>编译错误</li>
+<li>编译器无法在静态字段或静态方法中使用泛型类型<T></li>
 </ul>
-<h1 id="擦拭法-Type-Erasure"><a href="#擦拭法-Type-Erasure" class="headerlink" title="擦拭法 (Type Erasure)"></a>擦拭法 (Type Erasure)</h1><blockquote>
-<p>编译器把类型<T>是视为Object<br>编译器根据<T>实现安全的强制转型</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">Pair &lt;String&gt; pair = <span class="keyword">new</span> Pair&lt;&gt;(<span class="string">"Xiao"</span>,<span class="string">"Ming"</span>);</span><br><span class="line">String first=pair.getFirst();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">Pair pair = <span class="keyword">new</span> Pair(<span class="string">"Xiao"</span>,<span class="string">"Ming"</span>);</span><br><span class="line">String first=(String) pair.getFirst();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//错误</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Pair &lt;T&gt; creat(T first T end)&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> Pair&lt;T&gt;(first,last)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>擦拭法的局限：<br><T> 不能是基本类型，例如int<br>Object 字段无法持有基本类型<br>无法获取带泛型的Class</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Pair &lt;String&gt; s=...;</span><br><span class="line">Pair &lt;Interger&gt; i=...;</span><br><span class="line">Class c1=s.getClass();</span><br><span class="line">Class c2=i.getClass();</span><br><span class="line">System.out.println(c1==c2);<span class="comment">//ture</span></span><br><span class="line">System.out.println(c1==Pair.calss);<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>不能实例化T类型</p>
+<p>静态方法可以单独改写为“泛型”方法：</p>
 </blockquote>
 <ul>
-<li>因为擦拭后实际上是new Object();<blockquote>
-<p>实例化T类型必须借助Classs<T></p>
-</blockquote>
-</li>
+<li>使用另一个类型<K></li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line"><span class="keyword">private</span> T first;</span><br><span class="line"><span class="keyword">private</span> T last;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(Class&lt;T&gt; clazz)</span></span>&#123;</span><br><span class="line">first = clazz.newInstance();</span><br><span class="line">last = clazz.newInstance();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Pair<String> pair=new Pair&lt;&gt;(String.class); 正确</li>
-<li>Pair<String> pair=new Pair&lt;&gt;(Integer.calss);编译错误</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//编译器 方法重名错误，equals T 和 equals Object</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public boolean equals(T pair) &#123; return true; &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<h1 id="泛型继承"><a href="#泛型继承" class="headerlink" title="泛型继承"></a>泛型继承</h1><blockquote>
-<p>可以继承自泛型类：</p>
-</blockquote>
-<ul>
-<li>父类的类型是Pair<Integer></li>
-<li>子类的类型是IntPair</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IntPair</span> <span class="keyword">extends</span> <span class="title">Pair</span>&lt;<span class="title">Integer</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">IntPair ip = <span class="keyword">new</span> IntPair(<span class="number">1</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;K&gt; Pair &lt;K&gt; creat(K first K end)&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> Pair&lt;K&gt;(first,last)</span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>这种情况下，编译器只能将父类的泛型类型保存在子类中，<br>否则，就不知道子类只能存储这种类型。<br>子类可以获取父类的泛型类型Integer</p>
+<p>泛型可以支持多种类型：</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;IntPair&gt; clazz=IntPair<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">Type t=clazz.getGennericSuperclass();</span><br><span class="line"><span class="keyword">if</span>(t <span class="keyword">instanceof</span> ParameterizedType)&#123;</span><br><span class="line">   ParameterizedType pt=(ParameterizedType) t;</span><br><span class="line">   Type[] type=pt.getActualTypeArguments();</span><br><span class="line">   Type firstType=types[<span class="number">0</span>];</span><br><span class="line">   Class&lt;?&gt; typeClass=(Class&lt;?&gt;) firstType;</span><br><span class="line">   System.out.println(typeClass);<span class="comment">//Integer;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h1><blockquote>
-<p>JDK 规定的Type，它的实现类包括 Class，ParameterizedType<br>GenericArrayType,WildCardType</p>
-</blockquote>
+<p>public class Pair&lt;T,K&gt;{…}</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.james.sample;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Pair&lt;String&gt; p=Pair.creat(<span class="string">"james"</span>, <span class="string">"wang"</span>);</span><br><span class="line">		<span class="comment">//Pair&lt;String&gt; p=new Pair&lt;&gt;("xiao","ming");</span></span><br><span class="line">		String first=p.getFirst();</span><br><span class="line">		String end=p.getEnd();</span><br><span class="line">		System.out.println(first);</span><br><span class="line">		System.out.println(end);</span><br><span class="line">		<span class="comment">//不存在针对不同的泛型，存在不同的Class</span></span><br><span class="line">		System.out.println(p.getClass()==Pair<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"><span class="keyword">private</span> T first;</span><br><span class="line"><span class="keyword">private</span> T end;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T first,T end)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.setFirst(first);</span><br><span class="line">	<span class="keyword">this</span>.setEnd(end);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFirst</span><span class="params">(T first)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.first = first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getEnd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> end;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEnd</span><span class="params">(T end)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.end = end;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"Pair("</span>+first+<span class="string">","</span>+end+<span class="string">")"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//泛型静态方法，这里的K 和 T没有关系</span></span><br><span class="line"><span class="function"><span class="keyword">static</span>&lt;K&gt; Pair&lt;K&gt; <span class="title">creat</span><span class="params">(K first,K end)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> Pair &lt;K&gt;(first,end);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -739,12 +745,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>擦拭法</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">509</span></p>
+    <p><span class="copy-title">文章标题:</span>编写泛型</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">454</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-05-13, 08:51:41</p>
-    <p><span class="copy-title">最后更新:</span>2020-05-13, 11:35:39</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/13/%E6%93%A6%E6%8B%AD%E6%B3%95/" title="擦拭法">https://feixiangdjames.github.io/blog/2020/05/13/%E6%93%A6%E6%8B%AD%E6%B3%95/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-12, 15:03:54</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-16, 11:25:54</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/12/%E7%BC%96%E5%86%99%E6%B3%9B%E5%9E%8B/" title="编写泛型">https://feixiangdjames.github.io/blog/2020/05/12/%E7%BC%96%E5%86%99%E6%B3%9B%E5%9E%8B/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
