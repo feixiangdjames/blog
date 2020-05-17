@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>泛型定义和使用 | James blog</title>
+  <title>集合和list | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="泛型定义和使用 | James blog">
+  <meta name="description" content="集合和list | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]    总结    部分反射API是泛型：Class,Constructor   可以声明带泛型的数组，但不能直接创建带泛型的数组，必须强制转型   可以通过Array.newInstance(Class,int) 创建T[]数组，需要强制转型   # Class是泛型：    使用Class不带T的时候，有警告；因为Class是泛型。  123&#x2F;&#x2F;compile warning:Cl">
 <meta property="og:type" content="article">
@@ -646,9 +646,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-泛型" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-集合" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">泛型定义和使用</h1>
+        <h1 class="article-title">集合和list</h1>
     
     <div class="article-meta">
         
@@ -658,7 +658,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="反射与泛型">反射与泛型</a>
+                <a  data-rel="集合">集合</a>
             
         </span>
         
@@ -672,12 +672,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-05-13 03:16:06'>2020-05-12 18:52</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-17 22:00:28'>2020-05-17 09:49</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:951</span>
+        <span>字数:1.6k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -696,7 +696,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么需要泛型？"><span class="toc-text">为什么需要泛型？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型-Genric"><span class="toc-text">泛型(Genric)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Genric的继承关系"><span class="toc-text">Genric的继承关系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何使用泛型"><span class="toc-text">如何使用泛型</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JAVA-集合"><span class="toc-text">JAVA 集合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JAVA集合设计的特点："><span class="toc-text">JAVA集合设计的特点：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JDK的部分集合类是遗留类，不应该继续使用："><span class="toc-text">JDK的部分集合类是遗留类，不应该继续使用：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#List"><span class="toc-text">List</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ArrayList-vs-LinkedList"><span class="toc-text">ArrayList vs LinkedList</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#List和Array转换"><span class="toc-text">List和Array转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array变成List"><span class="toc-text">Array变成List:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#equals方法编写"><span class="toc-text">equals方法编写</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -712,111 +712,257 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么需要泛型？"><span class="toc-text">为什么需要泛型？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型-Genric"><span class="toc-text">泛型(Genric)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Genric的继承关系"><span class="toc-text">Genric的继承关系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何使用泛型"><span class="toc-text">如何使用泛型</span></a></li></ol></div></p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JAVA-集合"><span class="toc-text">JAVA 集合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JAVA集合设计的特点："><span class="toc-text">JAVA集合设计的特点：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JDK的部分集合类是遗留类，不应该继续使用："><span class="toc-text">JDK的部分集合类是遗留类，不应该继续使用：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#List"><span class="toc-text">List</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ArrayList-vs-LinkedList"><span class="toc-text">ArrayList vs LinkedList</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#List和Array转换"><span class="toc-text">List和Array转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array变成List"><span class="toc-text">Array变成List:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#equals方法编写"><span class="toc-text">equals方法编写</span></a></li></ol></div></p>
 <table>
 <thead>
 <tr>
-<th>总结</th>
+<th>Java集合类定义在java.util包中</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>泛型就是编写模板代码来执行任何类型</td>
+<td>常用的集合类包括List,Set,Map等</td>
 </tr>
 <tr>
-<td>不必对类型进行强制转换</td>
+<td>java集合使用统一的Iterator遍历集合</td>
 </tr>
 <tr>
-<td>编译器将对类型进行检查</td>
+<td>尽量不用遗留接口</td>
 </tr>
 <tr>
-<td>注意泛型的继承关系：</td>
+<td>List的特点：</td>
 </tr>
 <tr>
-<td>可以把ArrayList<Integer> 向上转型为 List<Integer> T的类型不能改变</td>
+<td>按索引顺序访问的长度可变链表</td>
 </tr>
 <tr>
-<td>使用泛型，把泛型参数<T>换成需要的class类型</td>
+<td>优先使用ArrayList而不是LinkedList</td>
 </tr>
 <tr>
-<td>可以省略编译能够推断的类型：</td>
+<td>可以直接使用for…each遍历</td>
 </tr>
 <tr>
-<td>List<String> list=new ArrayList&lt;&gt;()</td>
+<td>可以和Array互相转换</td>
 </tr>
 <tr>
-<td>不指定泛型参数，编译器会给出警告，且将T视同为Objeect类型</td>
+<td>List中查找元素</td>
 </tr>
 <tr>
-<td></td>
+<td>List的实现类通过元素的equals方法比较两个元素</td>
+</tr>
+<tr>
+<td>放入的元素必须正确覆写equals方法</td>
+</tr>
+<tr>
+<td>JDK提供的String、Integer等已经覆写了equals方法</td>
+</tr>
+<tr>
+<td>编写equals方法可借助Objects.equals()判断</td>
+</tr>
+<tr>
+<td>如果不在List中查找元素，不必覆写eqals方法</td>
 </tr>
 </tbody></table>
-<h1 id="为什么需要泛型？"><a href="#为什么需要泛型？" class="headerlink" title="为什么需要泛型？"></a>为什么需要泛型？</h1><blockquote>
-<p>ArrayList 是JDK提供的一种可变长度数组。<br>如果用ArrayList存储String类型：</p>
+<h1 id="JAVA-集合"><a href="#JAVA-集合" class="headerlink" title="JAVA 集合"></a>JAVA 集合</h1><blockquote>
+<p>有了数组，为什么还需要其他集合类？<br>  数组初始化后，大侠不可变<br>  数组只能按照索引顺序存取</p>
 </blockquote>
 <ul>
-<li>需要强制转型</li>
-<li>不方便，易出错</li>
+<li>需要其他各种集合类来处理：</li>
+<li>可以变大小的顺序链表</li>
+<li>保证无重复元素的集合</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span></span>&#123;</span><br><span class="line"><span class="keyword">private</span> Object[] array;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Object e)</span></span>&#123;...&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;...&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;...&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ArrayList list=<span class="keyword">new</span> ArrayList();</span><br><span class="line">list.add(<span class="string">"Hello"</span>);</span><br><span class="line">String first=(String) list.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">list.add(<span class="keyword">new</span> Integer(<span class="number">123</span>));</span><br><span class="line"><span class="comment">//ERROR:ClassCastException:</span></span><br><span class="line">String second=(String) list.get(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>如果为String单独编写一种ArrayList:</p>
+<p>JDK自带的java.util包提供了集合类：</p>
 </blockquote>
 <ul>
-<li>不需要强制转型</li>
-<li>编译器强制检查放入的类型</li>
-<li>问题解决</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringArrayList</span></span>&#123;</span><br><span class="line"><span class="keyword">private</span> String[] array;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(String e)</span></span>&#123;...&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>新的问题？需要多少个ArrayList ?</li>
-</ul>
-<h1 id="泛型-Genric"><a href="#泛型-Genric" class="headerlink" title="泛型(Genric)"></a>泛型(Genric)</h1><ul>
-<li>解决以上问题，把ArrayList变成一个模板<ul>
-<li>ArrayList<T>,T可以是任意的Class </li>
-<li>ArrayList<String>,ArrayList<Float>,ArrayList<Person>….</li>
+<li>Collection:集合类的根接口<ul>
+<li>LIst:一种有序列表<br>例如，按索引排列的Student的List</li>
+<li>Set:一种保证没有重复元素的集合<br>例如，所有无重复Student的Set</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line"><span class="keyword">private</span> T[] array;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(T e)</span></span>&#123;...&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;...&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ArrayList&lt;String&gt; strList=<span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">ArrayList&lt;Float&gt; floatList=<span class="keyword">new</span> ArrayList&lt;Float&gt;();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Map:一种通过Key查找Value的映射表集合<br>    例如，根据name查找对应的Student的Map</p>
+</blockquote>
+<h1 id="JAVA集合设计的特点："><a href="#JAVA集合设计的特点：" class="headerlink" title="JAVA集合设计的特点："></a>JAVA集合设计的特点：</h1><ul>
+<li>接口和实现相分离：<br>List接口：ArrayList,LinkedList…</li>
+<li>支持泛型：<br>List<Student> list=new ArrayList&lt;&gt;();</li>
+<li>访问集合有统一的方法：<br>迭代器</li>
+</ul>
+<h1 id="JDK的部分集合类是遗留类，不应该继续使用："><a href="#JDK的部分集合类是遗留类，不应该继续使用：" class="headerlink" title="JDK的部分集合类是遗留类，不应该继续使用："></a>JDK的部分集合类是遗留类，不应该继续使用：</h1><ul>
+<li>Hashtable:一种线程安全的Map实现</li>
+<li>Vector:一种线程安全的List实现</li>
+<li>Stack:基于Vector实现的LIFO的栈</li>
+<li>Enumeration<E>:被Iterator<E>取代</li>
+</ul>
+<h1 id="List"><a href="#List" class="headerlink" title="List"></a>List</h1><blockquote>
+<p>List<E>是一种有序链表：</p>
+</blockquote>
+<ul>
+<li>LIst内部按照放入元素的先后顺序存放</li>
+<li>每个元素都可以通过索引确定自己的位置</li>
+<li>类似数组，但大小可变</li>
+</ul>
+<blockquote>
+<p>List是一个泛型接口：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>常用方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void add(E e)在末尾添加一个元素</td>
+</tr>
+<tr>
+<td>void add(int index,E e)在指定索引添加一个元素</td>
+</tr>
+<tr>
+<td>int remove(int index) 删除指定索引的元素</td>
+</tr>
+<tr>
+<td>int remove(Object e) 删除某个元素</td>
+</tr>
+<tr>
+<td>E get(int index) 获取指定索引的元素</td>
+</tr>
+<tr>
+<td>int size()获取链表大小</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>List是一种有序链表：</p>
+</blockquote>
+<ul>
+<li>数组也是有序接口，但是大小是固定，且删除元素时，需要移动后续元素</li>
+<li>ArrayList内部时以数组进行存储，如果需要添加元素已经超过限制，ArrayList会创建一个更大的数组，<br>替代当前的数组。</li>
+<li>LinkedList<E>:内部每个元素都指向下一个元素.</li>
+</ul>
+<h2 id="ArrayList-vs-LinkedList"><a href="#ArrayList-vs-LinkedList" class="headerlink" title="ArrayList vs LinkedList"></a>ArrayList vs LinkedList</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>ArrayList</th>
+<th>LinkedList</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>获取指定元素</td>
+<td>速度很快</td>
+<td>需要从头开始查找元素</td>
+</tr>
+<tr>
+<td>添加元素到末尾</td>
+<td>速度很快</td>
+<td>速度很快</td>
+</tr>
+<tr>
+<td>在指定位置添加/删除</td>
+<td>需要一定元素</td>
+<td>不需要移动元素</td>
+</tr>
+<tr>
+<td>内存占用</td>
+<td>小</td>
+<td>较大</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>List的元素可以重复<br>List元素可以null<br>遍历一个List<E>:</p>
+</blockquote>
+<ul>
+<li>通过get(int index)<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list=...</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;list.size();i++)&#123;</span><br><span class="line">   String s=list.get(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用Iterator<E></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list=...</span><br><span class="line"><span class="keyword">for</span>(Iterator&lt;String&gt; it=list.iterator();it.hasNext();)&#123;</span><br><span class="line">   String s=it.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用foreach</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list=...</span><br><span class="line"><span class="keyword">for</span>(String s:list)&#123;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>除了数组以外，所有实现了Iterable接口的类，都可以使用foreach类<br>foreach本质还是Iterator遍历，编译器会自动将foreach代码自动编译为<br>Iterator的调用。</p>
+</blockquote>
+<h2 id="List和Array转换"><a href="#List和Array转换" class="headerlink" title="List和Array转换"></a>List和Array转换</h2><blockquote>
+<p>把List<E>变为Array:</p>
+</blockquote>
+<ul>
+<li>Object[]toArrray();<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object[] array=list.toArray();</span><br></pre></td></tr></table></figure></li>
+<li>List对象还有一个重载的toArray的方法，<T> T[]toArray(T[] a)<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">Integer[] array=list.toArray(<span class="keyword">new</span> Integer[<span class="number">3</span>]);</span><br><span class="line"><span class="comment">//这里的泛型T 并不是List的泛型E 我们还可以传入Number</span></span><br><span class="line">Number[] ns= list.toArray(<span class="keyword">new</span> Number[<span class="number">3</span>]);</span><br><span class="line"><span class="comment">//Number[]&#123;1,2,3&#125;</span></span><br><span class="line">String[] ss=list.toArray(<span class="keyword">new</span> String[<span class="number">3</span>]);</span><br><span class="line"><span class="comment">//ArrayStoreException，因为ArrayList中存储的时Integer所以报错</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果list中有3个元素，而我们传入的数组只有2个元素。toArray方法会扔掉我们的数组<br>然后，创建一个新的数组(长度是list的3个元素)返回。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">Integer[] array=list.toArray(<span class="keyword">new</span> Integer[<span class="number">2</span>]);</span><br><span class="line"><span class="comment">//&#123;1,2,3&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果list中有3个元素，而我们传入的数组只有5个元素。toArray方法会最后两位补null</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">List&lt;Integer&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">Integer[] array=list.toArray(<span class="keyword">new</span> Integer[<span class="number">5</span>]);</span><br><span class="line"><span class="comment">//&#123;1,2,3,null,null&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通常情况下，我们永远传入和list大小一样的数组。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list&#x3D;new ArrayList&lt;&gt;();</span><br><span class="line">list.add(1);</span><br><span class="line">list.add(2);</span><br><span class="line">list.add(3);</span><br><span class="line"></span><br><span class="line">Integer[] array&#x3D;list.toArray(new Integer[list.size()]);</span><br></pre></td></tr></table></figure>
+<h2 id="Array变成List"><a href="#Array变成List" class="headerlink" title="Array变成List:"></a>Array变成List<E>:</h2><ul>
+<li><T>List<T> Aarrays.asList(T… a)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Integer[] array=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">List&lt;Integer&gt; list=Array.asList(array);</span><br><span class="line"><span class="comment">//注意返回的list并不是ArrayList;</span></span><br><span class="line">list.add(<span class="number">4</span>);<span class="comment">//UnsupportedOperationException!</span></span><br><span class="line"></span><br><span class="line">List&lt;Ingeger&gt; arrayList=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">arrayList.addAll(list);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[]array=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">List&lt;Integer&gt; arrayList=<span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(array));</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.itranswarp.learnjava;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyList</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	List&lt;String&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">	list.add(<span class="string">"apple"</span>);</span><br><span class="line">	list.add(<span class="string">"pair"</span>);</span><br><span class="line">	list.add(<span class="string">"maple"</span>);</span><br><span class="line">	<span class="keyword">for</span>(String a:list) &#123;</span><br><span class="line">		System.out.println(a);</span><br><span class="line">	&#125;</span><br><span class="line">	System.out.println(<span class="string">"----------"</span>);</span><br><span class="line">	String[] ss=list.toArray(<span class="keyword">new</span> String[list.size()]);</span><br><span class="line">	<span class="keyword">for</span>(String s1:ss) &#123;</span><br><span class="line">		System.out.println(s1);</span><br><span class="line">	&#125;</span><br><span class="line">	System.out.println(<span class="string">"-----linked-----"</span>);</span><br><span class="line">	List&lt;String&gt; list1=<span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">	list.add(<span class="string">"apple1"</span>);</span><br><span class="line">	list.add(<span class="string">"pair1"</span>);</span><br><span class="line">	list.add(<span class="string">"maple1"</span>);</span><br><span class="line">	String[] ss1=list.toArray(<span class="keyword">new</span> String[list.size()]);</span><br><span class="line">	<span class="comment">//LinkedList不能直接使用foreach</span></span><br><span class="line">	<span class="keyword">for</span>(String a1:ss1) &#123;</span><br><span class="line">		System.out.println(a1);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="equals方法编写"><a href="#equals方法编写" class="headerlink" title="equals方法编写"></a>equals方法编写</h1><blockquote>
+<p>List<E>是一种有序链表：</p>
+</blockquote>
+<ul>
+<li>List内部按照放入元素的先后顺序存放</li>
+<li>每个元素都可以通过索引确定自己的位置</li>
+<li>boolean contains(Object o)是否包含么个元素</li>
+<li>int indexOf(Object o)查找某个元素的索引，不存在的返回-1</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">list.add(<span class="string">"c"</span>);</span><br><span class="line">list.contains(<span class="string">"c"</span>);<span class="comment">//true</span></span><br><span class="line">list.indexOf(<span class="string">"c"</span>);<span class="comment">//0</span></span><br><span class="line">list.indexOf(<span class="string">"d"</span>)<span class="string">'//-1</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>泛型就是一种模板，例如:ArrayList<T></p>
+<p>List内部使用equals()方法判断两个元素是否相等，而不是==操作符：</p>
 </blockquote>
-<ul>
-<li>在代码中为用到的类创建对应的ArrayList&lt;类型&gt;<br>ArrayList<String> strList= new ArrayList<Sring>();</li>
-<li>编译器针对类型作检查<br>strList.add(“hello”);<br>strList.add(new integer(123));//compile error!</li>
-</ul>
-<h2 id="Genric的继承关系"><a href="#Genric的继承关系" class="headerlink" title="Genric的继承关系"></a>Genric的继承关系</h2><blockquote>
-<p>ArrayList<T>实现了List<T>接口：</p>
-</blockquote>
-<ul>
-<li>可以向上转型：</li>
-</ul>
-<pre class="mermaid">graph BT
-a(ArrayList<Sring>)==>b(List<Sring>)</pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">       <span class="keyword">private</span> T[] array;</span><br><span class="line">	   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(T e)</span></span>&#123;&#125;</span><br><span class="line">	   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;&#125;</span><br><span class="line">	   <span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">List&lt;Sring&gt; list= <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ArrayList&#123;</span><br><span class="line">Object[] elementData;</span><br><span class="line"><span class="function">pulic <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span></span>&#123;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;size;i++)&#123;</span><br><span class="line"><span class="keyword">if</span>(o.equals(elementData[i])&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>不能把ArrayList<Integer> 向上转型为ArrayList<Number> 或List<Number><br>ArrayList<Number> 和 ArrayList<Integer> 两者没有继承关系</p>
+<p>要正确的调用contains/indexOf方法，放入的实例要正确实现equals();</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.james.samle;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ArrayList&lt;String&gt; strList= <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">		strList.add(<span class="string">"abc"</span>);</span><br><span class="line">		strList.add(<span class="string">"xyz"</span>);</span><br><span class="line">		</span><br><span class="line">		String first=strList.get(<span class="number">1</span>);</span><br><span class="line">		System.out.println(first);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="如何使用泛型"><a href="#如何使用泛型" class="headerlink" title="如何使用泛型"></a>如何使用泛型</h1><blockquote>
-<p>不定义泛型类型时：<br>     - List 的接口变为Object类型：<br>      - void add(Object)<br>      - Object get(int)<br>     - 编译器警告<br>     - 此时只能把<T>当作Object使用</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">List list=<span class="keyword">new</span> ArrayList();</span><br><span class="line">list.add(<span class="string">"Hello"</span>);</span><br><span class="line">list.add(<span class="string">"World"</span>);</span><br><span class="line">Object first = list.get(<span class="number">0</span>);</span><br><span class="line">Object second =list.get(<span class="number">1</span>);</span><br><span class="line">``` 	 </span><br><span class="line"># 使用泛型</span><br><span class="line">&gt; 定义泛型类型&lt;Sring&gt;</span><br><span class="line">  - List&lt;T&gt;的泛型接口变为强类型：</span><br><span class="line">    - <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(Sring)</span></span></span><br><span class="line"><span class="function">	- String <span class="title">get</span><span class="params">(<span class="keyword">int</span>)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">```java</span></span><br><span class="line"><span class="function">List&lt;String&gt; list</span>=<span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">list.add(<span class="string">"hello"</span>);</span><br><span class="line">list.add(<span class="string">"world"</span>);</span><br><span class="line">String first=list.get(<span class="number">0</span>);</span><br><span class="line">String second=list.get(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">public</span>  <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">this</span>==o) &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(o <span class="keyword">instanceof</span> Person) &#123;</span><br><span class="line">    	Person p=(Person) o;</span><br><span class="line">    	</span><br><span class="line">    	<span class="comment">//return p.name.equals(this.name)&amp;&amp;p.age==age;</span></span><br><span class="line">    	</span><br><span class="line">    	<span class="comment">//非null的引用类型才能调用equals方法</span></span><br><span class="line">		<span class="comment">/*return p.name!=null&amp;&amp;p.name.equals(this.name)&amp;&amp;p.age==age; */</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">//JDK提供的Objects类的一个辅助方法，帮助判断equals</span></span><br><span class="line">       <span class="keyword">return</span> Objects.equals(p.name, <span class="keyword">this</span>.name)&amp;&amp;p.age==age;</span><br><span class="line">      &#125;</span><br><span class="line">	  </span><br><span class="line">	  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>使用泛型时，可以省略编译器能够自动推断出的类型</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">List&lt;Number&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>Arrays.sort() 可以对Object[]数组进行排序：</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Sring[] strs=&#123;<span class="string">"Apple"</span>,<span class="string">"Pear"</span>,<span class="string">"Orange"</span>&#125;;</span><br><span class="line">Arrays.sort(strs);</span><br><span class="line">out.println(Arrays.sort(strs))</span><br><span class="line"><span class="comment">//&#123;"Apple","Orange","Pear"&#125;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>待排序的元素需要实现Comparable<T>泛型接口：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Compareable</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*返回-1:当前实例比参数o小</span></span><br><span class="line"><span class="comment">*返回0：当前实例与参数o相等</span></span><br><span class="line"><span class="comment">*返回1：当前实例比参数o大</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(T o)</span></span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Person</span>&gt;</span>&#123;</span><br><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> score;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Person o)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">this</span>.score&lt;o.score)&#123;</span><br><span class="line"><span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.score&lt;o.score)&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">this</span>.name.compareTo(o.name);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Student[] ss= &#123;<span class="keyword">new</span> Student(<span class="string">"xiao ming"</span>,<span class="number">159</span>),<span class="keyword">new</span> Student(<span class="string">"james"</span>,<span class="number">65</span>),<span class="keyword">new</span> Student(<span class="string">"sisi"</span>,<span class="number">100</span>)&#125;;</span><br><span class="line">		Arrays.sort(ss);</span><br><span class="line">		System.out.println(Arrays.toString(ss));</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.james.sample;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Student</span>&gt; </span>&#123;</span><br><span class="line">     <span class="keyword">private</span> String name;</span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">int</span> score;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name,<span class="keyword">int</span> score)</span></span>&#123;</span><br><span class="line">	 <span class="keyword">this</span>.name=name;</span><br><span class="line">	 <span class="keyword">this</span>.score=score;</span><br><span class="line">&#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"student ("</span>+name+<span class="string">","</span>+score+<span class="string">")"</span>;</span><br><span class="line">   &#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Student o)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">this</span>.score&lt;o.score) &#123;</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -886,12 +1032,12 @@ a(ArrayList<Sring>)==>b(List<Sring>)</pre>
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>泛型定义和使用</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">974</span></p>
+    <p><span class="copy-title">文章标题:</span>集合和list</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.7k</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-05-12, 18:52:34</p>
-    <p><span class="copy-title">最后更新:</span>2020-05-13, 03:16:06</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/12/%E6%B3%9B%E5%9E%8B/" title="泛型定义和使用">https://feixiangdjames.github.io/blog/2020/05/12/%E6%B3%9B%E5%9E%8B/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-17, 09:49:12</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-17, 22:00:28</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/17/%E9%9B%86%E5%90%88/" title="集合和list">https://feixiangdjames.github.io/blog/2020/05/17/%E9%9B%86%E5%90%88/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
