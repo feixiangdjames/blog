@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>服务器搭建git | James blog</title>
-  <meta name="keywords" content=" git ">
-  <meta name="description" content="服务器搭建git | James blog">
+  <title>Queue | James blog</title>
+  <meta name="keywords" content=" java ">
+  <meta name="description" content="Queue | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc] Stack Stack是一种LIFO的数据结构   一端封闭，一端开放的队列。     important methods    push(E e):把元素压栈   pop(E e):把栈顶元素弹出    用Deque可以实现Stack的功能：   push(E e):addFirst(E e) pop():removeFirst() peek():peekFirst()   Sta">
 <meta property="og:type" content="article">
@@ -670,9 +670,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-git" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Queque" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">服务器搭建git</h1>
+        <h1 class="article-title">Queue</h1>
     
     <div class="article-meta">
         
@@ -680,26 +680,28 @@
         
         <span class="book">
             
-                <a  data-rel="git">git</a>
+                <a  data-rel="JAVA">JAVA</a>/
+            
+                <a  data-rel="集合">集合</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color4">git</a>
+            <a class="color5">java</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-30 08:11:05'>2020-04-30 07:01</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-20 06:21:48'>2020-05-20 01:35</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:59</span>
+        <span>字数:693</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -718,7 +720,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#install-git"><span class="toc-text">install git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在服务器上创建bare-repository"><span class="toc-text">在服务器上创建bare repository</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置公钥"><span class="toc-text">配置公钥</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git-–version"><span class="toc-text">git –version</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Queue"><span class="toc-text">Queue</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常用方法"><span class="toc-text">常用方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PriorityQueue"><span class="toc-text">PriorityQueue</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Deque"><span class="toc-text">Deque</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Deque的实现类：ArrayDeque-LinkedList"><span class="toc-text">Deque的实现类：ArrayDeque,LinkedList</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -734,22 +736,151 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#install-git"><span class="toc-text">install git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在服务器上创建bare-repository"><span class="toc-text">在服务器上创建bare repository</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置公钥"><span class="toc-text">配置公钥</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git-–version"><span class="toc-text">git –version</span></a></li></ol></div></p>
-<h1 id="install-git"><a href="#install-git" class="headerlink" title="install git"></a>install git</h1><ul>
-<li>yum install -y git </li>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Queue"><span class="toc-text">Queue</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常用方法"><span class="toc-text">常用方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PriorityQueue"><span class="toc-text">PriorityQueue</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Deque"><span class="toc-text">Deque</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Deque的实现类：ArrayDeque-LinkedList"><span class="toc-text">Deque的实现类：ArrayDeque,LinkedList</span></a></li></ol></li></ol></div></p>
+<table>
+<thead>
+<tr>
+<th>总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>避免把null添加到队列</td>
+</tr>
+<tr>
+<td>先进先出队列</td>
+</tr>
+<tr>
+<td>isEmpty可以判断队列是否为空</td>
+</tr>
+<tr>
+<td>PriorityQueue<E>实现一个优先队列</td>
+</tr>
+<tr>
+<td>从队首获取元素是，总是获取优先级最高的元素</td>
+</tr>
+<tr>
+<td>默认按元素比较的顺序排序（必须实现Comparable接口）</td>
+</tr>
+<tr>
+<td>可以通过Comparator自定义排序翻翻（不必实现Comparable接口）</td>
+</tr>
+<tr>
+<td>Deque</td>
+</tr>
+<tr>
+<td>总是调用xxxFirst/xxxLast 以便于Queue的方法分开</td>
+</tr>
+<tr>
+<td>避免把null 添加到队列</td>
+</tr>
+</tbody></table>
+<h1 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h1><ul>
+<li>LinkedList 实现了Queque接口</li>
+<li>FIFO的队列</li>
 </ul>
-<h1 id="在服务器上创建bare-repository"><a href="#在服务器上创建bare-repository" class="headerlink" title="在服务器上创建bare repository"></a>在服务器上创建bare repository</h1><p>创建一个文件夹作为git仓库</p>
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><ul>
+<li>获取队列长度：size()</li>
+<li>添加元素到队尾：boolean add(E e)/boolean offer(E e)</li>
+<li>获取队列头部元素并删除：E remove()/E poll()</li>
+<li>获取队列头部元素但不删除：E element()/E peek()</li>
+</ul>
+<p>当添加或获取失败的时候：</p>
 <ul>
-<li>mkdir /opt/git/meet </li>
+<li>E poll()和 E peek() 会返回null;offer会返回false;其他返回异常.</li>
+<li>队列如果有最大长度，就可能会添加失败。</li>
 </ul>
-<p><strong>初始化git，同时创建空仓库</strong></p>
+<h1 id="PriorityQueue"><a href="#PriorityQueue" class="headerlink" title="PriorityQueue"></a>PriorityQueue</h1><blockquote>
+<p>带有优先级的FIFO队列</p>
+</blockquote>
 <ul>
-<li>git init –bare meet.git</li>
+<li>PriorityQueue <E> 具有Queue<E>接口：<ul>
+<li>略，支持Queue的方法</li>
+<li>PriorityQueue 获取队列首部元素，总是返回优先级最高的元素。</li>
 </ul>
-<h2 id="配置公钥"><a href="#配置公钥" class="headerlink" title="配置公钥"></a>配置公钥</h2><ul>
-<li>创建用户<br>adduser git </li>
+</li>
 </ul>
-<h1 id="git-–version"><a href="#git-–version" class="headerlink" title="git –version"></a>git –version</h1>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NewMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//给队列传入一个方法</span></span><br><span class="line">	Queue&lt;NewPerson&gt; queue=<span class="keyword">new</span> PriorityQueue&lt;&gt;(<span class="keyword">new</span> Comparator&lt;NewPerson&gt;()&#123;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(NewPerson o1, NewPerson o2)</span> </span>&#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">return</span> -o1.getName().compareTo(o2.getName());</span><br><span class="line">		&#125;&#125;);</span><br><span class="line">	queue.add(<span class="keyword">new</span> NewPerson(<span class="string">"xiaoMing"</span>,<span class="number">18</span>));</span><br><span class="line">	queue.add(<span class="keyword">new</span> NewPerson(<span class="string">"axiaoHong"</span>,<span class="number">20</span>));</span><br><span class="line">	queue.add(<span class="keyword">new</span> NewPerson(<span class="string">"bin"</span>,<span class="number">35</span>));</span><br><span class="line">	System.out.println(<span class="string">"element:"</span>+queue.element());</span><br><span class="line">	System.out.println(<span class="string">"element:"</span>+queue.poll());</span><br><span class="line">	System.out.println(<span class="string">"element:"</span>+queue.peek());</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Deque"><a href="#Deque" class="headerlink" title="Deque"></a>Deque</h1><ul>
+<li><p>Deque<E> 实现一个双端队列（Double Ended Queue）</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Queue</th>
+<th>Deque</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>添加元素到队尾</td>
+<td>add(E e)/offer(E e)</td>
+<td>addLast(E e)/offerLast(E e)</td>
+</tr>
+<tr>
+<td>取队首元素并删除</td>
+<td>E remove()/ E poll()</td>
+<td>E removeFirst()/E pollFirst()</td>
+</tr>
+<tr>
+<td>取队首元素并不删除</td>
+<td>E element()/E peek()</td>
+<td>E getFirst()/E peekFirst()</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Deque独有的方法：</p>
+</blockquote>
+<ul>
+<li>offerFirst(E e)/addFirst(E e)</li>
+<li>E removeLast()/E pollLast();</li>
+<li>E getLast()/E peekLast();</li>
+</ul>
+<blockquote>
+<p>方法太多，容易混淆，我们总是调用xxxFirst/xxxLast 方法太多，容易混淆，我们总是调用xxxFirst/xxxLast</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Deque&lt;String&gt; deque=...</span><br><span class="line">deque.offerLast(<span class="string">"end"</span>);</span><br><span class="line">deque.offerFirst(<span class="string">"start');</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">String last=deque.peekLast();</span></span><br></pre></td></tr></table></figure>
+<h2 id="Deque的实现类：ArrayDeque-LinkedList"><a href="#Deque的实现类：ArrayDeque-LinkedList" class="headerlink" title="Deque的实现类：ArrayDeque,LinkedList"></a>Deque的实现类：ArrayDeque,LinkedList</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Deque&lt;String&gt; obj=<span class="keyword">new</span> LinkedList();</span><br><span class="line">obj.offerLast(<span class="string">"z"</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>持有一个LinkedList引用，然后对这个变量调用offerLast<br>我们很难看出这里的对象用途是一个Deque.</p>
+</blockquote>
+<blockquote>
+<p>如果我们要把LinkedList作为List使用，我们就应该持有<br>list接口，并且要使用list 接口的add 方法。</p>
+</blockquote>
+<blockquote>
+<p>面向抽象编程，尽量持有接口，而不是实现类。<br>面向抽象编程，尽量持有接口，而不是实现类。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//实现一个LinkedList 向上转型为deque接口</span></span><br><span class="line">	Deque&lt;String&gt; deque=<span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">	deque.offerLast(<span class="string">"end"</span>);</span><br><span class="line">	deque.offerFirst(<span class="string">"C"</span>);</span><br><span class="line">	deque.offerFirst(<span class="string">"B"</span>);</span><br><span class="line">	deque.offerFirst(<span class="string">"A"</span>);</span><br><span class="line">	deque.offerFirst(<span class="string">"start"</span>);</span><br><span class="line">    System.out.println(deque);</span><br><span class="line">    </span><br><span class="line">    System.out.println(deque.pollLast());</span><br><span class="line">    System.out.println(deque.pollFirst());</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+</ul>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
     </div>
@@ -758,12 +889,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>服务器搭建git</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">75</span></p>
+    <p><span class="copy-title">文章标题:</span>Queue</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">705</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-30, 07:01:42</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-30, 08:11:05</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/30/git/" title="服务器搭建git">https://feixiangdjames.github.io/blog/2020/04/30/git/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-20, 01:35:59</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-20, 06:21:48</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/20/Queque/" title="Queue">https://feixiangdjames.github.io/blog/2020/05/20/Queque/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

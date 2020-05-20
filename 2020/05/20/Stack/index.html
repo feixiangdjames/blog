@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>服务器搭建git | James blog</title>
-  <meta name="keywords" content=" git ">
-  <meta name="description" content="服务器搭建git | James blog">
+  <title>Stack | James blog</title>
+  <meta name="keywords" content=" java ">
+  <meta name="description" content="Stack | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc] Stack Stack是一种LIFO的数据结构   一端封闭，一端开放的队列。     important methods    push(E e):把元素压栈   pop(E e):把栈顶元素弹出    用Deque可以实现Stack的功能：   push(E e):addFirst(E e) pop():removeFirst() peek():peekFirst()   Sta">
 <meta property="og:type" content="article">
@@ -670,9 +670,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-git" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Stack" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">服务器搭建git</h1>
+        <h1 class="article-title">Stack</h1>
     
     <div class="article-meta">
         
@@ -680,26 +680,28 @@
         
         <span class="book">
             
-                <a  data-rel="git">git</a>
+                <a  data-rel="JAVA">JAVA</a>/
+            
+                <a  data-rel="集合">集合</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color4">git</a>
+            <a class="color5">java</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-30 08:11:05'>2020-04-30 07:01</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-20 10:38:28'>2020-05-20 06:22</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:59</span>
+        <span>字数:279</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -718,7 +720,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#install-git"><span class="toc-text">install git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在服务器上创建bare-repository"><span class="toc-text">在服务器上创建bare repository</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置公钥"><span class="toc-text">配置公钥</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git-–version"><span class="toc-text">git –version</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Stack"><span class="toc-text">Stack</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Stack-的使用："><span class="toc-text">Stack 的使用：</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -734,22 +736,76 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#install-git"><span class="toc-text">install git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在服务器上创建bare-repository"><span class="toc-text">在服务器上创建bare repository</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置公钥"><span class="toc-text">配置公钥</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git-–version"><span class="toc-text">git –version</span></a></li></ol></div></p>
-<h1 id="install-git"><a href="#install-git" class="headerlink" title="install git"></a>install git</h1><ul>
-<li>yum install -y git </li>
-</ul>
-<h1 id="在服务器上创建bare-repository"><a href="#在服务器上创建bare-repository" class="headerlink" title="在服务器上创建bare repository"></a>在服务器上创建bare repository</h1><p>创建一个文件夹作为git仓库</p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Stack"><span class="toc-text">Stack</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Stack-的使用："><span class="toc-text">Stack 的使用：</span></a></li></ol></li></ol></div></p>
+<h1 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h1><blockquote>
+<p>Stack是一种LIFO的数据结构</p>
+</blockquote>
 <ul>
-<li>mkdir /opt/git/meet </li>
+<li>一端封闭，一端开放的队列。</li>
 </ul>
-<p><strong>初始化git，同时创建空仓库</strong></p>
+<table>
+<thead>
+<tr>
+<th>important methods</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>push(E e):把元素压栈</td>
+</tr>
+<tr>
+<td>pop(E e):把栈顶元素弹出</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>用Deque可以实现Stack的功能：</p>
+</blockquote>
 <ul>
-<li>git init –bare meet.git</li>
+<li>push(E e):addFirst(E e)</li>
+<li>pop():removeFirst()</li>
+<li>peek():peekFirst()</li>
 </ul>
-<h2 id="配置公钥"><a href="#配置公钥" class="headerlink" title="配置公钥"></a>配置公钥</h2><ul>
-<li>创建用户<br>adduser git </li>
+<blockquote>
+<p>Stack的作用：</p>
+</blockquote>
+<ul>
+<li><p>方法（函数）的嵌套调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">foo(<span class="number">123</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> String <span class="title">foo</span><span class="params">(x)</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="string">"F-"</span>+bar(x+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">bar</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> x&lt;&lt;<span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>bar==&gt;foo==&gt;main</p>
+</li>
+<li><p>嵌套调用过多会造成Stack溢出。<br>StackOverflowError</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//StackOverflowError</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">increase(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">increase</span><span class="params">(x)</span></span>&#123;</span><br><span class="line"> <span class="keyword">return</span> increase(x)+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Stack-的使用："><a href="#Stack-的使用：" class="headerlink" title="Stack 的使用："></a>Stack 的使用：</h2><ul>
+<li><p>将10进制转换为16进制。</p>
+</li>
+<li><p>将中辍表达式编译为后缀表达式</p>
+</li>
 </ul>
-<h1 id="git-–version"><a href="#git-–version" class="headerlink" title="git –version"></a>git –version</h1>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">中缀表达式：1+2*（9-5）</span><br><span class="line">后缀表达式：1 2 9 5 - * +</span><br></pre></td></tr></table></figure>
+<p>计算机不能使用中缀表达式，编译器会将中缀表达式<br>编译为后缀表达式。</p>
+<table>
+<thead>
+<tr>
+<th>总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>stack是一个LIFO的数据结构</td>
+</tr>
+<tr>
+<td>操作Stack的元素方法：push(E e),pop(),peek():取出Stack顶元素，但不出栈</td>
+</tr>
+<tr>
+<td>JAVA使用Deque实现栈的功能，注意只调用Push/pop/peek</td>
+</tr>
+<tr>
+<td>不要使用遗留类Stack</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
     </div>
@@ -758,12 +814,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>服务器搭建git</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">75</span></p>
+    <p><span class="copy-title">文章标题:</span>Stack</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">284</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-30, 07:01:42</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-30, 08:11:05</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/30/git/" title="服务器搭建git">https://feixiangdjames.github.io/blog/2020/04/30/git/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-20, 06:22:04</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-20, 10:38:28</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/20/Stack/" title="Stack">https://feixiangdjames.github.io/blog/2020/05/20/Stack/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
