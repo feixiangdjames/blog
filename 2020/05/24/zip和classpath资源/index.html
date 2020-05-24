@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>mkdir | James blog</title>
-  <meta name="keywords" content=" linux ">
-  <meta name="description" content="mkdir | James blog">
+  <title>zip和classpath资源 | James blog</title>
+  <meta name="keywords" content=" java ">
+  <meta name="description" content="zip和classpath资源 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]    总结    Reader定义了所有字符输入流的超类   FileReader实现了文件字符流的输入   CharArrayReader 在内存中模拟了一个字符流输入   Reader是基于InputStream 构造的：   FileReader是使用给系统默认编码，无法指定编码，可以通过inputStreamReader指定编码   使用Try(resource)保证Read">
 <meta property="og:type" content="article">
@@ -734,9 +734,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-mkdir" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-zip和classpath资源" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">mkdir</h1>
+        <h1 class="article-title">zip和classpath资源</h1>
     
     <div class="article-meta">
         
@@ -744,26 +744,28 @@
         
         <span class="book">
             
-                <a  data-rel="linux">linux</a>
+                <a  data-rel="JAVA">JAVA</a>/
+            
+                <a  data-rel="Input/Output">Input/Output</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color1">linux</a>
+            <a class="color5">java</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-30 08:12:21'>2020-04-30 08:09</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-25 03:51:16'>2020-05-24 01:06</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:560</span>
+        <span>字数:872</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -782,7 +784,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令格式"><span class="toc-text">命令格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令功能"><span class="toc-text">命令功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令参数"><span class="toc-text">命令参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令是实例"><span class="toc-text">命令是实例</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ZipInputStream"><span class="toc-text">ZipInputStream</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZipOutputStream"><span class="toc-text">ZipOutputStream</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#classpath-资源"><span class="toc-text">classpath 资源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#序列化"><span class="toc-text">序列化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#反序列化"><span class="toc-text">反序列化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ObjectOutputStream"><span class="toc-text">ObjectOutputStream</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#反序列化重要特点："><span class="toc-text">反序列化重要特点：</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -798,49 +800,96 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>　linux mkdir 命令用来创建指定的名称的目录，要求创建目录的用户在当前目录中具有写权限，并且指定的目录名不能是当前目录中已有的目录。</p>
-<a id="more"></a>
-<h3 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir [选项] 目录...</span><br></pre></td></tr></table></figure>
-<h3 id="命令功能"><a href="#命令功能" class="headerlink" title="命令功能"></a>命令功能</h3><p>　　通过 mkdir 命令可以实现在指定位置创建以 DirName(指定的文件名)命名的文件夹或目录。要创建文件夹或目录的用户必须对所创建的文件夹的父文件夹具有写权限。并且，所创建的文件夹(目录)不能与其父目录(即父文件夹)中的文件名重名，即同一个目录下不能有同名的(区分大小写)。</p>
-<h3 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h3><table>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ZipInputStream"><span class="toc-text">ZipInputStream</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZipOutputStream"><span class="toc-text">ZipOutputStream</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#classpath-资源"><span class="toc-text">classpath 资源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#序列化"><span class="toc-text">序列化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#反序列化"><span class="toc-text">反序列化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ObjectOutputStream"><span class="toc-text">ObjectOutputStream</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#反序列化重要特点："><span class="toc-text">反序列化重要特点：</span></a></li></ol></div></p>
+<blockquote>
+<p>把资源存储在classpath中可以避免文件依赖<br>Class对象的getResourceAsStream()可以从classpath读取资源<br>需要检查返回的InputStream是否为null</p>
+</blockquote>
+<table>
 <thead>
 <tr>
-<th align="left">参数</th>
-<th align="left">说明</th>
+<th>ZipInputStream可以读取Zip格式的流</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">-m, –mode=模式</td>
-<td align="left">设定权限&lt;模式&gt; (类似 chmod)，而不是 rwxrwxrwx 减 umask</td>
+<td>ZipOutputStream可以把数据写入Zip</td>
 </tr>
 <tr>
-<td align="left">-p, –parents</td>
-<td align="left">可以是一个路径名称。此时若路径中的某些目录尚不存在,加上此选项后,系统将自动建立好那些尚不存在的目录,即一次可以建立多个目录</td>
+<td>ZipInputStream/ZipOutputStream 都是 FilterInputStream/FilterOutputStream</td>
 </tr>
 <tr>
-<td align="left">-v, –verbose</td>
-<td align="left">每次创建新目录都显示信息</td>
-</tr>
-<tr>
-<td align="left">–help</td>
-<td align="left">显示此帮助信息并退出</td>
-</tr>
-<tr>
-<td align="left">–version</td>
-<td align="left">输出版本信息并退出</td>
+<td>配合FileInputStream 和 FileOutputStream就可以读写Zip文件</td>
 </tr>
 </tbody></table>
-<h3 id="命令是实例"><a href="#命令是实例" class="headerlink" title="命令是实例"></a>命令是实例</h3><p><strong><code>例一</code>：创建一个空目录</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<p><strong><code>例二</code>：递归创建多个目录</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在当前目录创建一个嵌套文件夹test1/test11</span></span><br><span class="line">$ mkdir -p test1/test11</span><br></pre></td></tr></table></figure>
-<p><strong><code>例三</code>：创建权限为777的目录</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -m 777 <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<p><strong><code>例四</code>：创建新目录都显示信息</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -v <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<p><strong><code>例五</code>：一个命令创建项目的目录结构</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -vp scf/&#123;lib/,bin/,doc/&#123;info,product&#125;,logs/&#123;info,product&#125;,service/deploy/&#123;info,product&#125;&#125;</span><br><span class="line">mkdir: 已创建目录 “scf”</span><br><span class="line">mkdir: 已创建目录 “scf/lib”</span><br><span class="line">mkdir: 已创建目录 “scf/bin”</span><br><span class="line">mkdir: 已创建目录 “scf/doc”</span><br><span class="line">mkdir: 已创建目录 “scf/doc/info”</span><br><span class="line">mkdir: 已创建目录 “scf/doc/product”</span><br><span class="line">mkdir: 已创建目录 “scf/logs”</span><br><span class="line">mkdir: 已创建目录 “scf/logs/info”</span><br><span class="line">mkdir: 已创建目录 “scf/logs/product”</span><br><span class="line">mkdir: 已创建目录 “scf/service”</span><br><span class="line">mkdir: 已创建目录 “scf/service/deploy”</span><br><span class="line">mkdir: 已创建目录 “scf/service/deploy/info”</span><br><span class="line">mkdir: 已创建目录 “scf/service/deploy/product”</span><br><span class="line">[root@localhost <span class="built_in">test</span>]<span class="comment"># tree scf/</span></span><br><span class="line">scf/</span><br><span class="line">|-- bin</span><br><span class="line">|-- doc</span><br><span class="line">|   |-- info</span><br><span class="line">|   `-- product</span><br><span class="line">|-- lib</span><br><span class="line">|-- logs</span><br><span class="line">|   |-- info</span><br><span class="line">|   `-- product</span><br><span class="line">`-- service</span><br><span class="line">    `-- deploy</span><br><span class="line">        |-- info</span><br><span class="line">        `-- product</span><br><span class="line">12 directories, 0 files</span><br></pre></td></tr></table></figure>
+<h1 id="ZipInputStream"><a href="#ZipInputStream" class="headerlink" title="ZipInputStream"></a>ZipInputStream</h1><blockquote>
+<p>ZipInputStream是一种FilterInputStream</p>
+</blockquote>
+<ul>
+<li><p>可以直接读取Zip的内容</p>
+<p>JarInputStream –&gt;ZipInputStream–&gt;</p>
+</li>
+<li><p>-&gt;InflaterInputStream–&gt;FilterInputStream–&gt;<br>InputStream</p>
+</li>
+</ul>
+<blockquote>
+<p>基本用法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(ZipInputStream zip=<span class="keyword">new</span> ZipInputStream(...))&#123;</span><br><span class="line">ZipEntry entry=<span class="keyword">null</span>;</span><br><span class="line"><span class="comment">//循环调用zip.getNextEntry方法，直到返回null</span></span><br><span class="line"><span class="keyword">while</span>((entry=zip.getNextEntry())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">  String name=entry.getName();</span><br><span class="line">  <span class="keyword">if</span>(!entry.isDirectory())&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="keyword">while</span>((n=zip.read())!=-<span class="number">1</span>)&#123;</span><br><span class="line">  ...</span><br><span class="line">  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="ZipOutputStream"><a href="#ZipOutputStream" class="headerlink" title="ZipOutputStream"></a>ZipOutputStream</h1><blockquote>
+<p>ZipInputStream 是一种FilterOutStream</p>
+</blockquote>
+<ul>
+<li>可以直接写入Zip的内容<blockquote>
+<p>基本用法：</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">try</span>(</span><br><span class="line"> <span class="keyword">try</span>(ZipOutputStream zip=<span class="keyword">new</span> ZipOutputStream(...))</span><br><span class="line"> )&#123;</span><br><span class="line"> File[] files=...</span><br><span class="line"> <span class="keyword">for</span>(File file:files)&#123;</span><br><span class="line">   zip.putNextEntry(<span class="keyword">new</span> ZipEntry(file.getName()));</span><br><span class="line">zip.write(getFileDataAsBytes(file));</span><br><span class="line">zip.closeEntry();</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.zip.ZipEntry;</span><br><span class="line"><span class="keyword">import</span> java.util.zip.ZipInputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">		<span class="keyword">try</span>(ZipInputStream zip=<span class="keyword">new</span> ZipInputStream(</span><br><span class="line">			<span class="keyword">new</span> BufferedInputStream(</span><br><span class="line">					<span class="keyword">new</span> FileInputStream(<span class="string">"test.zip"</span>)</span><br><span class="line">					)</span><br><span class="line">				))&#123;</span><br><span class="line">			ZipEntry entry=<span class="keyword">null</span>;</span><br><span class="line">			<span class="keyword">while</span>((entry=zip.getNextEntry())!=<span class="keyword">null</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span>(entry.isDirectory()) &#123;</span><br><span class="line">					System.out.println(<span class="string">"D "</span>+entry.getName());</span><br><span class="line">				&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">					System.out.println(<span class="string">"F "</span>+entry.getName()+<span class="string">"  "</span>+entry.getSize());</span><br><span class="line">					printFileContent(zip);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printFileContent</span><span class="params">(ZipInputStream zip)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		ByteArrayOutputStream output= <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">		<span class="keyword">byte</span>[] buffer=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">		<span class="keyword">int</span> n;</span><br><span class="line">		<span class="keyword">while</span> ((n=zip.read(buffer))!=-<span class="number">1</span>) &#123;</span><br><span class="line">			output.write(buffer,<span class="number">0</span>,n);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">byte</span>[] data=output.toByteArray();</span><br><span class="line">		System.out.println(<span class="string">"  size: "</span>+ data.length);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="classpath-资源"><a href="#classpath-资源" class="headerlink" title="classpath 资源"></a>classpath 资源</h1><blockquote>
+<p>Java 存放的.calss的目录或jar包也可以包含任意其他类型的文件：<br>.properties, .txt,.jpg,mov,…..</p>
+</blockquote>
+<blockquote>
+<p>从classpath读取文件可以避免不同的环境下文件路径不一致的问题</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//绝对地址绝对会带来问题。</span></span><br><span class="line">String conf=<span class="string">"C:\\conf\\default.properties"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>(InputStream input=<span class="keyword">new</span> FileInputStream(conf))&#123;</span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">- classpath 管理办法</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="keyword">try</span>(InputStream input=getClass().getReaourceAsStream(<span class="string">"/default.properties"</span>))&#123;</span><br><span class="line"><span class="keyword">if</span>(input!=<span class="keyword">null</span>)&#123;</span><br><span class="line"><span class="comment">//如果资源文件不存在会返回null</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">	try(InputStream input=Main.class.getResourceAsStream("/conf.properties"))&#123;</span><br><span class="line">		<span class="keyword">if</span>(input !=<span class="keyword">null</span>) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Read/conf.properties..."</span>);</span><br><span class="line">			Properties props=<span class="keyword">new</span> Properties();</span><br><span class="line">			props.load(input);</span><br><span class="line">			System.out.println(<span class="string">"name="</span>+props.getProperty(<span class="string">"name"</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//从classpath读取txt文件</span></span><br><span class="line">	String data=<span class="string">"/com/james/sample/data.txt"</span>;</span><br><span class="line">	<span class="keyword">try</span>(InputStream input=Main<span class="class">.<span class="keyword">class</span>.<span class="title">getResourceAsStream</span>(<span class="title">data</span>))</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(input!=<span class="keyword">null</span>) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Read"</span>+data+<span class="string">"..."</span>);</span><br><span class="line">			BufferedReader reader=<span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> </span><br><span class="line">					InputStreamReader(input));</span><br><span class="line">		    <span class="comment">//第一个行文本</span></span><br><span class="line">			System.out.println(reader.readLine());</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			System.out.println(<span class="string">"Resource not found:"</span>+data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h1><blockquote>
+<p>序列化是指把一个JAVA对象编程二级制内容(byte[])<br>序列号后可以把byte[]保存到文件中<br>序列号后可以把byte[] 通过网络传输</p>
+</blockquote>
+<blockquote>
+<p>一个Java对象要能序列化，必须实现Serializable接口：<br>Serializable接口没有定义任何方法<br>空接口被称为”标记接口”(Marker Interface)</p>
+</blockquote>
+<h1 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h1><blockquote>
+<p>反序列化是指把一个二进制内容（byte[]）变成Java对象</p>
+</blockquote>
+<ul>
+<li>反序类和可以从文件或网络读取byte[]并变成Java对象</li>
+</ul>
+<h1 id="ObjectOutputStream"><a href="#ObjectOutputStream" class="headerlink" title="ObjectOutputStream"></a>ObjectOutputStream</h1><ul>
+<li><p>负责把一个Java对象写入二进制流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(ObjectOutputSteam output=<span class="keyword">new</span> ObjectOutputSteam(...))&#123;</span><br><span class="line">output.writeObject(<span class="keyword">new</span> Person(<span class="string">"Xiao Ming"</span>));</span><br><span class="line">output.writeObject(<span class="keyword">new</span> Person(<span class="string">"xiao hong"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ObjectInputStream负责从二进制流读取一个Java对象</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(ObjectInputStream input=<span class="keyword">new</span> ObjectInputStream(...))&#123;</span><br><span class="line">Object p1=input.readObject();</span><br><span class="line"><span class="comment">//如果需要读取一个Person类型，需要强制转型</span></span><br><span class="line">Object p2=(Person) input.readObject();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<blockquote>
+<p>readObject()可能抛出的异常：</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>ClasssNotFoundException:没有找到对应的Class</li>
+<li>InvalidClassException:Class不匹配</li>
+</ul>
+</li>
+</ul>
+<h1 id="反序列化重要特点："><a href="#反序列化重要特点：" class="headerlink" title="反序列化重要特点："></a>反序列化重要特点：</h1><ul>
+<li>反序列化由JVM直接构造出Java对象，不调用构造方法</li>
+</ul>
+<p>  <strong>也就是说构造方法根本就不执行，直接由JVM生成JAVA对象</strong></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -850,12 +899,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>mkdir</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">560</span></p>
+    <p><span class="copy-title">文章标题:</span>zip和classpath资源</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">892</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-30, 08:09:37</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-30, 08:12:21</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/30/mkdir/" title="mkdir">https://feixiangdjames.github.io/blog/2020/04/30/mkdir/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-24, 01:06:43</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-25, 03:51:16</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/24/zip%E5%92%8Cclasspath%E8%B5%84%E6%BA%90/" title="zip和classpath资源">https://feixiangdjames.github.io/blog/2020/05/24/zip%E5%92%8Cclasspath%E8%B5%84%E6%BA%90/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

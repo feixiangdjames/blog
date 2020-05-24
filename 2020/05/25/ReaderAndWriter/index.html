@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>mkdir | James blog</title>
-  <meta name="keywords" content=" linux ">
-  <meta name="description" content="mkdir | James blog">
+  <title>ReaderAndWriter | James blog</title>
+  <meta name="keywords" content=" java ">
+  <meta name="description" content="ReaderAndWriter | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]    总结    Reader定义了所有字符输入流的超类   FileReader实现了文件字符流的输入   CharArrayReader 在内存中模拟了一个字符流输入   Reader是基于InputStream 构造的：   FileReader是使用给系统默认编码，无法指定编码，可以通过inputStreamReader指定编码   使用Try(resource)保证Read">
 <meta property="og:type" content="article">
@@ -734,9 +734,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-mkdir" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-ReaderAndWriter" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">mkdir</h1>
+        <h1 class="article-title">ReaderAndWriter</h1>
     
     <div class="article-meta">
         
@@ -744,26 +744,28 @@
         
         <span class="book">
             
-                <a  data-rel="linux">linux</a>
+                <a  data-rel="JAVA">JAVA</a>/
+            
+                <a  data-rel="Input/Output">Input/Output</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color1">linux</a>
+            <a class="color5">java</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-30 08:12:21'>2020-04-30 08:09</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-25 05:36:40'>2020-05-25 04:16</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:560</span>
+        <span>字数:772</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -782,7 +784,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令格式"><span class="toc-text">命令格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令功能"><span class="toc-text">命令功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令参数"><span class="toc-text">命令参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令是实例"><span class="toc-text">命令是实例</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Reader"><span class="toc-text">Reader</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CharArrayReader可以在内存中模拟一个Reader"><span class="toc-text">CharArrayReader可以在内存中模拟一个Reader</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reader-和-InputStream"><span class="toc-text">Reader 和 InputStream</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Writer"><span class="toc-text">Writer</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -798,49 +800,231 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>　linux mkdir 命令用来创建指定的名称的目录，要求创建目录的用户在当前目录中具有写权限，并且指定的目录名不能是当前目录中已有的目录。</p>
-<a id="more"></a>
-<h3 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir [选项] 目录...</span><br></pre></td></tr></table></figure>
-<h3 id="命令功能"><a href="#命令功能" class="headerlink" title="命令功能"></a>命令功能</h3><p>　　通过 mkdir 命令可以实现在指定位置创建以 DirName(指定的文件名)命名的文件夹或目录。要创建文件夹或目录的用户必须对所创建的文件夹的父文件夹具有写权限。并且，所创建的文件夹(目录)不能与其父目录(即父文件夹)中的文件名重名，即同一个目录下不能有同名的(区分大小写)。</p>
-<h3 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h3><table>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Reader"><span class="toc-text">Reader</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CharArrayReader可以在内存中模拟一个Reader"><span class="toc-text">CharArrayReader可以在内存中模拟一个Reader</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reader-和-InputStream"><span class="toc-text">Reader 和 InputStream</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Writer"><span class="toc-text">Writer</span></a></li></ol></div></p>
+<table>
 <thead>
 <tr>
-<th align="left">参数</th>
-<th align="left">说明</th>
+<th>总结</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">-m, –mode=模式</td>
-<td align="left">设定权限&lt;模式&gt; (类似 chmod)，而不是 rwxrwxrwx 减 umask</td>
+<td>Reader定义了所有字符输入流的超类</td>
 </tr>
 <tr>
-<td align="left">-p, –parents</td>
-<td align="left">可以是一个路径名称。此时若路径中的某些目录尚不存在,加上此选项后,系统将自动建立好那些尚不存在的目录,即一次可以建立多个目录</td>
+<td>FileReader实现了文件字符流的输入</td>
 </tr>
 <tr>
-<td align="left">-v, –verbose</td>
-<td align="left">每次创建新目录都显示信息</td>
+<td>CharArrayReader 在内存中模拟了一个字符流输入</td>
 </tr>
 <tr>
-<td align="left">–help</td>
-<td align="left">显示此帮助信息并退出</td>
+<td>Reader是基于InputStream 构造的：</td>
 </tr>
 <tr>
-<td align="left">–version</td>
-<td align="left">输出版本信息并退出</td>
+<td>FileReader是使用给系统默认编码，无法指定编码，可以通过inputStreamReader指定编码</td>
+</tr>
+<tr>
+<td>使用Try(resource)保证Reader正确关闭</td>
 </tr>
 </tbody></table>
-<h3 id="命令是实例"><a href="#命令是实例" class="headerlink" title="命令是实例"></a>命令是实例</h3><p><strong><code>例一</code>：创建一个空目录</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<p><strong><code>例二</code>：递归创建多个目录</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在当前目录创建一个嵌套文件夹test1/test11</span></span><br><span class="line">$ mkdir -p test1/test11</span><br></pre></td></tr></table></figure>
-<p><strong><code>例三</code>：创建权限为777的目录</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -m 777 <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<p><strong><code>例四</code>：创建新目录都显示信息</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -v <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<p><strong><code>例五</code>：一个命令创建项目的目录结构</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -vp scf/&#123;lib/,bin/,doc/&#123;info,product&#125;,logs/&#123;info,product&#125;,service/deploy/&#123;info,product&#125;&#125;</span><br><span class="line">mkdir: 已创建目录 “scf”</span><br><span class="line">mkdir: 已创建目录 “scf/lib”</span><br><span class="line">mkdir: 已创建目录 “scf/bin”</span><br><span class="line">mkdir: 已创建目录 “scf/doc”</span><br><span class="line">mkdir: 已创建目录 “scf/doc/info”</span><br><span class="line">mkdir: 已创建目录 “scf/doc/product”</span><br><span class="line">mkdir: 已创建目录 “scf/logs”</span><br><span class="line">mkdir: 已创建目录 “scf/logs/info”</span><br><span class="line">mkdir: 已创建目录 “scf/logs/product”</span><br><span class="line">mkdir: 已创建目录 “scf/service”</span><br><span class="line">mkdir: 已创建目录 “scf/service/deploy”</span><br><span class="line">mkdir: 已创建目录 “scf/service/deploy/info”</span><br><span class="line">mkdir: 已创建目录 “scf/service/deploy/product”</span><br><span class="line">[root@localhost <span class="built_in">test</span>]<span class="comment"># tree scf/</span></span><br><span class="line">scf/</span><br><span class="line">|-- bin</span><br><span class="line">|-- doc</span><br><span class="line">|   |-- info</span><br><span class="line">|   `-- product</span><br><span class="line">|-- lib</span><br><span class="line">|-- logs</span><br><span class="line">|   |-- info</span><br><span class="line">|   `-- product</span><br><span class="line">`-- service</span><br><span class="line">    `-- deploy</span><br><span class="line">        |-- info</span><br><span class="line">        `-- product</span><br><span class="line">12 directories, 0 files</span><br></pre></td></tr></table></figure>
+<h1 id="Reader"><a href="#Reader" class="headerlink" title="Reader"></a>Reader</h1><ul>
+<li>java.io.Reader和java.io.InputStream的区别</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>InputStream</th>
+<th>Reader</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字节流，以byte为单位</td>
+<td>字符流，以char为单位</td>
+</tr>
+<tr>
+<td>读取字节(-1,0~255):int read()</td>
+<td>读取字符(-1,0~65535):int read()</td>
+</tr>
+<tr>
+<td>读到字节数组：int read(byte[] b)</td>
+<td>读到字符数组：int read(char[] c)</td>
+</tr>
+<tr>
+<td>int read(byte[]b,int offset,int len)</td>
+<td>int read(char[] c,int offset,int len)</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>java.io.Reader是所有字符输入流的超类：</p>
+<ul>
+<li>int read()<ul>
+<li>读取下一个字符，并返回字符（0~65535）</li>
+<li>如果已读末尾，返回-1</li>
+</ul>
+</li>
+<li>int read(char[] c):读取若干字符并填充到char[]数组，返回读取的字符数</li>
+<li>int read(char[]c,int off,int len):指定char[]数组的偏移量和最大填充数</li>
+<li>void close():关闭Reader</li>
+</ul>
+</li>
+<li><p>完整的读取一个Reader的所有字符：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFile</span><span class="params">()</span> <span class="keyword">throws</span> IOExcepiton</span>&#123;</span><br><span class="line">  Reader reader=<span class="keyword">new</span> FileReader(<span class="string">"readme.txt"</span>);</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="keyword">while</span>((n=reader.read())!=-<span class="number">1</span>)&#123;</span><br><span class="line">    System.out.println((<span class="keyword">char</span>)n);</span><br><span class="line">  &#125;</span><br><span class="line">  reader.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>为了保证异常下的Reader能够关闭。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFile</span><span class="params">()</span> <span class="keyword">throws</span> IOExcepiton</span>&#123;</span><br><span class="line">    <span class="keyword">try</span>(Reader reader=<span class="keyword">new</span> FileReader(<span class="string">"readme.txt"</span>))&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="keyword">while</span>((n=reader.read())!=-<span class="number">1</span>)&#123;</span><br><span class="line">	System.out.println((<span class="keyword">char</span>)n);</span><br><span class="line">	&#125;</span><br><span class="line">	&#125;<span class="comment">//在此自动关闭</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>利用缓冲区一次读取多个字符：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFile</span><span class="params">()</span> <span class="keyword">throws</span> IOExcepiton</span>&#123;</span><br><span class="line"><span class="keyword">try</span>(Reader reader=<span class="keyword">new</span> FileReader(<span class="string">"readme.txt"</span>))&#123;</span><br><span class="line"><span class="keyword">char</span>[] buffer=<span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1000</span>];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">while</span>((n=reader.read(buffer))!=-<span class="number">1</span>)&#123;</span><br><span class="line">System.out.println(<span class="string">"read"</span>+n+<span class="string">"chars."</span>)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>read()是阻塞的；</li>
+<li>FileReader 可以从文件获取Reader对象。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(Reader reader=<span class="keyword">new</span> FileReader(<span class="string">"text.txt"</span>))&#123;</span><br><span class="line"><span class="comment">//这里的字符编码是系统默认的编码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h1 id="CharArrayReader可以在内存中模拟一个Reader"><a href="#CharArrayReader可以在内存中模拟一个Reader" class="headerlink" title="CharArrayReader可以在内存中模拟一个Reader"></a>CharArrayReader可以在内存中模拟一个Reader</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>[] data=&#123;<span class="string">'H'</span>,<span class="string">'e'</span>,<span class="string">'l'</span>,<span class="string">'l'</span>,<span class="string">'o'</span>&#125;;</span><br><span class="line"><span class="keyword">try</span>(Reader reader=<span class="keyword">new</span> CharArrayReader(data))&#123;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">while</span>((n=reader.read())!=-<span class="number">1</span>)&#123;</span><br><span class="line">  System.out.prinln((<span class="keyword">char</span>)n);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Reader-和-InputStream"><a href="#Reader-和-InputStream" class="headerlink" title="Reader 和 InputStream"></a>Reader 和 InputStream</h1><blockquote>
+<p>Reader实际上是基于InputStream构造的：</p>
+</blockquote>
+<ul>
+<li>FileReader 内部持有一个FileInputStream</li>
+<li>Reader可以通过InputStream 构造</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">InputStream input= <span class="keyword">new</span> FileInputStream(filename);</span><br><span class="line">Reader reader= <span class="keyword">new</span> InputStreamReader(input,<span class="string">"UTF-8"</span>)&#123;</span><br><span class="line"><span class="comment">//InputStream，想把它转换成Reader，可以用InputStreamReader,将byte转换成char</span></span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">reader.close();<span class="comment">//内部会调用intput.close()，所以我们不能再调用input.close()</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Writer"><a href="#Writer" class="headerlink" title="Writer"></a>Writer</h1><blockquote>
+<p>java.io.Writer和java.io.OutputStream的区别</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>OutputStream</th>
+<th>Writer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字节流，以byte为单位</td>
+<td>字符流，以char为单位</td>
+</tr>
+<tr>
+<td>写入字节（0-255）：voide write(int b)</td>
+<td>写入字符(0-65535):void write(int c)</td>
+</tr>
+<tr>
+<td>写入字节数组：void write(byte[] b)</td>
+<td>写入字符数组：void write(char[] c)</td>
+</tr>
+<tr>
+<td>void write(byte[] b,int offset,int len)</td>
+<td>void write(char[]c,int offset,int len)</td>
+</tr>
+<tr>
+<td></td>
+<td>void write(String s)</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>java.io.Writer是所有字符输出流的超类：</p>
+</blockquote>
+<ul>
+<li>void write(int c):写入字符（0~65535）</li>
+<li>void write(char[] c):写入字符数组的所有字符</li>
+<li>void write(char[] c,int off,int len):写入字符数组指定范围的字符</li>
+<li>void write(String s):写入String表示的字符</li>
+</ul>
+<blockquote>
+<p>向Writer写入字符：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">  Writer write = <span class="keyword">new</span> FileWriter(<span class="string">"readme.txt"</span>);</span><br><span class="line">  writer.write(<span class="number">65</span>);</span><br><span class="line">  writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>安全的执行 writer.close();</p>
+</blockquote>
+<pre><code class="java"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeFile</span><span class="params">()</span> <span class="keyword">throws</span> IOExcepiton</span>{
+   <span class="keyword">try</span>(Writer writer=<span class="keyword">new</span> FileWriter(<span class="string">"readme.txt"</span>)){
+   writer.write(<span class="number">65</span>);
+   }<span class="comment">//在此关闭</span>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -850,12 +1034,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>mkdir</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">560</span></p>
+    <p><span class="copy-title">文章标题:</span>ReaderAndWriter</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">786</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-30, 08:09:37</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-30, 08:12:21</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/30/mkdir/" title="mkdir">https://feixiangdjames.github.io/blog/2020/04/30/mkdir/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-25, 04:16:19</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-25, 05:36:40</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/25/ReaderAndWriter/" title="ReaderAndWriter">https://feixiangdjames.github.io/blog/2020/05/25/ReaderAndWriter/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
