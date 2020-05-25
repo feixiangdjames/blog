@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>extends通配符 | James blog</title>
+  <title>dateAndTime | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="extends通配符 | James blog">
+  <meta name="description" content="dateAndTime | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]  把资源存储在classpath中可以避免文件依赖Class对象的getResourceAsStream()可以从classpath读取资源需要检查返回的InputStream是否为null     ZipInputStream可以读取Zip格式的流    ZipOutputStream可以把数据写入Zip   ZipInputStream&#x2F;ZipOutputStream 都是 Fi">
 <meta property="og:type" content="article">
@@ -750,9 +750,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-extends通配符" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-dateAndTime" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">extends通配符</h1>
+        <h1 class="article-title">dateAndTime</h1>
     
     <div class="article-meta">
         
@@ -762,7 +762,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="反射与泛型">反射与泛型</a>
+                <a  data-rel="dateAndTime">dateAndTime</a>
             
         </span>
         
@@ -776,12 +776,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-05-16 05:04:33'>2020-05-15 02:04</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-25 23:41:31'>2020-05-25 20:39</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:341</span>
+        <span>字数:525</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -800,7 +800,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#extends通配符"><span class="toc-text">extends通配符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#List-lt-extends-Number-gt-参数"><span class="toc-text">List&lt;? extends Number&gt;参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#的通配符："><span class="toc-text">的通配符：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Locale"><span class="toc-text">Locale</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Date"><span class="toc-text">Date</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Epoch-Time"><span class="toc-text">Epoch Time:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK-API"><span class="toc-text">JDK API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#java-util"><span class="toc-text">java.util</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#java-time-JDK-gt-1-8"><span class="toc-text">java.time(JDK&gt;&#x3D;1.8)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java-util-Date的问题："><span class="toc-text">java.util.Date的问题：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-util-Calendar"><span class="toc-text">java.util.Calendar</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -816,7 +816,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#extends通配符"><span class="toc-text">extends通配符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#List-lt-extends-Number-gt-参数"><span class="toc-text">List&lt;? extends Number&gt;参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#的通配符："><span class="toc-text">的通配符：</span></a></li></ol></div></p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Locale"><span class="toc-text">Locale</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Date"><span class="toc-text">Date</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Epoch-Time"><span class="toc-text">Epoch Time:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK-API"><span class="toc-text">JDK API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#java-util"><span class="toc-text">java.util</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#java-time-JDK-gt-1-8"><span class="toc-text">java.time(JDK&gt;&#x3D;1.8)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java-util-Date的问题："><span class="toc-text">java.util.Date的问题：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-util-Calendar"><span class="toc-text">java.util.Calendar</span></a></li></ol></div></p>
 <table>
 <thead>
 <tr>
@@ -824,50 +824,136 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>使用类型&lt;?extends Number&gt; 通配符作为方法参数时候表示：</td>
+<td>Locale用来针对当地用户习惯格式化日期、时间、数字、货币等</td>
 </tr>
 <tr>
-<td>方法内部可以调用获取Number引用的方法</td>
+<td>时区的概念</td>
 </tr>
 <tr>
-<td>Number n=obj.getXxx()</td>
+<td>epoch time 在JAVA中是一个long的整型</td>
 </tr>
 <tr>
-<td>方法内部无法调用传入Number引用的方法（null）</td>
+<td>Java有两套日期和时间的API</td>
 </tr>
 <tr>
-<td>obj.setXxx(Number n)</td>
+<td>java.util.Date  java.util.Calendar</td>
 </tr>
 <tr>
-<td>使用类似<T extends Number></td>
+<td>java.time</td>
 </tr>
 <tr>
-<td>泛型类型限定为Number或Number的子类</td>
+<td>正确使用java.util.Date:</td>
+</tr>
+<tr>
+<td>Date和Long的转换</td>
+</tr>
+<tr>
+<td>Date和String的转换：SimpleDateFormat</td>
+</tr>
+<tr>
+<td># TimeZone</td>
 </tr>
 </tbody></table>
-<h1 id="extends通配符"><a href="#extends通配符" class="headerlink" title="extends通配符"></a>extends通配符</h1><blockquote>
-<p>泛型的继承关系</p>
-</blockquote>
-<ul>
-<li>泛型<Integer>不是Pair<Number>的子类</li>
-<li>add()不接受Pair<Integer></li>
-<li>使用&lt;?extends Number&gt;使方法接收所偶泛型类型为Number或Number子类的Pair类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span></span>&#123;...&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PairHelper</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(Pair&lt;? extends Number&gt; p)</span></span>&#123;</span><br><span class="line">   Number first=p.getFirst();</span><br><span class="line">   Number last=p.getLast();</span><br><span class="line">   <span class="keyword">return</span> first.intValue()+last.intValue;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">PairHelper.add(<span class="keyword">new</span> Pair&lt;Number&gt;(<span class="number">1</span>,<span class="number">2</span>));</span><br><span class="line">PairHelper.add(<span class="keyword">new</span> Pair&lt;Integer&gt;(<span class="number">1</span>,<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>&lt;? extends Number&gt;的通配符：<br>允许调用get方法获得Number的引用<br>不允许调用set方法传入Number的引用</p>
+<p>GMT+08:00<br>UTC+08:00<br>Asia/Shanghai</p>
 </blockquote>
 <ul>
-<li>无法传递任何Number类型给setFirst(?extends Number)<blockquote>
-<p>唯一例外： 可以调用setFirst(null)</p>
-</blockquote>
+<li>Daylight Saving TimeZone</li>
+</ul>
+<p>GMT和UTC是时区时间，不会考虑Daylight Saving TimeZone<br>地区时间是需要时区时间+夏令时时间考虑的。</p>
+<h1 id="Locale"><a href="#Locale" class="headerlink" title="Locale"></a>Locale</h1><ul>
+<li>Locale表示国家或地区的日期、时间、数字、货币等格式：<ul>
+<li>zh_CN:2-16-11-30</li>
+<li>en_US:11/30/2016</li>
+</ul>
 </li>
 </ul>
-<h1 id="List-lt-extends-Number-gt-参数"><a href="#List-lt-extends-Number-gt-参数" class="headerlink" title="List&lt;? extends Number&gt;参数"></a>List&lt;? extends Number&gt;参数</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">process</span><span class="params">(List&lt;? extends Number&gt; list)</span></span>&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">List</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line"><span class="function">T <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line">可以调用get方法，不能add,remove方法</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(T t)</span></span>;<span class="comment">//错误</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(T t)</span></span>;<span class="comment">//错误</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="的通配符："><a href="#的通配符：" class="headerlink" title="的通配符："></a><T extends Number>的通配符：</h1><ul>
-<li>限定定义Pair<T>时只能是Number或Number的子类</li>
+<blockquote>
+<p>计算机用Locale在日期、时间、货币和字符串之间进行转换</p>
+</blockquote>
+<h1 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h1><blockquote>
+<p>数据的存储和展示方式</p>
+</blockquote>
+<p>计算机使用Epoch Time 来存储时间</p>
+<h2 id="Epoch-Time"><a href="#Epoch-Time" class="headerlink" title="Epoch Time:"></a>Epoch Time:</h2><blockquote>
+<p>1970年1月1日零点（GMT+00:00）到现在经历的秒数或者毫秒数或者浮点数<br>不同时区的Epoch Time</p>
+</blockquote>
+<ul>
+<li>JAVA中我们使用一个long 类型来存储Epoch Time；也被称为Timestamp</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Number</span>&gt;</span>&#123;...&#125;</span><br><span class="line">Pair&lt;Number&gt; ip=<span class="keyword">new</span> Pair&lt;&gt;(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">Pair&lt;Double&gt; dp=<span class="keyword">new</span> Pair&lt;&gt;(<span class="number">1.2</span>,<span class="number">1.3</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="JDK-API"><a href="#JDK-API" class="headerlink" title="JDK API"></a>JDK API</h2><h3 id="java-util"><a href="#java-util" class="headerlink" title="java.util"></a>java.util</h3><ul>
+<li>Date</li>
+<li>Calendar</li>
+</ul>
+<h3 id="java-time-JDK-gt-1-8"><a href="#java-time-JDK-gt-1-8" class="headerlink" title="java.time(JDK&gt;=1.8)"></a>java.time(JDK&gt;=1.8)</h3><ul>
+<li>LocalDate</li>
+<li>LocalTime</li>
+<li>ZonedDateTime</li>
+<li>Instant</li>
+</ul>
+<blockquote>
+<p>把String解析为java.util.Date</p>
+</blockquote>
+<ul>
+<li>SimpleDateFormat</li>
+<li>用预定义的字符串表示格式化<ul>
+<li>yyyy:年份</li>
+<li>MM：月份</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line">SimpleDateFormat sdf=<span class="keyword">new</span> SimpledateFormat(</span><br><span class="line"><span class="string">"yyyy-MM-dd"</span> HH:mm:ss</span><br><span class="line">);</span><br><span class="line">Date d=sdf.parse(<span class="string">"2016-11-30 13:14:15"</span>);</span><br><span class="line">System.out.println(d)</span><br></pre></td></tr></table></figure>
+
+<h2 id="java-util-Date的问题："><a href="#java-util-Date的问题：" class="headerlink" title="java.util.Date的问题："></a>java.util.Date的问题：</h2><ul>
+<li>不能转换时区</li>
+<li>日期和时间的加减</li>
+<li>两个日期相差多少天</li>
+<li>计算某个月第一个星期一</li>
+</ul>
+<h1 id="java-util-Calendar"><a href="#java-util-Calendar" class="headerlink" title="java.util.Calendar"></a>java.util.Calendar</h1><blockquote>
+<p>设置/获取年，月，日，时，分，秒</p>
+</blockquote>
+<ul>
+<li>Date getTime()</li>
+<li>long getTimeInMillis()</li>
+<li>get(int field)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line">Calendar c=Calendar.getInstance();</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> y=c.get(Calendar.YEAR);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.james.sample;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.Locale;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Parse</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span><span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">		Date now=<span class="keyword">new</span> Date();</span><br><span class="line">		SimpleDateFormat sdf=<span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</span><br><span class="line">	    String s1=sdf.format(now);</span><br><span class="line">	    Date date1=sdf.parse(s1);</span><br><span class="line">	    System.out.println(s1+<span class="string">" ----------&gt;  "</span>+date1);</span><br><span class="line">	    <span class="comment">//解析MMM时按照系统Locale:</span></span><br><span class="line">	    String s2=<span class="string">"JAN/20/2016 12:15:59"</span>;</span><br><span class="line">	    Date date2= <span class="keyword">new</span> SimpleDateFormat(<span class="string">"MMM/dd/yyyy HH:mm:ss"</span>,Locale.US).parse(s2);</span><br><span class="line">	    System.out.println(s2+<span class="string">" ----------&gt;  "</span>+date2);</span><br><span class="line">	    <span class="comment">//按ISO 8601标准格式解析DATE</span></span><br><span class="line">	    String iso=<span class="string">"2016-11-20T12:15:59"</span>;</span><br><span class="line">	    Date date3= <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd'T'HH:mm:ss"</span>).parse(iso);</span><br><span class="line">	    System.out.println(date3);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -896,12 +982,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>extends通配符</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">356</span></p>
+    <p><span class="copy-title">文章标题:</span>dateAndTime</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">546</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-05-15, 02:04:40</p>
-    <p><span class="copy-title">最后更新:</span>2020-05-16, 05:04:33</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/15/extends%E9%80%9A%E9%85%8D%E7%AC%A6/" title="extends通配符">https://feixiangdjames.github.io/blog/2020/05/15/extends%E9%80%9A%E9%85%8D%E7%AC%A6/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-25, 20:39:15</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-25, 23:41:31</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/25/dateAndTime/" title="dateAndTime">https://feixiangdjames.github.io/blog/2020/05/25/dateAndTime/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
