@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>编写泛型 | James blog</title>
+  <title>java_time | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="编写泛型 | James blog">
+  <meta name="description" content="java_time | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="总结    Locale用来针对当地用户习惯格式化日期、时间、数字、货币等   时区的概念   epoch time 在JAVA中是一个long的整型   Java有两套日期和时间的API   java.util.Date  java.util.Calendar   java.time   正确使用java.util.Date:   Date和Long的转换   Date和String的转换">
 <meta property="og:type" content="article">
@@ -758,9 +758,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-编写泛型" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-java-time" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">编写泛型</h1>
+        <h1 class="article-title">java_time</h1>
     
     <div class="article-meta">
         
@@ -770,7 +770,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="反射与泛型">反射与泛型</a>
+                <a  data-rel="dateAndTime">dateAndTime</a>
             
         </span>
         
@@ -784,12 +784,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-05-16 11:25:54'>2020-05-12 15:03</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-29 04:49:45'>2020-05-27 06:31</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:448</span>
+        <span>字数:1.3k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -808,7 +808,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#编写泛型类"><span class="toc-text">编写泛型类</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#java-time"><span class="toc-text">java.time</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特点："><span class="toc-text">特点：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZonedDateTime"><span class="toc-text">ZonedDateTime</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#可以从LocalDateTime转换"><span class="toc-text">可以从LocalDateTime转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转换时区："><span class="toc-text">转换时区：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Instant对象表示时刻"><span class="toc-text">Instant对象表示时刻</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最佳实践"><span class="toc-text">最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#旧API转新API"><span class="toc-text">旧API转新API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新API转旧API"><span class="toc-text">新API转旧API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在数据库中存储日期和时间"><span class="toc-text">在数据库中存储日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存储到数据库"><span class="toc-text">存储到数据库</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -824,62 +824,214 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#编写泛型类"><span class="toc-text">编写泛型类</span></a></li></ol></div></p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#java-time"><span class="toc-text">java.time</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特点："><span class="toc-text">特点：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZonedDateTime"><span class="toc-text">ZonedDateTime</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#可以从LocalDateTime转换"><span class="toc-text">可以从LocalDateTime转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转换时区："><span class="toc-text">转换时区：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Instant对象表示时刻"><span class="toc-text">Instant对象表示时刻</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最佳实践"><span class="toc-text">最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#旧API转新API"><span class="toc-text">旧API转新API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新API转旧API"><span class="toc-text">新API转旧API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在数据库中存储日期和时间"><span class="toc-text">在数据库中存储日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存储到数据库"><span class="toc-text">存储到数据库</span></a></li></ol></li></ol></div></p>
 <table>
 <thead>
 <tr>
-<th>编写泛型，需要定义泛型类型<T></th>
+<th>Java.time</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>静态方法不能引用泛型类型<T>,必须定义其他类型<K>来实现泛型</td>
+<td>ZoneOffset:时区偏移量</td>
 </tr>
 <tr>
-<td>public static <K> Pair<K> creat(K frist,K end )</td>
+<td>OffsetDateTime:类似ZoneDateTime</td>
 </tr>
 <tr>
-<td>泛型可以同时定义多种类型&lt;T,K&gt;</td>
+<td>OffsetTime：带Offset的LocalTime</td>
+</tr>
+<tr>
+<td>ChronoLocalDate/ChronoLocalDateTime:用于实现其他历法</td>
+</tr>
+<tr>
+<td>ZonedDateTime就是LocalDateTime关联ZoneId</td>
+</tr>
+<tr>
+<td>ZonedDateTime可以做时区转换</td>
+</tr>
+<tr>
+<td>ZoneId表示时区</td>
+</tr>
+<tr>
+<td>Instant表示时区（内部用long 表示epoch second）</td>
+</tr>
+<tr>
+<td>ZonedDateTime、Instant和long可以互相转换</td>
+</tr>
+<tr>
+<td>处理日期和时间时，尽量使用新的java.time包；</td>
+</tr>
+<tr>
+<td>在数据库中存储时间戳时，尽量使用long型时间戳，它具有省空间，效率高，不依赖数据库的优点</td>
 </tr>
 </tbody></table>
-<h1 id="编写泛型类"><a href="#编写泛型类" class="headerlink" title="编写泛型类"></a>编写泛型类</h1><ul>
-<li>编写泛型类比普通类复杂</li>
-<li>泛型类一般用在集合类中ArrayList<T></li>
-<li>很少需要编写泛型类</li>
+<h1 id="java-time"><a href="#java-time" class="headerlink" title="java.time"></a>java.time</h1><blockquote>
+<p>LocalDate<br>LocalTime<br>LocalDateTime</p>
+</blockquote>
+<h2 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h2><ul>
+<li>不变类</li>
+<li>严格区分日期、时间</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line"><span class="keyword">private</span> T frist;</span><br><span class="line"><span class="keyword">private</span> T last;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T first,T last)</span></span>&#123;</span><br><span class="line"><span class="keyword">this</span>.first=frist;</span><br><span class="line"><span class="keyword">this</span>.last=last;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getLast</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.*;</span><br><span class="line">LocalDate d = LocalDate.now();</span><br><span class="line">LocalTime t = LocalTime.now();</span><br><span class="line"></span><br><span class="line">LocalDateTime dt = LocalDateTime.now();</span><br><span class="line">System.out.println(dt);<span class="comment">//严格按照ISO 8601格式</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//指定日期和时间：</span></span><br><span class="line"></span><br><span class="line">LocalDate d2=LocalDate.of(<span class="number">2016</span>,<span class="number">11</span>,<span class="number">30</span>);</span><br><span class="line">LocalTime t2=LocalTime.of(<span class="number">15</span>,<span class="number">16</span>,<span class="number">17</span>);</span><br><span class="line">LocalDate dt3=LocalDateTime.of(d2,t2);</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>泛型类型<T>不能用于静态方法：</p>
+<p>新的DateTimeFormatter:<br>  <strong>不可变</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">DateTimeFormatter dtf&#x3D;DateTimeFormatter.ofPattern(</span><br><span class="line">&quot;yyyy-MM-dd HH:mm:ss&quot;);</span><br><span class="line"></span><br><span class="line">System.out.println(dtf.format(LocalDateTime.now()));</span><br><span class="line">LocalDateTime dt2&#x3D;LocalDateTime.parse(</span><br><span class="line">&quot;2020-05-27 06:43:17&quot;,dtf</span><br><span class="line">)</span><br><span class="line">System.out.println(dt2);</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>日期和时间运算</p>
 </blockquote>
 <ul>
-<li>编译错误</li>
-<li>编译器无法在静态字段或静态方法中使用泛型类型<T></li>
+<li>plusDays()</li>
+<li>minusHours()</li>
+<li>plusWeeks()</li>
+<li>….</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//错误</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Pair &lt;T&gt; creat(T first T end)&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> Pair&lt;T&gt;(first,last)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于LocalDate是不变类，所以plusDays()返回的是新的对象。</p>
 <blockquote>
-<p>静态方法可以单独改写为“泛型”方法：</p>
+<p>对日期进行调整：</p>
 </blockquote>
 <ul>
-<li>使用另一个类型<K></li>
+<li>with</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;K&gt; Pair &lt;K&gt; creat(K first K end)&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> Pair&lt;K&gt;(first,last)</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//本月最后一天</span></span><br><span class="line">LocalDate lastDay=LocalDate.now().with(</span><br><span class="line">   TemporalAdjusters.lastDayOfMonth();</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>判断日期和时间先后：</p>
+</blockquote>
+<ul>
+<li>isBefore()</li>
+<li>isAfter()</li>
+<li>equals()</li>
+</ul>
+<blockquote>
+<p>计算日期的Period:</p>
+</blockquote>
+<ul>
+<li>getYears()</li>
+<li>getMonths()</li>
+<li>getDays()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LocalDate d1=..;</span><br><span class="line">LocalDate d2=..;</span><br><span class="line">Period p=d1.until(d2);</span><br><span class="line">System.out.println(p);</span><br></pre></td></tr></table></figure>
+<h1 id="ZonedDateTime"><a href="#ZonedDateTime" class="headerlink" title="ZonedDateTime"></a>ZonedDateTime</h1><ul>
+<li>ZonedDateTime = LocalDate+ZoneId</li>
+<li>ZonedDateTime:带时区的日期和时间</li>
+<li>ZoneId：新的时区对象（取代旧的java.util.TimeZone）</li>
+<li>Instant:时刻对象（epoch seconds）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ZonedDateTime zbj=ZonedDateTime.now();<span class="comment">//当前时区的日期和时间</span></span><br><span class="line">ZonedDateTime zny=ZonedDateTime.now(Zoned.of(<span class="string">"America/New_York"</span>));<span class="comment">//纽约时区的当前日期和时间</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="可以从LocalDateTime转换"><a href="#可以从LocalDateTime转换" class="headerlink" title="可以从LocalDateTime转换"></a>可以从LocalDateTime转换</h2><ul>
+<li>atZone();</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.*;</span><br><span class="line"></span><br><span class="line">LocalDateTime ldt=LocalDateTime.of(<span class="number">2016</span>,<span class="number">11</span>,<span class="number">30</span>,<span class="number">8</span>,<span class="number">15</span>,<span class="number">59</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//关联到当前默认时区：</span></span><br><span class="line">ZonedDateTime bj = ldt.atZone(ZoneId.SystemDefautlt());</span><br><span class="line"></span><br><span class="line"><span class="comment">//关联到纽约时区：</span></span><br><span class="line">ZonedDateTime ny = ldt.atZone(ZoneId.of(<span class="string">"America/New_York"</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="转换时区："><a href="#转换时区：" class="headerlink" title="转换时区："></a>转换时区：</h2><ul>
+<li>withZoneSameInstant()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.*;</span><br><span class="line"></span><br><span class="line">LocalDateTime ldt=LocalDateTime.of(<span class="number">2016</span>,<span class="number">11</span>,<span class="number">30</span>,<span class="number">8</span>,<span class="number">15</span>,<span class="number">59</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//关联到当前默认时区：</span></span><br><span class="line">ZonedDateTime bj = ldt.atZone(ZoneId.SystemDefautlt());</span><br><span class="line"></span><br><span class="line"><span class="comment">//转换到纽约时区：</span></span><br><span class="line">ZonedDateTime ny = bj.withZoneSameInstant(ZoneId.of(<span class="string">"America/New_York"</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="Instant对象表示时刻"><a href="#Instant对象表示时刻" class="headerlink" title="Instant对象表示时刻"></a>Instant对象表示时刻</h2><ul>
+<li>Time.tolnstant()</li>
+<li>Instant.getEpochSecond()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Instant ins=Instant.now();</span><br><span class="line"></span><br><span class="line">Instant ins2=ZonedDateTime.now().toInstant();</span><br><span class="line"></span><br><span class="line">ZonedDateTime zdt=ins.atZone(ZoneId.of(<span class="string">"Z"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//注意是秒：</span></span><br><span class="line"><span class="keyword">long</span> epoch = ins.getEpochSecond();</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>泛型可以支持多种类型：</p>
+<p>LocalDateTime + ZoneId = ZonedDateTime()<br>ZonedDateTime 、 Instant 、 long 可以互换</p>
 </blockquote>
-<p>public class Pair&lt;T,K&gt;{…}</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.james.sample;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Pair&lt;String&gt; p=Pair.creat(<span class="string">"james"</span>, <span class="string">"wang"</span>);</span><br><span class="line">		<span class="comment">//Pair&lt;String&gt; p=new Pair&lt;&gt;("xiao","ming");</span></span><br><span class="line">		String first=p.getFirst();</span><br><span class="line">		String end=p.getEnd();</span><br><span class="line">		System.out.println(first);</span><br><span class="line">		System.out.println(end);</span><br><span class="line">		<span class="comment">//不存在针对不同的泛型，存在不同的Class</span></span><br><span class="line">		System.out.println(p.getClass()==Pair<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"><span class="keyword">private</span> T first;</span><br><span class="line"><span class="keyword">private</span> T end;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T first,T end)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.setFirst(first);</span><br><span class="line">	<span class="keyword">this</span>.setEnd(end);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFirst</span><span class="params">(T first)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.first = first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getEnd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> end;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEnd</span><span class="params">(T end)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.end = end;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"Pair("</span>+first+<span class="string">","</span>+end+<span class="string">")"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//泛型静态方法，这里的K 和 T没有关系</span></span><br><span class="line"><span class="function"><span class="keyword">static</span>&lt;K&gt; Pair&lt;K&gt; <span class="title">creat</span><span class="params">(K first,K end)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> Pair &lt;K&gt;(first,end);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>继承关系图</p>
+</blockquote>
+<pre class="mermaid">graph BT
+L[LocalDate]-->T[Temporal]
+o[LocalTime]-->T
+z[ZonedDateTime]-->T
+c[LocalDateTime]-->T
+I[Instant]-->T
+T-->E[TemporalAccessor]</pre>
+<p>TemporalAccessor 是一个接口</p>
+<blockquote>
+<p>TemporalAmount表示一段时间：1天/2小时/30分钟</p>
+</blockquote>
+<pre class="mermaid">graph BT
+D(Duration)-->T(TemoralAmount)
+P(Period)-->T</pre>
+<ul>
+<li>plus(TemporalAmount);</li>
+<li>minus(TemporalAmount);</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Period twoDays=Period.ofDays(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">Duration oneHour = Duration.ofHours(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">ZonedDateTime zdt=ZonedDateTime.now();</span><br><span class="line">.minus(twoDays).plus(oneHour);</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
-
-
-
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h2 id="旧API转新API"><a href="#旧API转新API" class="headerlink" title="旧API转新API"></a>旧API转新API</h2><blockquote>
+<p>如果要把旧式的Date或Calendar转换为新API对象，<br>可以通过toInstant()方法转换为Instant对象，再继续转换为ZonedDateTime</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Date -&gt; Instant:</span></span><br><span class="line">Instant ins1 = <span class="keyword">new</span> Date().toInstant();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Calendar -&gt; Instant -&gt; ZonedDateTime:</span></span><br><span class="line"></span><br><span class="line">Calendar calendar = Calendar.getInstance();</span><br><span class="line">Instant ins2 = Calendar.getInstance().toInstant();</span><br><span class="line">ZonedDateTime zdt = ins2.atZone(calendar.getTimeZone().toZoneId());</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>从上面的代码还可以看到，旧的TimeZone提供了一个toZoneId()，可以把自己变成新的ZoneId。</p>
+</blockquote>
+<h2 id="新API转旧API"><a href="#新API转旧API" class="headerlink" title="新API转旧API"></a>新API转旧API</h2><blockquote>
+<p>如果要把新的ZonedDateTime转换为旧的API对象，只能借助long型时间戳做一个“中转”：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ZonedDateTime -&gt; long:</span></span><br><span class="line">ZonedDateTime zdt = ZonedDateTime.now();</span><br><span class="line"><span class="keyword">long</span> ts = zdt.toEpochSecond() * <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// long -&gt; Date:</span></span><br><span class="line">Date date = <span class="keyword">new</span> Date(ts);</span><br><span class="line"></span><br><span class="line"><span class="comment">// long -&gt; Calendar:</span></span><br><span class="line">Calendar calendar = Calendar.getInstance();</span><br><span class="line">calendar.clear();</span><br><span class="line">calendar.setTimeZone(TimeZone.getTimeZone(zdt.getZone().getId()));</span><br><span class="line">calendar.setTimeInMillis(zdt.toEpochSecond() * <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>从上面的代码还可以看到，新的ZoneId转换为旧的TimeZone，<br>需要借助ZoneId.getId()返回的String完成。</p>
+</blockquote>
+<h2 id="在数据库中存储日期和时间"><a href="#在数据库中存储日期和时间" class="headerlink" title="在数据库中存储日期和时间"></a>在数据库中存储日期和时间</h2><blockquote>
+<p>除了旧式的java.util.Date，我们还可以找到另一个java.sql.Date，<br>它继承自java.util.Date，但会自动忽略所有时间相关信息。<br>这个奇葩的设计原因要追溯到数据库的日期与时间类型。</p>
+</blockquote>
+<blockquote>
+<p>在数据库中，也存在几种日期和时间类型：</p>
+</blockquote>
+<ul>
+<li>DATETIME：表示日期和时间；</li>
+<li>DATE：仅表示日期；</li>
+<li>TIME：仅表示时间；</li>
+<li>TIMESTAMP：和DATETIME类似，但是数据库会在创建或者更新记录的时候同时修改TIMESTAMP。</li>
+</ul>
+<blockquote>
+<p>在使用Java程序操作数据库时，我们需要把数据库类型与Java类型映射起来。<br>下表是数据库类型与Java新旧API的映射关系：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>数据库</th>
+<th>对应Java类（旧）</th>
+<th>对应Java类(新)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DATETIME</td>
+<td>java.utill.Date</td>
+<td>LocalDdateTime</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>java.sql.Date</td>
+<td>LocalDate</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>java.sql.Time</td>
+<td>LocalTime</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>java.sql.Timestamp</td>
+<td>LocalDateTime</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>实际上，在数据库中，我们需要存储的最常用的是时刻（Instant），因为有了时刻信息，<br>就可以根据用户自己选择的时区，显示出正确的本地时间。所以，最好的方法是直接用长整数long表示，在数据库中存储为BIGINT类型.</p>
+</blockquote>
+<ul>
+<li>通过存储一个long型时间戳，我们可以编写一个timestampToString()的方法，非常简单地为不同用户以不同的偏好来显示不同的本地时间：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> ts = <span class="number">1574208900000L</span>;</span><br><span class="line">        System.out.println(timestampToString(ts, Locale.CHINA, <span class="string">"Asia/Shanghai"</span>));</span><br><span class="line">        System.out.println(timestampToString(ts, Locale.US, <span class="string">"America/New_York"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> String <span class="title">timestampToString</span><span class="params">(<span class="keyword">long</span> epochMilli, Locale lo, String zoneId)</span> </span>&#123;</span><br><span class="line">        Instant ins = Instant.ofEpochMilli(epochMilli);</span><br><span class="line">        DateTimeFormatter f = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT);</span><br><span class="line">        <span class="keyword">return</span> f.withLocale(lo).format(ZonedDateTime.ofInstant(ins, ZoneId.of(zoneId)));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="存储到数据库"><a href="#存储到数据库" class="headerlink" title="存储到数据库"></a>存储到数据库</h2><ul>
+<li>日期： LocalDate-&gt;DATE</li>
+<li>时间： LocalTime-&gt;TIME</li>
+<li>日期时间： LocalDateTime-&gt;DATETIME</li>
+<li>时刻： long-&gt;BIGINT</li>
+</ul>
+<p><strong>让JDK处理时区，不要手动调整时差</strong></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -889,12 +1041,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>编写泛型</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">454</span></p>
+    <p><span class="copy-title">文章标题:</span>java_time</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.3k</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-05-12, 15:03:54</p>
-    <p><span class="copy-title">最后更新:</span>2020-05-16, 11:25:54</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/12/%E7%BC%96%E5%86%99%E6%B3%9B%E5%9E%8B/" title="编写泛型">https://feixiangdjames.github.io/blog/2020/05/12/%E7%BC%96%E5%86%99%E6%B3%9B%E5%9E%8B/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-27, 06:31:35</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-29, 04:49:45</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/27/java-time/" title="java_time">https://feixiangdjames.github.io/blog/2020/05/27/java-time/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
