@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>CSS（filter,Scoped Css VARIABLES） | James blog</title>
-  <meta name="keywords" content=" CSS3 ">
-  <meta name="description" content="CSS（filter,Scoped Css VARIABLES） | James blog">
+  <title>regex | James blog</title>
+  <meta name="keywords" content=" java ">
+  <meta name="description" content="regex | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]|总结||–||正则表达式默认使用贪婪匹配||使用？表示对某一规则进行非贪婪匹配||注意区分？的含义||分割字符串：String.split()||搜查字串：Matcher.find()||替换字符串：String.replaceAll()||||||  编写正则表达式   ^ 和 $ 匹配开头和结尾：”^A\d{3}$”注意：JAVA 的 正则表达式 默认是单行匹配，所有可以加^$也">
 <meta property="og:type" content="article">
@@ -814,9 +814,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-CSS" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-regex" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">CSS（filter,Scoped Css VARIABLES）</h1>
+        <h1 class="article-title">regex</h1>
     
     <div class="article-meta">
         
@@ -824,28 +824,28 @@
         
         <span class="book">
             
-                <a  data-rel="CSS">CSS</a>/
+                <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="filter var">filter var</a>
+                <a  data-rel="regex">regex</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color5">CSS3</a>
+            <a class="color5">java</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-19 11:12:52'>2020-04-19 08:32</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-29 22:22:36'>2020-05-29 21:55</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:377</span>
+        <span>字数:196</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -864,7 +864,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-变量-和-JS"><span class="toc-text">CSS 变量 和 JS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FILTER"><span class="toc-text">FILTER</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#正则"><span class="toc-text">正则</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -880,22 +880,106 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="CSS-变量-和-JS"><a href="#CSS-变量-和-JS" class="headerlink" title="CSS 变量 和 JS"></a>CSS 变量 和 JS</h1>  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  <span class="selector-pseudo">:root</span>&#123;</span><br><span class="line">    <span class="attribute">--base</span>:<span class="number">#ffc600</span>;</span><br><span class="line">    <span class="attribute">--spacing</span>:<span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">--blur</span>:<span class="number">5px</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"> <span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="built_in">var</span>(--spacing);</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--base);</span><br><span class="line">    <span class="attribute">filter</span>: <span class="built_in">blur</span>(var(--blur));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> inputs = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.controls input'</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleUpdate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">const</span> suffix = <span class="keyword">this</span>.dataset.sizing||<span class="string">''</span>;<span class="comment">//当前元素 data前缀的属性值</span></span><br><span class="line"><span class="built_in">document</span>.documentElement.style.setProperty(<span class="string">`--<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>, <span class="keyword">this</span>.value + suffix);</span><br><span class="line">    &#125;</span><br><span class="line">inputs.forEach(<span class="function"><span class="params">input</span> =&gt;</span> input.addEventListener(<span class="string">'change'</span>,handleUpdate));</span><br><span class="line"><span class="comment">// location.reload();</span></span><br><span class="line">inputs.forEach(<span class="function"><span class="params">input</span> =&gt;</span> input.addEventListener(<span class="string">'mousemove'</span>, handleUpdate));</span><br></pre></td></tr></table></figure>
-<h1 id="FILTER"><a href="#FILTER" class="headerlink" title="FILTER"></a>FILTER</h1><ul>
-<li>blur(px)<ul>
-<li>filter 属性定义了元素(通常是<img>)的可视效果(例如：模糊与饱和度)。</li>
-<li>动画支持</li>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#正则"><span class="toc-text">正则</span></a></li></ol></div></p>
+<h1 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h1><ul>
+<li>校验字符串是否符合规格</li>
 </ul>
-</li>
-</ul>
-<p>给图像设置高斯模糊。”radius”一值设定高斯函数的标准差，或者是屏幕上以多少像素融在一起， 所以值越大越模糊；</p>
-<p>如果没有设定值，则默认是0；这个参数可设置css长度值，但不接受百分比值。</p>
-<ul>
-<li>grayscale(%)</li>
-</ul>
-<p>将图像转换为灰度图像。值定义转换的比例。值为100%则完全转为灰度图像，值为0%图像无变化。值在0%到100%之间，则是效果的线性乘子。若未设置，值默认是0；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;点击按钮修改图片的颜色为黑白 (100% 灰度)。&lt;&#x2F;p&gt;</span><br><span class="line">​</span><br><span class="line">&lt;button onclick&#x3D;&quot;myFunction()&quot;&gt;尝试一下&lt;&#x2F;button&gt;&lt;br&gt;</span><br><span class="line">​</span><br><span class="line">&lt;img id&#x3D;&quot;myImg&quot; src&#x3D;&quot;pineapple.jpg&quot; alt&#x3D;&quot;Pineapple&quot; width&#x3D;&quot;300&quot; height&#x3D;&quot;300&quot;&gt;</span><br><span class="line">​</span><br><span class="line">&lt;p&gt;&lt;strong&gt; 注意:&lt;&#x2F;strong&gt; IE 或 Firefox 浏览器不支持该属性。&lt;&#x2F;p&gt;</span><br><span class="line">​</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function myFunction() &#123;</span><br><span class="line">    document.getElementById(&quot;myImg&quot;).style.WebkitFilter &#x3D; &quot;grayscale(100%)&quot;; </span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>boolean “”.matches(“正则规则”);</p>
+</blockquote>
+<blockquote>
+<p>JUnit单元测试</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>正则表达式</th>
+<th>规则</th>
+<th>可以匹配</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>指定字符</td>
+<td>A</td>
+</tr>
+<tr>
+<td>\u548c</td>
+<td>指定Unicode字符</td>
+<td>和</td>
+</tr>
+<tr>
+<td>.</td>
+<td>任意字符</td>
+<td>a,b,&amp;,0</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>0~9</td>
+<td>单个0,1,2,3,…,9</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>a-z,A-Z,0~9,_</td>
+<td>单个英文（大小写），数字，下划线</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>空格、Tab键</td>
+<td>“”</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>非数字</td>
+<td>a,A,&amp;,_,…</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>非\w</td>
+<td>单个单个英文（大小写），数字，下划线</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>非空格、Tab键</td>
+<td></td>
+</tr>
+<tr>
+<td>AB*</td>
+<td>*任意个数字符</td>
+<td>A,AB,ABB,ABBBBBB</td>
+</tr>
+<tr>
+<td>AB+</td>
+<td>至少1个字符</td>
+<td>AB,ABB,ABBB</td>
+</tr>
+<tr>
+<td>AB?</td>
+<td>0个或一个</td>
+<td>A,AB</td>
+</tr>
+<tr>
+<td>AB{3}</td>
+<td>指定个数字符</td>
+<td></td>
+</tr>
+<tr>
+<td>AB{1,3}</td>
+<td>指定范围个数字符</td>
+<td>AB，ABB,ABBB</td>
+</tr>
+<tr>
+<td>AB{2,}</td>
+<td>最少n个字符</td>
+<td>ABB</td>
+</tr>
+<tr>
+<td>AB{0,3}</td>
+<td>最多n个字符</td>
+<td>A,AB,ABB,ABBB</td>
+</tr>
+</tbody></table>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
     </div>
@@ -904,12 +988,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>CSS（filter,Scoped Css VARIABLES）</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">377</span></p>
+    <p><span class="copy-title">文章标题:</span>regex</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">199</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-19, 08:32:38</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-19, 11:12:52</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/19/CSS/" title="CSS（filter,Scoped Css VARIABLES）">https://feixiangdjames.github.io/blog/2020/04/19/CSS/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-29, 21:55:04</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-29, 22:22:36</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/29/regex/" title="regex">https://feixiangdjames.github.io/blog/2020/05/29/regex/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

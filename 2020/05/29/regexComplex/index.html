@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>CSS（filter,Scoped Css VARIABLES） | James blog</title>
-  <meta name="keywords" content=" CSS3 ">
-  <meta name="description" content="CSS（filter,Scoped Css VARIABLES） | James blog">
+  <title>regexComplex  | James blog</title>
+  <meta name="keywords" content=" java ">
+  <meta name="description" content="regexComplex  | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]|总结||–||正则表达式默认使用贪婪匹配||使用？表示对某一规则进行非贪婪匹配||注意区分？的含义||分割字符串：String.split()||搜查字串：Matcher.find()||替换字符串：String.replaceAll()||||||  编写正则表达式   ^ 和 $ 匹配开头和结尾：”^A\d{3}$”注意：JAVA 的 正则表达式 默认是单行匹配，所有可以加^$也">
 <meta property="og:type" content="article">
@@ -814,9 +814,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-CSS" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-regexComplex" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">CSS（filter,Scoped Css VARIABLES）</h1>
+        <h1 class="article-title">regexComplex </h1>
     
     <div class="article-meta">
         
@@ -824,28 +824,28 @@
         
         <span class="book">
             
-                <a  data-rel="CSS">CSS</a>/
+                <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="filter var">filter var</a>
+                <a  data-rel="regex">regex</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color5">CSS3</a>
+            <a class="color5">java</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-04-19 11:12:52'>2020-04-19 08:32</time>
+        创建时间:<time class="date" title='更新时间: 2020-06-04 22:31:32'>2020-05-29 22:56</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:377</span>
+        <span>字数:906</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -864,7 +864,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-变量-和-JS"><span class="toc-text">CSS 变量 和 JS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FILTER"><span class="toc-text">FILTER</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#String-matches-vs-Pattern-matcher"><span class="toc-text">String.matches vs Pattern.matcher</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#非贪婪匹配"><span class="toc-text">非贪婪匹配</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#搜素和替换"><span class="toc-text">搜素和替换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索字符串"><span class="toc-text">搜索字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#替换字符串"><span class="toc-text">替换字符串</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -880,22 +880,205 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="CSS-变量-和-JS"><a href="#CSS-变量-和-JS" class="headerlink" title="CSS 变量 和 JS"></a>CSS 变量 和 JS</h1>  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  <span class="selector-pseudo">:root</span>&#123;</span><br><span class="line">    <span class="attribute">--base</span>:<span class="number">#ffc600</span>;</span><br><span class="line">    <span class="attribute">--spacing</span>:<span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">--blur</span>:<span class="number">5px</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"> <span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="built_in">var</span>(--spacing);</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--base);</span><br><span class="line">    <span class="attribute">filter</span>: <span class="built_in">blur</span>(var(--blur));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> inputs = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.controls input'</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleUpdate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">const</span> suffix = <span class="keyword">this</span>.dataset.sizing||<span class="string">''</span>;<span class="comment">//当前元素 data前缀的属性值</span></span><br><span class="line"><span class="built_in">document</span>.documentElement.style.setProperty(<span class="string">`--<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>, <span class="keyword">this</span>.value + suffix);</span><br><span class="line">    &#125;</span><br><span class="line">inputs.forEach(<span class="function"><span class="params">input</span> =&gt;</span> input.addEventListener(<span class="string">'change'</span>,handleUpdate));</span><br><span class="line"><span class="comment">// location.reload();</span></span><br><span class="line">inputs.forEach(<span class="function"><span class="params">input</span> =&gt;</span> input.addEventListener(<span class="string">'mousemove'</span>, handleUpdate));</span><br></pre></td></tr></table></figure>
-<h1 id="FILTER"><a href="#FILTER" class="headerlink" title="FILTER"></a>FILTER</h1><ul>
-<li>blur(px)<ul>
-<li>filter 属性定义了元素(通常是<img>)的可视效果(例如：模糊与饱和度)。</li>
-<li>动画支持</li>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#String-matches-vs-Pattern-matcher"><span class="toc-text">String.matches vs Pattern.matcher</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#非贪婪匹配"><span class="toc-text">非贪婪匹配</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#搜素和替换"><span class="toc-text">搜素和替换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索字符串"><span class="toc-text">搜索字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#替换字符串"><span class="toc-text">替换字符串</span></a></li></ol></li></ol></div><br>|总结|<br>|–|<br>|正则表达式默认使用贪婪匹配|<br>|使用？表示对某一规则进行非贪婪匹配|<br>|注意区分？的含义|<br>|分割字符串：String.split()|<br>|搜查字串：Matcher.find()|<br>|替换字符串：String.replaceAll()||||||</p>
+<blockquote>
+<p>编写正则表达式</p>
+</blockquote>
+<ul>
+<li>^ 和 $ 匹配开头和结尾：”^A\d{3}$”<br><strong>注意：JAVA 的 正则表达式 默认是单行匹配，所有可以加^$也可以不加</strong></li>
+<li>[…]匹配单一字符的符号。[a-f]符号匹配。</li>
+<li>[a-f0-9_]{6}匹配6个字符的的正则。(a-f,0-9,_)</li>
+<li>[^]非符号匹配</li>
+<li>| 或 java|php Java或php</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>正则表达式</th>
+<th>规则</th>
+<th>可以匹配</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>^</td>
+<td>开头</td>
+<td>字符串开头</td>
+</tr>
+<tr>
+<td>$</td>
+<td>结尾</td>
+<td>字符串结束</td>
+</tr>
+<tr>
+<td>[ABC]</td>
+<td>[…]任意字符</td>
+<td>单个A，B,C</td>
+</tr>
+<tr>
+<td>[a-f0-9xy]</td>
+<td>指定范围字符</td>
+<td>a…f,0..9,x,y</td>
+</tr>
+<tr>
+<td>[^A-F]</td>
+<td>指定范围之外</td>
+<td>非A,……,F</td>
+</tr>
+<tr>
+<td>AB</td>
+<td>CD</td>
+<td>AB或CD</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>^([0-1][0-9]|2[0-3]):([0-5][0-9])$</li>
+</ul>
+<h1 id="String-matches-vs-Pattern-matcher"><a href="#String-matches-vs-Pattern-matcher" class="headerlink" title="String.matches vs Pattern.matcher"></a>String.matches vs Pattern.matcher</h1><ul>
+<li>反复使用一个正则表达式字符串进行快速匹配效率低</li>
+<li>可以把正则表达式字符串编译为Pattern对象</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Pattern pattern=Pattern.complie(<span class="string">"\\d&#123;3,4&#125;-\\d&#123;6,8&#125;$"</span>);</span><br><span class="line">pattern.matcher(<span class="string">"010-12345678"</span>).matches();<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//获取Matcher对象： </span></span><br><span class="line">Matcher matcher=pattern.matcher(String s);</span><br><span class="line">matcher.matches();<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用Matcher.group(n)可以快速提取字串：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Pattern pattern=Pattern.complie(<span class="string">"\\d&#123;3,4&#125;-\\d&#123;6,8&#125;$"</span>);</span><br><span class="line">Matcher matcher=pattern.matcher(<span class="string">"010-12345678"</span>);</span><br><span class="line"><span class="keyword">if</span>(matcher.matches())&#123;</span><br><span class="line">  String whole=matcher.group(<span class="number">0</span>);<span class="comment">//0表示匹配整个字符串</span></span><br><span class="line">  String whole=matcher.group(<span class="number">1</span>);<span class="comment">//1表示匹配第一个</span></span><br><span class="line">  String whole=matcher.group(<span class="number">2</span>);<span class="comment">//2表示匹配第二个字串</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="非贪婪匹配"><a href="#非贪婪匹配" class="headerlink" title="非贪婪匹配"></a>非贪婪匹配</h1><blockquote>
+<p>给定一个字符串表示的数字：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">判断改数字末尾0的个数：</span><br><span class="line">&quot;123000&quot;:3 0</span><br><span class="line">&quot;1200&quot;:2 0</span><br></pre></td></tr></table></figure>
+<p>regex </p>
+<ul>
+<li>^(\d+)(0*)$</li>
+</ul>
+<p>期望的结果：<br>|input|\d+|0*|<br>|–|–|–|<br>|123000|”123”|”000”|<br>|1200|”12”|”00”|<br>|112|”112”|””|||||||</p>
+<p>实际的结果：<br>|input|\d+|0*|<br>|–|–|–|<br>|123000|”123000”|””|<br>|1200|”12”|””|<br>|112|”112”|””|||||||</p>
+<blockquote>
+<p>实际结果是正确的，因为正则表达式默认贪婪匹配，尽可能的向后匹配.</p>
+</blockquote>
+<ul>
+<li><p>使用？实现非贪婪匹配。<br>Pattern.complie(“^(\d+?)(0*)$”)</p>
+</li>
+<li><p>?既肯能表达0个或1个，也可以表示非贪婪匹配。</p>
 </li>
 </ul>
-<p>给图像设置高斯模糊。”radius”一值设定高斯函数的标准差，或者是屏幕上以多少像素融在一起， 所以值越大越模糊；</p>
-<p>如果没有设定值，则默认是0；这个参数可设置css长度值，但不接受百分比值。</p>
+<p>Pattern.complie(“^(\d+??)(0*)$”)</p>
+<p>上面的这个正则表达式</p>
 <ul>
-<li>grayscale(%)</li>
+<li><ul>
+<li>表示至少1个字符。</li>
 </ul>
-<p>将图像转换为灰度图像。值定义转换的比例。值为100%则完全转为灰度图像，值为0%图像无变化。值在0%到100%之间，则是效果的线性乘子。若未设置，值默认是0；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;点击按钮修改图片的颜色为黑白 (100% 灰度)。&lt;&#x2F;p&gt;</span><br><span class="line">​</span><br><span class="line">&lt;button onclick&#x3D;&quot;myFunction()&quot;&gt;尝试一下&lt;&#x2F;button&gt;&lt;br&gt;</span><br><span class="line">​</span><br><span class="line">&lt;img id&#x3D;&quot;myImg&quot; src&#x3D;&quot;pineapple.jpg&quot; alt&#x3D;&quot;Pineapple&quot; width&#x3D;&quot;300&quot; height&#x3D;&quot;300&quot;&gt;</span><br><span class="line">​</span><br><span class="line">&lt;p&gt;&lt;strong&gt; 注意:&lt;&#x2F;strong&gt; IE 或 Firefox 浏览器不支持该属性。&lt;&#x2F;p&gt;</span><br><span class="line">​</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function myFunction() &#123;</span><br><span class="line">    document.getElementById(&quot;myImg&quot;).style.WebkitFilter &#x3D; &quot;grayscale(100%)&quot;; </span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>第一个？号是0个或1个。</li>
+<li>第二个是非贪婪匹配,尽可能少匹配。</li>
+<li>结果就变成了匹配零个数字。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.james.sample;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.regex.Matcher;</span><br><span class="line"><span class="keyword">import</span> java.util.regex.Pattern;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ZeroCount</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> Pattern n= Pattern.compile(<span class="string">"^\\d+?(0*)$"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">zeros</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		Matcher m=n.matcher(s);</span><br><span class="line">		<span class="keyword">if</span>(m.matches()) &#123;</span><br><span class="line">			String zeroStr=m.group(<span class="number">1</span>);</span><br><span class="line">			<span class="keyword">return</span> zeroStr.length();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Not a number"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		assertEquals(<span class="number">1</span>,ZeroCount.zeros(<span class="string">"123450"</span>));</span><br><span class="line">		assertEquals(<span class="number">1</span>,ZeroCount.zeros(<span class="string">"123450"</span>));</span><br><span class="line">		assertEquals(<span class="number">4</span>,ZeroCount.zeros(<span class="string">"10000"</span>));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="搜素和替换"><a href="#搜素和替换" class="headerlink" title="搜素和替换"></a>搜素和替换</h1><blockquote>
+<p>使用正则表达式分割字符串：</p>
+</blockquote>
+<ul>
+<li>String[] String.split(String regex)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&quot;a b c&quot;.split(&quot;\\s&quot;);&#x3D;&gt;&#123;&quot;a&quot;,&quot;b&quot;,&quot;c&quot;&#125;</span><br><span class="line">&quot;a ,b ;; c&quot;.split(&quot;[\\,\\;\\s]+&quot;);&#x3D;&gt;&#123;&quot;a&quot;,&quot;b&quot;,&quot;c&quot;&#125;</span><br><span class="line"></span><br><span class="line">public class Split &#123;</span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">	String tags&#x3D;&quot;java php  ,,; python&quot;;</span><br><span class="line">	String[] arr&#x3D;tags.split(&quot;[\\s\\,\\;]+&quot;);</span><br><span class="line">	System.out.println(Arrays.deepToString(arr));</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="搜索字符串"><a href="#搜索字符串" class="headerlink" title="搜索字符串"></a>搜索字符串</h2><p>使用正则表达式搜索字符串：</p>
+<ul>
+<li>Matcher.find();<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.itranswarp.learnjava;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.regex.Matcher;</span><br><span class="line"><span class="keyword">import</span> java.util.regex.Pattern;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Search</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	String s=<span class="string">"The quick brown fox jumps over the lazy dog."</span>;</span><br><span class="line">	Pattern p=Pattern.compile(<span class="string">"the"</span>,Pattern.CASE_INSENSITIVE);</span><br><span class="line">	Matcher m=p.matcher(s);</span><br><span class="line">	<span class="keyword">while</span>(m.find()) &#123;</span><br><span class="line">		String sub = s.substring(m.start(), m.end());</span><br><span class="line">		System.out.println(sub+<span class="string">",start="</span>+m.start()+<span class="string">",end="</span>+m.end());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="替换字符串"><a href="#替换字符串" class="headerlink" title="替换字符串"></a>替换字符串</h2><ul>
+<li>String.replaceAll();<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String s=<span class="string">"The   quick    brown   fox jumps over the lazy dog."</span>;</span><br><span class="line">	    String r=s.replaceAll(<span class="string">"\\s+"</span>, <span class="string">" "</span>);</span><br><span class="line">	    System.out.println(r);</span><br><span class="line">	    <span class="comment">//$1代表第一组</span></span><br><span class="line">	    String r2=r.replaceAll(<span class="string">"(\\w+)"</span>, <span class="string">"&lt;b&gt;$1&lt;/b&gt;"</span>);</span><br><span class="line">	    System.out.println(r2);</span><br><span class="line">	    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+</ul>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
     </div>
@@ -904,12 +1087,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>CSS（filter,Scoped Css VARIABLES）</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">377</span></p>
+    <p><span class="copy-title">文章标题:</span>regexComplex </p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">932</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-04-19, 08:32:38</p>
-    <p><span class="copy-title">最后更新:</span>2020-04-19, 11:12:52</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/04/19/CSS/" title="CSS（filter,Scoped Css VARIABLES）">https://feixiangdjames.github.io/blog/2020/04/19/CSS/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-29, 22:56:07</p>
+    <p><span class="copy-title">最后更新:</span>2020-06-04, 22:31:32</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/29/regexComplex/" title="regexComplex ">https://feixiangdjames.github.io/blog/2020/05/29/regexComplex/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
