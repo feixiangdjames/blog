@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>对称加密算法和PBE | James blog</title>
+  <meta name="keywords" content=" java ">
+  <meta name="description" content="对称加密算法和PBE | James blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="@[toc] 数字证书的应用 https:HTTP over SSL 服务器发送证书给客户端（发送公钥&#x2F;签名&#x2F;CA） 客户端验证服务器证书（确认服务器身份) 客户端用证书加密随机口令并发送给服务器端（公钥加密） 服务器端解密获得口令（私钥解密） 双方最后使用AES进行通信（对称加密）    计算机密码学算法 摘要算法确保数据没有被篡改  非对称加密算法对数据进行加密&#x2F;解密  签名算法确保数据完整新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字证书">
+<meta property="og:url" content="https://feixiangdjames.github.io/blog/2020/06/15/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6/index.html">
+<meta property="og:site_name" content="James blog">
+<meta property="og:description" content="@[toc] 数字证书的应用 https:HTTP over SSL 服务器发送证书给客户端（发送公钥&#x2F;签名&#x2F;CA） 客户端验证服务器证书（确认服务器身份) 客户端用证书加密随机口令并发送给服务器端（公钥加密） 服务器端解密获得口令（私钥解密） 双方最后使用AES进行通信（对称加密）    计算机密码学算法 摘要算法确保数据没有被篡改  非对称加密算法对数据进行加密&#x2F;解密  签名算法确保数据完整新">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-14T18:23:17.000Z">
+<meta property="article:modified_time" content="2020-06-14T22:08:57.726Z">
+<meta property="article:author" content="James">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar1.jpg">
+
+<link href="/blog/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/blog/css/hl_theme/sublime.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/blog/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/blog/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="/blog">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/blog/" class="avatar_target">
+    <img class="avatar" src="/blog/img/avatar1.jpg" />
+</a>
+<div class="author">
+    <span>James</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/feixiangdjames" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:feixiangdjames@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=174455864&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(69)</small></div></li>
+    
+        
+            
+            <li><div data-rel="JAVA"><i class="fold iconfont icon-right"></i>JAVA<small>(66)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="java入门">java入门<small>(3)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="程序基础">程序基础<small>(6)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="面向对象">面向对象<small>(14)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="java异常">java异常<small>(4)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="断言和日志">断言和日志<small>(1)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="反射与泛型">反射与泛型<small>(12)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="集合">集合<small>(7)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="InputOutput">InputOutput<small>(5)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="dateAndTime">dateAndTime<small>(2)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="JUnit">JUnit<small>(3)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="regex">regex<small>(2)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="安全与算法">安全与算法<small>(7)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+            <li><div data-rel="CSS"><i class="fold iconfont icon-right"></i>CSS<small>(1)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="filter var">filter var<small>(1)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+            <li><div data-rel="git">git<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="linux">linux<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="69">
+<input type="hidden" id="yelog_site_word_count" value="43.5k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color5">java</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">CSS3</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">linux</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="JAVA java入门 "
+           href="/blog/2020/04/12/%E4%BD%BF%E7%94%A8IDE/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="使用IDE">使用IDE</span>
+            <span class="post-date" title="2020-04-12 11:01:44">2020/04/12</span>
+        </a>
+        
+        <a  class="JAVA java入门 "
+           href="/blog/2020/04/12/%E7%AC%AC%E4%B8%80%E4%B8%AAJava/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="第一个Java">第一个Java</span>
+            <span class="post-date" title="2020-04-12 11:01:13">2020/04/12</span>
+        </a>
+        
+        <a  class="JAVA java入门 "
+           href="/blog/2020/04/10/java%E5%85%A5%E9%97%A8/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="java入门">java入门</span>
+            <span class="post-date" title="2020-04-10 08:32:38">2020/04/10</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/11/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84,%E5%8F%98%E9%87%8F,%E5%B8%B8%E9%87%8F,%E6%95%B4%E6%95%B0,%E6%B5%AE%E7%82%B9,%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97,%E5%B8%83%E5%B0%94/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="基本结构,变量,常量,整数,浮点,数的运算,布尔">基本结构,变量,常量,整数,浮点,数的运算,布尔</span>
+            <span class="post-date" title="2020-04-11 11:03:05">2020/04/11</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/15/%E5%AD%97%E7%AC%A6,%E5%AD%97%E7%AC%A6%E4%B8%B2,%E6%95%B0%E7%BB%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="字符,字符串,数组">字符,字符串,数组</span>
+            <span class="post-date" title="2020-04-15 11:03:05">2020/04/15</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/15/%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="流程控制[输入，输出]">流程控制[输入，输出]</span>
+            <span class="post-date" title="2020-04-15 15:03:05">2020/04/15</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/12/%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="数的运算">数的运算</span>
+            <span class="post-date" title="2020-04-12 11:05:00">2020/04/12</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/15/%E6%95%B0%E7%BB%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="数组">数组</span>
+            <span class="post-date" title="2020-04-15 15:03:05">2020/04/15</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/15/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%A6%82%E5%BF%B5/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="面向对象概念">面向对象概念</span>
+            <span class="post-date" title="2020-04-15 15:03:05">2020/04/15</span>
+        </a>
+        
+        <a  class="JAVA 程序基础 "
+           href="/blog/2020/04/16/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6if,switch,doWhile/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="流程控制[if,switch,doWhile]">流程控制[if,switch,doWhile]</span>
+            <span class="post-date" title="2020-04-16 15:03:05">2020/04/16</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/17/%E5%B0%81%E8%A3%85%E3%80%81%E6%96%B9%E6%B3%95%E3%80%81%E6%9E%84%E9%80%A0%E3%80%81%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="封装,方法,构造,方法重载">封装,方法,构造,方法重载</span>
+            <span class="post-date" title="2020-04-17 15:03:05">2020/04/17</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/17/%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="继承和Polymorphic">继承和Polymorphic</span>
+            <span class="post-date" title="2020-04-17 18:03:05">2020/04/17</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/17/%E6%8A%BD%E8%B1%A1%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="抽象类">抽象类</span>
+            <span class="post-date" title="2020-04-17 18:03:05">2020/04/17</span>
+        </a>
+        
+        <a  class="CSS filter var "
+           href="/blog/2020/04/19/CSS/"
+           data-tag="CSS3"
+           data-author="" >
+            <span class="post-title" title="CSS（filter,Scoped Css VARIABLES）">CSS（filter,Scoped Css VARIABLES）</span>
+            <span class="post-date" title="2020-04-19 08:32:38">2020/04/19</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/17/interface/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="接口">接口</span>
+            <span class="post-date" title="2020-04-17 18:03:05">2020/04/17</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/21/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5%E5%92%8C%E6%96%B9%E6%B3%95,package/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="静态字段和方法,package">静态字段和方法,package</span>
+            <span class="post-date" title="2020-04-21 18:03:05">2020/04/21</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/21/%E4%BD%9C%E7%94%A8%E5%9F%9F/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="作用域">作用域</span>
+            <span class="post-date" title="2020-04-21 18:03:05">2020/04/21</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/23/%E6%A0%B8%E5%BF%83String/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="核心String">核心String</span>
+            <span class="post-date" title="2020-04-23 07:43:03">2020/04/23</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/24/String-Builder/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="String Builder">String Builder</span>
+            <span class="post-date" title="2020-04-24 23:59:24">2020/04/24</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/26/JavaBean/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaBean">JavaBean</span>
+            <span class="post-date" title="2020-04-26 06:42:57">2020/04/26</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/26/%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="包装类型">包装类型</span>
+            <span class="post-date" title="2020-04-26 06:08:00">2020/04/26</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/27/jdk-util-class/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="jdk util class">jdk util class</span>
+            <span class="post-date" title="2020-04-27 08:09:23">2020/04/27</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/04/26/%E6%9E%9A%E4%B8%BE%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="枚举类">枚举类</span>
+            <span class="post-date" title="2020-04-26 21:15:32">2020/04/26</span>
+        </a>
+        
+        <a  class="JAVA java异常 "
+           href="/blog/2020/04/28/java%E7%9A%84%E5%BC%82%E5%B8%B8/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="java的异常">java的异常</span>
+            <span class="post-date" title="2020-04-28 00:24:57">2020/04/28</span>
+        </a>
+        
+        <a  class="JAVA java异常 "
+           href="/blog/2020/04/28/%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="异常捕获">异常捕获</span>
+            <span class="post-date" title="2020-04-28 21:24:57">2020/04/28</span>
+        </a>
+        
+        <a  class="JAVA java异常 "
+           href="/blog/2020/04/29/throw-Exception/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="throw Exception">throw Exception</span>
+            <span class="post-date" title="2020-04-29 22:36:59">2020/04/29</span>
+        </a>
+        
+        <a  class="JAVA java异常 "
+           href="/blog/2020/05/02/defined-exception/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="defined exception">defined exception</span>
+            <span class="post-date" title="2020-05-02 01:45:33">2020/05/02</span>
+        </a>
+        
+        <a  class="git "
+           href="/blog/2020/04/30/git/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="服务器搭建git">服务器搭建git</span>
+            <span class="post-date" title="2020-04-30 07:01:42">2020/04/30</span>
+        </a>
+        
+        <a  class="linux "
+           href="/blog/2020/04/30/mkdir/"
+           data-tag="linux"
+           data-author="" >
+            <span class="post-title" title="mkdir">mkdir</span>
+            <span class="post-date" title="2020-04-30 08:09:37">2020/04/30</span>
+        </a>
+        
+        <a  class="JAVA 断言和日志 "
+           href="/blog/2020/05/04/JAVA-log/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JAVA log">JAVA log</span>
+            <span class="post-date" title="2020-05-04 08:03:50">2020/05/04</span>
+        </a>
+        
+        <a  class="JAVA 面向对象 "
+           href="/blog/2020/05/06/modules/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="modules">modules</span>
+            <span class="post-date" title="2020-05-06 21:50:50">2020/05/06</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/07/Class%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Class类">Class类</span>
+            <span class="post-date" title="2020-05-07 06:32:24">2020/05/07</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/07/%E8%AE%BF%E9%97%AE%E5%AD%97%E6%AE%B5/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="访问字段">访问字段</span>
+            <span class="post-date" title="2020-05-07 22:26:16">2020/05/07</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/08/reflect-method/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="reflect method">reflect method</span>
+            <span class="post-date" title="2020-05-08 18:49:45">2020/05/08</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/10/constructor/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="constructor">constructor</span>
+            <span class="post-date" title="2020-05-10 04:16:20">2020/05/10</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/10/%E8%8E%B7%E5%8F%96%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="获取继承关系">获取继承关系</span>
+            <span class="post-date" title="2020-05-10 06:01:49">2020/05/10</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/11/Annotaion/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Annotaion">Annotaion</span>
+            <span class="post-date" title="2020-05-11 05:45:06">2020/05/11</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/12/%E6%B3%9B%E5%9E%8B/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="泛型定义和使用">泛型定义和使用</span>
+            <span class="post-date" title="2020-05-12 18:52:34">2020/05/12</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/13/%E6%93%A6%E6%8B%AD%E6%B3%95/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="擦拭法">擦拭法</span>
+            <span class="post-date" title="2020-05-13 08:51:41">2020/05/13</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/12/%E7%BC%96%E5%86%99%E6%B3%9B%E5%9E%8B/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="编写泛型">编写泛型</span>
+            <span class="post-date" title="2020-05-12 15:03:54">2020/05/12</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/15/extends%E9%80%9A%E9%85%8D%E7%AC%A6/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="extends通配符">extends通配符</span>
+            <span class="post-date" title="2020-05-15 02:04:40">2020/05/15</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/16/super%E9%80%9A%E9%85%8D%E7%AC%A6/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="super通配符">super通配符</span>
+            <span class="post-date" title="2020-05-16 05:07:54">2020/05/16</span>
+        </a>
+        
+        <a  class="JAVA 反射与泛型 "
+           href="/blog/2020/05/16/%E5%8F%8D%E5%B0%84%E4%B8%8E%E6%B3%9B%E5%9E%8B/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="反射与泛型">反射与泛型</span>
+            <span class="post-date" title="2020-05-16 19:23:05">2020/05/16</span>
+        </a>
+        
+        <a  class="JAVA 集合 "
+           href="/blog/2020/05/17/map/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Map和Set">Map和Set</span>
+            <span class="post-date" title="2020-05-17 21:06:42">2020/05/17</span>
+        </a>
+        
+        <a  class="JAVA 集合 "
+           href="/blog/2020/05/17/%E9%9B%86%E5%90%88/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="集合和list">集合和list</span>
+            <span class="post-date" title="2020-05-17 09:49:12">2020/05/17</span>
+        </a>
+        
+        <a  class="JAVA 集合 "
+           href="/blog/2020/05/19/Set/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Set">Set</span>
+            <span class="post-date" title="2020-05-19 02:05:12">2020/05/19</span>
+        </a>
+        
+        <a  class="JAVA 集合 "
+           href="/blog/2020/05/20/Stack/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Stack">Stack</span>
+            <span class="post-date" title="2020-05-20 06:22:04">2020/05/20</span>
+        </a>
+        
+        <a  class="JAVA 集合 "
+           href="/blog/2020/05/20/Queque/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Queue">Queue</span>
+            <span class="post-date" title="2020-05-20 01:35:59">2020/05/20</span>
+        </a>
+        
+        <a  class="JAVA 集合 "
+           href="/blog/2020/05/21/Collections/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Collections">Collections</span>
+            <span class="post-date" title="2020-05-21 21:23:21">2020/05/21</span>
+        </a>
+        
+        <a  class="JAVA 集合 "
+           href="/blog/2020/05/20/Iterator/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Iterator">Iterator</span>
+            <span class="post-date" title="2020-05-20 23:19:02">2020/05/20</span>
+        </a>
+        
+        <a  class="JAVA InputOutput "
+           href="/blog/2020/05/23/IOfilter/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="IOfilter">IOfilter</span>
+            <span class="post-date" title="2020-05-23 20:44:17">2020/05/23</span>
+        </a>
+        
+        <a  class="JAVA InputOutput "
+           href="/blog/2020/05/22/IO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="IO">IO</span>
+            <span class="post-date" title="2020-05-22 19:10:40">2020/05/22</span>
+        </a>
+        
+        <a  class="JAVA InputOutput "
+           href="/blog/2020/05/23/Input%E5%92%8COutput/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Input和Output">Input和Output</span>
+            <span class="post-date" title="2020-05-23 08:21:33">2020/05/23</span>
+        </a>
+        
+        <a  class="JAVA InputOutput "
+           href="/blog/2020/05/25/ReaderAndWriter/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="ReaderAndWriter">ReaderAndWriter</span>
+            <span class="post-date" title="2020-05-25 04:16:19">2020/05/25</span>
+        </a>
+        
+        <a  class="JAVA InputOutput "
+           href="/blog/2020/05/24/zip%E5%92%8Cclasspath%E8%B5%84%E6%BA%90/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="zip和classpath资源">zip和classpath资源</span>
+            <span class="post-date" title="2020-05-24 01:06:43">2020/05/24</span>
+        </a>
+        
+        <a  class="JAVA dateAndTime "
+           href="/blog/2020/05/25/dateAndTime/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="dateAndTime">dateAndTime</span>
+            <span class="post-date" title="2020-05-25 20:39:15">2020/05/25</span>
+        </a>
+        
+        <a  class="JAVA dateAndTime "
+           href="/blog/2020/05/27/java-time/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="java_time">java_time</span>
+            <span class="post-date" title="2020-05-27 06:31:35">2020/05/27</span>
+        </a>
+        
+        <a  class="JAVA JUnit "
+           href="/blog/2020/05/29/JUnit/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JUnit">JUnit</span>
+            <span class="post-date" title="2020-05-29 05:07:38">2020/05/29</span>
+        </a>
+        
+        <a  class="JAVA JUnit "
+           href="/blog/2020/05/29/%E5%BC%82%E5%B8%B8%E6%B5%8B%E8%AF%95/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="异常测试">异常测试</span>
+            <span class="post-date" title="2020-05-29 07:49:45">2020/05/29</span>
+        </a>
+        
+        <a  class="JAVA JUnit "
+           href="/blog/2020/05/29/%E6%9D%A1%E4%BB%B6%E6%B5%8B%E8%AF%95/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="条件测试">条件测试</span>
+            <span class="post-date" title="2020-05-29 09:46:35">2020/05/29</span>
+        </a>
+        
+        <a  class="JAVA regex "
+           href="/blog/2020/05/29/regex/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="regex">regex</span>
+            <span class="post-date" title="2020-05-29 21:55:04">2020/05/29</span>
+        </a>
+        
+        <a  class="JAVA regex "
+           href="/blog/2020/05/29/regexComplex/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="regexComplex ">regexComplex </span>
+            <span class="post-date" title="2020-05-29 22:56:07">2020/05/29</span>
+        </a>
+        
+        <a  class="JAVA 安全与算法 "
+           href="/blog/2020/06/05/%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="编码算法">编码算法</span>
+            <span class="post-date" title="2020-06-05 23:32:04">2020/06/05</span>
+        </a>
+        
+        <a  class="JAVA 安全与算法 "
+           href="/blog/2020/06/15/sra%E7%AD%BE%E5%90%8D/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="sra签名">sra签名</span>
+            <span class="post-date" title="2020-06-15 00:59:22">2020/06/15</span>
+        </a>
+        
+        <a  class="JAVA 安全与算法 "
+           href="/blog/2020/06/09/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E5%92%8CPBE/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="对称加密算法和PBE">对称加密算法和PBE</span>
+            <span class="post-date" title="2020-06-09 19:51:32">2020/06/09</span>
+        </a>
+        
+        <a  class="JAVA 安全与算法 "
+           href="/blog/2020/06/11/%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2%E7%AE%97%E6%B3%95/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="密钥交换算法">密钥交换算法</span>
+            <span class="post-date" title="2020-06-11 03:51:27">2020/06/11</span>
+        </a>
+        
+        <a  class="JAVA 安全与算法 "
+           href="/blog/2020/06/08/%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="摘要算法">摘要算法</span>
+            <span class="post-date" title="2020-06-08 21:22:29">2020/06/08</span>
+        </a>
+        
+        <a  class="JAVA 安全与算法 "
+           href="/blog/2020/06/15/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="数字证书">数字证书</span>
+            <span class="post-date" title="2020-06-15 02:23:17">2020/06/15</span>
+        </a>
+        
+        <a  class="JAVA 安全与算法 "
+           href="/blog/2020/06/11/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="非对称加密算法">非对称加密算法</span>
+            <span class="post-date" title="2020-06-11 06:45:43">2020/06/11</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-对称加密算法和PBE" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">对称加密算法和PBE</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="JAVA">JAVA</a>/
+            
+                <a  data-rel="安全与算法">安全与算法</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color5">java</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-06-11 03:52:33'>2020-06-09 19:51</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:1.1k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对称加密算法"><span class="toc-text">对称加密算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PBE-算法"><span class="toc-text">PBE 算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#AES-vs-PBE"><span class="toc-text">AES vs PBE</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对称加密算法"><span class="toc-text">对称加密算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PBE-算法"><span class="toc-text">PBE 算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#AES-vs-PBE"><span class="toc-text">AES vs PBE</span></a></li></ol></li></ol></div></p>
+<table>
+<thead>
+<tr>
+<th>总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对称加密算法使用同一个密钥进行加密和解密</td>
+</tr>
+<tr>
+<td>常用算法：DES/AES/IDEA等</td>
+</tr>
+<tr>
+<td>密钥长度由算法设计决定，AES的密钥长度是128/192/256</td>
+</tr>
+<tr>
+<td>使用256位加密需要修改JDK的policy文件</td>
+</tr>
+<tr>
+<td>使用堆成加密算法需要指定：算法名称/工作模式/填充模式</td>
+</tr>
+<tr>
+<td>PBE算法通过用户口令和随机Salt计算Key 然后加密</td>
+</tr>
+<tr>
+<td>Key通过口令和随机Salt计算得出，提高安全性</td>
+</tr>
+<tr>
+<td>PBE算法内部使用的仍然是标准堆成加密算法</td>
+</tr>
+</tbody></table>
+<h1 id="对称加密算法"><a href="#对称加密算法" class="headerlink" title="对称加密算法"></a>对称加密算法</h1><blockquote>
+<p>加密和解密使用同一个密钥</p>
+</blockquote>
+<ul>
+<li>例如：WinRAR</li>
+</ul>
+<p>加密：encrypt(key,message)-&gt;s<br>解密：decrypt(key,s)-&gt; message</p>
+<p>常用的对称加密算法：DES,AES,IDEA<br>密钥长度直接决定了的加密的强度。<br>DES只有56/64位，可以暴力破击，0已经不建议使用了。</p>
+<p>JDK并没有包含所有的工作模式和填充模式，通常我们只需要使用常用的就可以了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.james.sample;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets;</span><br><span class="line"><span class="keyword">import</span> java.security.GeneralSecurityException;</span><br><span class="line"><span class="keyword">import</span> java.util.Base64;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.SecretKeySpec;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AES_ECB_Clipher</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//填充模式</span></span><br><span class="line"> <span class="keyword">static</span> <span class="keyword">final</span> String CIPHER_NAME=<span class="string">"AES/ECB/PKCS5Padding"</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] encrypt(<span class="keyword">byte</span>[]key,<span class="keyword">byte</span>[] input) <span class="keyword">throws</span> GeneralSecurityException&#123;</span><br><span class="line">	Cipher cipher=Cipher.getInstance(CIPHER_NAME);</span><br><span class="line">    SecretKeySpec keySpec= <span class="keyword">new</span> SecretKeySpec(key,<span class="string">"AES"</span>);</span><br><span class="line">    cipher.init(Cipher.ENCRYPT_MODE, keySpec);</span><br><span class="line">	 <span class="keyword">return</span> cipher.doFinal(input);</span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] decrypt(<span class="keyword">byte</span>[] key,<span class="keyword">byte</span>[] input) <span class="keyword">throws</span> GeneralSecurityException &#123;</span><br><span class="line">	 Cipher cipher=Cipher.getInstance(CIPHER_NAME);</span><br><span class="line">	 SecretKeySpec keySpec=<span class="keyword">new</span> SecretKeySpec(key,<span class="string">"AES"</span>);</span><br><span class="line">	 cipher.init(Cipher.DECRYPT_MODE,keySpec);</span><br><span class="line">	 <span class="keyword">return</span> cipher.doFinal(input);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">	 <span class="comment">//原文：</span></span><br><span class="line">	 String message=<span class="string">"Hello,world! encriypted using AES!"</span>;</span><br><span class="line">	 System.out.println(<span class="string">"Message:"</span>+message);</span><br><span class="line">	 <span class="comment">//128 bit key ==16字节</span></span><br><span class="line">	 <span class="keyword">byte</span>[] key= <span class="string">"1234567890abcdef"</span>.getBytes(<span class="string">"utf-8"</span>);</span><br><span class="line">	 </span><br><span class="line">	 <span class="keyword">byte</span>[] data=message.getBytes(StandardCharsets.UTF_8);</span><br><span class="line">	 <span class="keyword">byte</span>[] encrypted=encrypt(key,data);</span><br><span class="line">	 System.out.println(<span class="string">"Encrypted data:"</span>+Base64.getEncoder().encodeToString(encrypted));</span><br><span class="line">	 </span><br><span class="line">	 <span class="keyword">byte</span>[] decrypted=decrypt(key,encrypted);</span><br><span class="line">	 System.out.println(<span class="string">"Decrypted data:"</span>+<span class="keyword">new</span> String(decrypted,<span class="string">"utf-8"</span>));</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.james.sample;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets;</span><br><span class="line"><span class="keyword">import</span> java.security.GeneralSecurityException;</span><br><span class="line"><span class="keyword">import</span> java.security.SecureRandom;</span><br><span class="line"><span class="keyword">import</span> java.util.Base64;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.IvParameterSpec;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.SecretKeySpec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AES_CBC_Cipher</span> </span>&#123;</span><br><span class="line">	<span class="comment">//填充模式</span></span><br><span class="line"> <span class="keyword">static</span> <span class="keyword">final</span> String CIPHER_NAME=<span class="string">"AES/CBC/PKCS5Padding"</span>;</span><br><span class="line">   <span class="comment">//加密：</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] encrypt(<span class="keyword">byte</span>[] key,<span class="keyword">byte</span>[] input) <span class="keyword">throws</span> GeneralSecurityException&#123;</span><br><span class="line">	   Cipher cipher=Cipher.getInstance(CIPHER_NAME);</span><br><span class="line">	   SecretKeySpec keySpec= <span class="keyword">new</span> SecretKeySpec(key,<span class="string">"AES"</span>);</span><br><span class="line">	   SecureRandom sr=SecureRandom.getInstanceStrong();</span><br><span class="line">	   <span class="keyword">byte</span>[] iv=sr.generateSeed(<span class="number">16</span>);</span><br><span class="line">	   IvParameterSpec ivps=<span class="keyword">new</span> IvParameterSpec(iv);</span><br><span class="line">	    cipher.init(Cipher.ENCRYPT_MODE, keySpec,ivps);</span><br><span class="line">	    <span class="keyword">byte</span>[] data = cipher.doFinal(input);</span><br><span class="line">		 <span class="keyword">return</span> join(iv, data);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] decrypt(<span class="keyword">byte</span>[] key,<span class="keyword">byte</span>[] input)<span class="keyword">throws</span> GeneralSecurityException &#123;</span><br><span class="line">	   <span class="comment">//把 input 分割成 IV和密文：</span></span><br><span class="line">	     <span class="keyword">byte</span>[] iv= <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">16</span>];</span><br><span class="line">	     <span class="keyword">byte</span>[] data=<span class="keyword">new</span> <span class="keyword">byte</span>[input.length-<span class="number">16</span>];</span><br><span class="line">	     System.arraycopy(input, <span class="number">0</span>, iv, <span class="number">0</span>, <span class="number">16</span>);</span><br><span class="line">	     System.arraycopy(input, <span class="number">16</span>, data, <span class="number">0</span>, data.length);</span><br><span class="line">	    <span class="comment">//解密：</span></span><br><span class="line">	     Cipher cipher=Cipher.getInstance(CIPHER_NAME);</span><br><span class="line">	     SecretKeySpec keySpec= <span class="keyword">new</span> SecretKeySpec(key,<span class="string">"AES"</span>);</span><br><span class="line">	     IvParameterSpec ivps=<span class="keyword">new</span> IvParameterSpec(iv);</span><br><span class="line">	     cipher.init(Cipher.DECRYPT_MODE,keySpec,ivps);</span><br><span class="line">	   <span class="keyword">return</span> cipher.doFinal(data);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] join(<span class="keyword">byte</span>[] bs1,<span class="keyword">byte</span>[] bs2) &#123;</span><br><span class="line">	<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">	<span class="keyword">byte</span>[] r=<span class="keyword">new</span> <span class="keyword">byte</span>[bs1.length+bs2.length];</span><br><span class="line">	System.arraycopy(bs1, <span class="number">0</span>, r, <span class="number">0</span>, bs1.length);</span><br><span class="line">	System.arraycopy(bs2, <span class="number">0</span>, r, bs1.length, bs2.length);</span><br><span class="line">	<span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span><span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">	String message=<span class="string">"Hello,world! encrypted using AES!"</span>;</span><br><span class="line">	System.out.println(<span class="string">"Message:"</span>+message);</span><br><span class="line">	<span class="keyword">byte</span>[] key=<span class="string">"1234567890abcdef"</span>.getBytes(<span class="string">"utf-8"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">byte</span>[] data=message.getBytes(StandardCharsets.UTF_8);</span><br><span class="line">	<span class="keyword">byte</span>[] encrypted=encrypt(key,data);</span><br><span class="line">	System.out.println(<span class="string">"Encrypted data:"</span>+Base64.getEncoder().encodeToString(encrypted));</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">byte</span>[] decrypted=decrypt(key,encrypted);</span><br><span class="line">	System.out.println(<span class="string">"Decrvpted data:"</span>+ <span class="keyword">new</span> String(decrypted,<span class="string">"utf-8"</span>));</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="PBE-算法"><a href="#PBE-算法" class="headerlink" title="PBE 算法"></a>PBE 算法</h1><blockquote>
+<p>PBE： Password Based Encryption</p>
+</blockquote>
+<ul>
+<li>由用户输入口令，采用随机数杂凑计算出密钥再进行加密</li>
+<li>Password:用户口令 </li>
+<li>Salt:随机生成的byte[]</li>
+<li>key:generate(byte[] aslt,String password)</li>
+</ul>
+<h2 id="AES-vs-PBE"><a href="#AES-vs-PBE" class="headerlink" title="AES vs PBE"></a>AES vs PBE</h2><p>标准的AES算法中，key 是自动随机生成。<br>PBE算法中，key是用户的输入的口令加随机数凑出。</p>
+<blockquote>
+<p>如果把salt固定，就得到一个通用的口令加密软件。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigInteger;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets;</span><br><span class="line"><span class="keyword">import</span> java.security.GeneralSecurityException;</span><br><span class="line"><span class="keyword">import</span> java.security.SecureRandom;</span><br><span class="line"><span class="keyword">import</span> java.security.Security;</span><br><span class="line"><span class="keyword">import</span> java.util.Base64;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKey;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKeyFactory;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.PBEKeySpec;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.PBEParameterSpec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.bouncycastle.jce.provider.BouncyCastleProvider;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PBECipher</span> </span>&#123;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> String CIPHER_NAME=<span class="string">"PBEwithSHA1and128bitAES-CBC-BC"</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] encrypt(String password,<span class="keyword">byte</span>[] salt,<span class="keyword">byte</span>[] input) <span class="keyword">throws</span> GeneralSecurityException &#123;</span><br><span class="line">	PBEKeySpec keySpec= <span class="keyword">new</span> PBEKeySpec(password.toCharArray());</span><br><span class="line">	SecretKeyFactory skevFactory=SecretKeyFactory.getInstance(CIPHER_NAME);</span><br><span class="line">    SecretKey skey=skevFactory.generateSecret(keySpec);</span><br><span class="line">    PBEParameterSpec pbeps = <span class="keyword">new</span> PBEParameterSpec(salt,<span class="number">10</span>);</span><br><span class="line">    Cipher cipher=Cipher.getInstance(CIPHER_NAME);</span><br><span class="line">    cipher.init(Cipher.ENCRYPT_MODE,skey,pbeps);</span><br><span class="line">    <span class="keyword">return</span> cipher.doFinal(input);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] decrypt(String password,<span class="keyword">byte</span>[] salt,<span class="keyword">byte</span>[] input)<span class="keyword">throws</span> GeneralSecurityException &#123;</span><br><span class="line">	PBEKeySpec keySpec= <span class="keyword">new</span> PBEKeySpec(password.toCharArray());</span><br><span class="line">	SecretKeyFactory skevFactory=SecretKeyFactory.getInstance(CIPHER_NAME);</span><br><span class="line">    SecretKey skey=skevFactory.generateSecret(keySpec);</span><br><span class="line">    PBEParameterSpec pbeps = <span class="keyword">new</span> PBEParameterSpec(salt,<span class="number">10</span>);</span><br><span class="line">    Cipher cipher=Cipher.getInstance(CIPHER_NAME);</span><br><span class="line">    cipher.init(Cipher.DECRYPT_MODE,skey,pbeps);</span><br><span class="line">	<span class="keyword">return</span> cipher.doFinal(input);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">	<span class="comment">//put Bouncycastle as a provider in java.security</span></span><br><span class="line">	Security.addProvider(<span class="keyword">new</span> BouncyCastleProvider());</span><br><span class="line">	<span class="comment">//source text</span></span><br><span class="line">	String message=<span class="string">"Hello,world! encrypted using PBE!"</span>;</span><br><span class="line">	<span class="comment">//scurity text</span></span><br><span class="line">	String password=<span class="string">"hello12345"</span>;</span><br><span class="line">	<span class="keyword">byte</span>[] salt=SecureRandom.getInstanceStrong().generateSeed(<span class="number">16</span>);</span><br><span class="line">	System.out.printf(<span class="string">"salt:%032x\n"</span>, <span class="keyword">new</span> BigInteger(<span class="number">1</span>,salt));</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">byte</span>[] data=message.getBytes(StandardCharsets.UTF_8);</span><br><span class="line">	<span class="keyword">byte</span>[] encrypted=encrypt(password,salt,data);</span><br><span class="line">	System.out.println(<span class="string">"encrypted:"</span>+Base64.getEncoder().encodeToString(encrypted));</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">byte</span>[] decrypted=decrypt(password,salt,encrypted);</span><br><span class="line">	System.out.println(<span class="keyword">new</span> String(decrypted,<span class="string">"UTF-8"</span>));</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果把随机salt存储在U盘，就得到了一个“口令” + USB Key加密软件。<br>即时用户使用非常弱的口令，没有USB key 仍然无法破解。</p>
+</blockquote>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>对称加密算法和PBE</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.1k</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-06-09, 19:51:32</p>
+    <p><span class="copy-title">最后更新:</span>2020-06-11, 03:52:33</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/06/09/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E5%92%8CPBE/" title="对称加密算法和PBE">https://feixiangdjames.github.io/blog/2020/06/09/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E5%92%8CPBE/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2020 james</p>
+
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/blog/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/blog/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#java','#CSS3','#git','#linux',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+        /* 渲染*/
+        function HTMLDecode(text) {
+            var temp = document.createElement("div");
+            temp.innerHTML = text;
+            var output = temp.innerText || temp.textContent;
+            temp = null;
+            return output;
+        }
+        if (window.mermaid){
+            window.mermaid = null
+        }
+        $.getScript("//cdn.jsdelivr.net/npm/mermaid@8.4.2/dist/mermaid.min.js", function () {
+            var mermaidOptions = JSON.parse(HTMLDecode("{&#34;theme&#34;:&#34;default&#34;,&#34;startOnLoad&#34;:true,&#34;flowchart&#34;:{&#34;useMaxWidth&#34;:false,&#34;htmlLabels&#34;:true}}"))
+            if (window.mermaid) {
+                mermaid.initialize(mermaidOptions)
+                mermaid.contentLoaded()
+            }
+        })
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
