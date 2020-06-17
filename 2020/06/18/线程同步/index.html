@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>访问字段 | James blog</title>
+  <title>线程同步 | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="访问字段 | James blog">
+  <meta name="description" content="线程同步 | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]  对共享变量进行写入时，必须保证是原子操作。对原子操作是指不能被中断的一个或一系列操作。需要通过synchronized同步注意加锁对象必须是同一个实例对JVM定义的单个原子操作不需要同步.   123456789n&#x3D;n+1;编译器会编译为字节码指令：ILODIADDISTORE所以，这个简单的加1的操作，并不是原子操作，导致两个线程在执行这行语句的时候，出现错误。  为了">
 <meta property="og:type" content="article">
@@ -926,9 +926,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-访问字段" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-线程同步" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">访问字段</h1>
+        <h1 class="article-title">线程同步</h1>
     
     <div class="article-meta">
         
@@ -938,7 +938,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="反射与泛型">反射与泛型</a>
+                <a  data-rel="多线程编程">多线程编程</a>
             
         </span>
         
@@ -952,12 +952,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-05-08 11:12:05'>2020-05-07 22:26</time>
+        创建时间:<time class="date" title='更新时间: 2020-06-18 07:02:17'>2020-06-18 06:31</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:518</span>
+        <span>字数:458</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -976,7 +976,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Field-对象"><span class="toc-text">Field 对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SecurityManager"><span class="toc-text">SecurityManager</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#synchronized"><span class="toc-text">synchronized</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#synchronized问题："><span class="toc-text">synchronized问题：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异常"><span class="toc-text">异常</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -992,53 +992,51 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Field-对象"><span class="toc-text">Field 对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SecurityManager"><span class="toc-text">SecurityManager</span></a></li></ol></div></p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#synchronized"><span class="toc-text">synchronized</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#synchronized问题："><span class="toc-text">synchronized问题：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异常"><span class="toc-text">异常</span></a></li></ol></li></ol></div></p>
 <blockquote>
-<p>Field对象封装了字段的所有信息</p>
+<p>对共享变量进行写入时，必须保证是原子操作。<br>对原子操作是指不能被中断的一个或一系列操作。<br>需要通过synchronized同步<br>注意加锁对象必须是同一个实例<br>对JVM定义的单个原子操作不需要同步. </p>
 </blockquote>
-<ul>
-<li>通过Class实例的方法可以获得Field实例</li>
-<li>getField/getFields/getDeclaredField/getDeclaredFields</li>
-<li>通过Field实例可以获取字段信息：getName/getType/getModifiers</li>
-<li>通过Field实例可以读取或设置对象字段get(Oject instance)/fieldInstance.set(Oi,O fieldvalue))</li>
-<li>通过setAccessible(true)来访问非public字段</li>
-</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">n&#x3D;n+1;</span><br><span class="line"></span><br><span class="line">编译器会编译为字节码指令：</span><br><span class="line">ILOD</span><br><span class="line">IADD</span><br><span class="line">ISTORE</span><br><span class="line"></span><br><span class="line">所以，这个简单的加1的操作，并不是原子操作，导致</span><br><span class="line">两个线程在执行这行语句的时候，出现错误。</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>通过Class实例可以获取field信息：</p>
+<p>为了保证一系列作为原子操作：</p>
 </blockquote>
 <ul>
-<li>getField(name):获取某个public field（包括父类）</li>
-<li>getDeclaredField(name):仅获取当前类的某个field</li>
-<li>getFields():获取所有public 的 field (包括父类)</li>
-<li>getDeclaredFields():获取当前类的所有field（不包括父类）</li>
+<li>必须保证一系列操作执行的过程不被其他线程执行</li>
 </ul>
-<h1 id="Field-对象"><a href="#Field-对象" class="headerlink" title="Field 对象"></a>Field 对象</h1><blockquote>
-<p>Field对象包含一个field的所有信息</p>
+<p>要实现这个功能，我们需要在ILOD之前加锁，在ISTORE解锁。</p>
+<h1 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h1><blockquote>
+<p>Java 使用 synchronized 对一个对象进行加锁：</p>
 </blockquote>
-<ul>
-<li>getName()</li>
-<li>getType()</li>
-<li>getModifiers() //获取修饰关键字 public,private,protected</li>
-</ul>
+<p>synchronized(lock){<br>n=n+1;<br>}</p>
 <blockquote>
-<p>获取 field的值：</p>
+<p>synchronized 保证了代码块在任意时刻最多只有一个线程能执行<br>因为一个对象的锁，只能被一个线程获得，其他对象必须等待。</p>
 </blockquote>
-<ul>
-<li>get(Object)获取一个实例的该字段的值</li>
+<h2 id="synchronized问题："><a href="#synchronized问题：" class="headerlink" title="synchronized问题："></a>synchronized问题：</h2><ul>
+<li>性能下降(加解锁需要时间)</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Integer n=<span class="keyword">new</span> Integer(<span class="number">123</span>);</span><br><span class="line">Class cls=n.getClass();</span><br><span class="line">Field f=cls.getDeclaredField(<span class="string">"value"</span>);</span><br><span class="line">f.get(n);<span class="comment">//123,相当于n.value，但是不能运行成功。因为value时private的</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>设置field的值：</p>
-</blockquote>
-<ul>
-<li>set(Object,Object)设置一个实例的该字段的值。</li>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><ul>
+<li>无论有无异常，都会在synchronized执行完毕，释放锁。</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f.set(n,<span class="number">456</span>);</span><br><span class="line"><span class="comment">//相当于n.value=456</span></span><br></pre></td></tr></table></figure>
-<h1 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h1><blockquote>
-<p>setAccessible(true) 可以访问一个private field;<br>setAccessible(true)可能会失败，如果JVM定义了一个 SecurityManager<br>SecurityManager的规则阻止对该Field设置accessible:<br>  例如：规则应用于所有java和javax开头的package的类，那么对于java核心类<br>  就不能访问他们的private字段</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">		String name = <span class="string">"Xiao Ming"</span>;</span><br><span class="line">		<span class="keyword">int</span> age = <span class="number">20</span>;</span><br><span class="line">		Person p = <span class="keyword">new</span> Person();</span><br><span class="line">		<span class="comment">// <span class="doctag">TODO:</span> 利用反射给name和age字段赋值:</span></span><br><span class="line">        Class cls=p.getClass();</span><br><span class="line">        Field[] f=cls.getDeclaredFields();</span><br><span class="line">		</span><br><span class="line">        <span class="keyword">for</span>(Field n:f) &#123;</span><br><span class="line">        	System.out.println(n.getName());</span><br><span class="line">        	System.out.println(n.getType());</span><br><span class="line">        	System.out.println(n.getModifiers());</span><br><span class="line">           	System.out.println(<span class="string">"isPrivate："</span>+Modifier.isPrivate(n.getModifiers()));</span><br><span class="line">           	<span class="keyword">if</span> (n.getName()==<span class="string">"name"</span>) &#123;</span><br><span class="line">           		n.set(p, name);</span><br><span class="line">            System.out.println(<span class="string">"Field name:"</span>+n.get(p));</span><br><span class="line">           	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">           	n.setAccessible(<span class="keyword">true</span>);<span class="comment">//private 不能访问；使用Field提供的方法 setAccessible 强制访问</span></span><br><span class="line">           	<span class="keyword">boolean</span> boo=n.getName()==<span class="string">"num"</span>;</span><br><span class="line">        </span><br><span class="line">             <span class="keyword">if</span>(boo) &#123;</span><br><span class="line">            	</span><br><span class="line">            	 n.set(<span class="keyword">null</span>, <span class="number">250</span>);</span><br><span class="line">             System.out.println(<span class="string">"静态字段不需要传入实例"</span>+n.get(<span class="keyword">null</span>));</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">if</span>(!boo) n.set(p,<span class="number">30</span>);</span><br><span class="line">               System.out.println(n.getName()+<span class="string">":"</span>+n.get(p));</span><br><span class="line">           	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">		System.out.println(p.getName()); <span class="comment">// "Xiao Ming"</span></span><br><span class="line">		System.out.println(<span class="string">"age:"</span>+p.getAge()); <span class="comment">// 20</span></span><br><span class="line">		System.out.println(Person.num); </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> m)</span></span>&#123;</span><br><span class="line"><span class="keyword">synchronized</span>(obj)&#123;</span><br><span class="line"><span class="keyword">if</span>(m&lt;<span class="number">0</span>)&#123;</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">this</span>.value+=m;</span><br><span class="line">&#125;<span class="comment">//无论有无异常，都会在此释放锁</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>JVM规范定义了几种原子操作：</p>
+</blockquote>
+<ul>
+<li><p>基本类型（long 和 double除外）赋值：<br>int n=100;</p>
+</li>
+<li><p>引用类型赋值：<br>List<String> list=anotherLIst;</p>
+</li>
+<li><p>对原子操作不需要同步。</p>
+</li>
+</ul>
+<blockquote>
+<p>把非原子操作变为原子操作：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pair</span></span>&#123;</span><br><span class="line"><span class="keyword">int</span> first;</span><br><span class="line"><span class="keyword">int</span> last;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> first,<span class="keyword">int</span> last)</span></span>&#123;</span><br><span class="line"><span class="keyword">synchronized</span>(<span class="keyword">this</span>)&#123;</span><br><span class="line"><span class="comment">//对两个int进行赋值，不是原子操作</span></span><br><span class="line">   <span class="keyword">this</span>.first=first;</span><br><span class="line">   <span class="keyword">this</span>.last=last;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pair</span></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> [] pair;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> first,<span class="keyword">int</span> last)</span></span>&#123;</span><br><span class="line">   <span class="keyword">int</span>[] ps=<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;first,last&#125;;</span><br><span class="line">   <span class="keyword">this</span>.pair=ps;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>局部变量不需要同步</p>
+</blockquote>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -1048,12 +1046,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>访问字段</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">523</span></p>
+    <p><span class="copy-title">文章标题:</span>线程同步</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">464</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-05-07, 22:26:16</p>
-    <p><span class="copy-title">最后更新:</span>2020-05-08, 11:12:05</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/07/%E8%AE%BF%E9%97%AE%E5%AD%97%E6%AE%B5/" title="访问字段">https://feixiangdjames.github.io/blog/2020/05/07/%E8%AE%BF%E9%97%AE%E5%AD%97%E6%AE%B5/</a>
+    <p><span class="copy-title">发布时间:</span>2020-06-18, 06:31:38</p>
+    <p><span class="copy-title">最后更新:</span>2020-06-18, 07:02:17</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/06/18/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/" title="线程同步">https://feixiangdjames.github.io/blog/2020/06/18/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
