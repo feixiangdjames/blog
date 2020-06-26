@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>异常测试 | James blog</title>
+  <title>Atomic | James blog</title>
   <meta name="keywords" content=" java ">
-  <meta name="description" content="异常测试 | James blog">
+  <meta name="description" content="Atomic | James blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="@[toc]    Atomic    使用java.util.atomic提供的原子操作可以简化多线程编程：   AtomicInteger&#x2F; AtomicLong &#x2F;AtomicIntegerArray 等   原子操作实现了无锁的线程安全   适用于计数器，累加器等   # Atomic    java.util.concurrent.atomic 提供了一组原子类型操作：AtomicInt">
 <meta property="og:type" content="article">
@@ -950,9 +950,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-异常测试" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Atomic" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">异常测试</h1>
+        <h1 class="article-title">Atomic</h1>
     
     <div class="article-meta">
         
@@ -962,7 +962,7 @@
             
                 <a  data-rel="JAVA">JAVA</a>/
             
-                <a  data-rel="JUnit">JUnit</a>
+                <a  data-rel="多线程编程">多线程编程</a>
             
         </span>
         
@@ -976,12 +976,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-05-29 09:24:17'>2020-05-29 07:49</time>
+        创建时间:<time class="date" title='更新时间: 2020-06-27 00:16:04'>2020-06-26 23:49</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:518</span>
+        <span>字数:145</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1000,7 +1000,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#异常测试"><span class="toc-text">异常测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参数化测试"><span class="toc-text">参数化测试</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本原理"><span class="toc-text">基本原理</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1016,87 +1016,49 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#异常测试"><span class="toc-text">异常测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参数化测试"><span class="toc-text">参数化测试</span></a></li></ol></div></p>
+        <p><div class='inner-toc'><h2>目录</h2><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本原理"><span class="toc-text">基本原理</span></a></li></ol></div></p>
 <table>
 <thead>
 <tr>
-<th>总结</th>
+<th>Atomic</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>测试异常可以使用@Test(expected=Exception.class)</td>
+<td>使用java.util.atomic提供的原子操作可以简化多线程编程：</td>
 </tr>
 <tr>
-<td>对可能发生的每种类型的异常进行测试</td>
+<td>AtomicInteger/ AtomicLong /AtomicIntegerArray 等</td>
+</tr>
+<tr>
+<td>原子操作实现了无锁的线程安全</td>
+</tr>
+<tr>
+<td>适用于计数器，累加器等</td>
+</tr>
+<tr>
+<td># Atomic</td>
 </tr>
 </tbody></table>
-<h1 id="异常测试"><a href="#异常测试" class="headerlink" title="异常测试"></a>异常测试</h1><blockquote>
-<p>对可能抛出的异常进行测试：</p>
+<blockquote>
+<p>java.util.concurrent.atomic 提供了一组原子类型操作：<br>AtomicInteger</p>
 </blockquote>
 <ul>
-<li><p>异常本身是方法签名的一部分：<br>public static int parseInt(String s)htrows NumberFormatException</p>
+<li>int addAndGet(int delta)</li>
+<li>int incrementAndGet()</li>
+<li>int get()</li>
+<li>int compareAndSet(int expect, int update)</li>
+</ul>
+<p>Atomic类可以实现：</p>
+<ul>
+<li>无锁（lock-free）实现的西安测绘给你安全(thread-safe)访问</li>
+</ul>
+<h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><blockquote>
+<p>CAS:Compare and Set</p>
+</blockquote>
+<ul>
+<li>AtomicLong:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IdGenerator</span></span>&#123;</span><br><span class="line"> AtomicLong <span class="keyword">var</span>=<span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line"> </span><br><span class="line"> <span class="comment">// 多线程安全的ID序列生成器</span></span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getNextId</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">var</span>.incrementAndGet();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>测试错误的输入是否导致特定的异常：</p>
-<p>Integer.parseInt(null)<br>Integer.parseInt(“”)<br>Integer.parseInt(“xyz”)</p>
-</li>
 </ul>
-<blockquote>
-<p>如何测试异常：</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span> </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testNumberFormatException</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">   Ingeger.parseInt(<span class="keyword">null</span>);</span><br><span class="line">   fail(<span class="string">"Should throw exception!"</span>)</span><br><span class="line">   </span><br><span class="line">&#125;<span class="keyword">catch</span>(NumberFormatException e)&#123;</span><br><span class="line">   <span class="comment">//ok</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>应该使用expected测试异常：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span>(expected = NumberFormatException<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">void</span> <span class="title">testNumberFormatException</span>()</span>&#123;</span><br><span class="line">   Integer.parseInt(<span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span>(expected=NumberFormatException<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class"> <span class="title">public</span> <span class="title">void</span> <span class="title">testCalcWithEmptyString</span>() </span>&#123;</span><br><span class="line"> 	calc.calculate(<span class="string">""</span>);</span><br><span class="line"> 	</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Test</span>(expected=NumberFormatException<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class"> <span class="title">public</span> <span class="title">void</span> <span class="title">testCalcWithNull</span>() </span>&#123;</span><br><span class="line"> 	calc.calculate(<span class="keyword">null</span>);</span><br><span class="line"> 	</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="参数化测试"><a href="#参数化测试" class="headerlink" title="参数化测试"></a>参数化测试</h1><p>如果待测试的输入和输出是一组数据：</p>
-<ul>
-<li>可以把测试数据组织起来</li>
-<li>用不同的测试数据调用相同的测试方法</li>
-</ul>
-<blockquote>
-<p>参数化测试要求：</p>
-</blockquote>
-<ul>
-<li>参数必须由静态方法data()返回</li>
-<li>返回类型为Collection&lt;Object[]&gt;</li>
-<li>静态方法必须标记为@Parameters</li>
-</ul>
-<blockquote>
-<p>测试类必须标记为<br>@RunWith(Parameterized.class)</p>
-</blockquote>
-<p>构造方法参数必须和测试参数对应</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(Parameterized<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">class</span> <span class="title">AbsTest</span></span>&#123;</span><br><span class="line"><span class="meta">@Parameters</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Collection&lt;?&gt;data()&#123;</span><br><span class="line">  <span class="keyword">return</span> Arrays.asList(<span class="keyword">new</span> Object[][]&#123;</span><br><span class="line">  &#123;<span class="number">0</span>,<span class="number">0</span>&#125;&#123;<span class="number">1</span>,<span class="number">1</span>&#125;&#123;-<span class="number">1</span>,<span class="number">1</span>&#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> input;</span><br><span class="line"><span class="keyword">int</span> expected;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">AbsTest</span><span class="params">(<span class="keyword">int</span> input,<span class="keyword">int</span> expected)</span></span>&#123;</span><br><span class="line"><span class="keyword">this</span>.input=input;</span><br><span class="line"><span class="keyword">this</span>.expected=expected;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.itranswarp.learnjava;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.params.ParameterizedTest;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.params.provider.Arguments;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.params.provider.CsvFileSource;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.params.provider.CsvSource;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.params.provider.MethodSource;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.params.provider.ValueSource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringUtilsTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@ParameterizedTest</span></span><br><span class="line">	<span class="meta">@ValueSource</span>(ints = &#123; <span class="number">0</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">100</span> &#125;)</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">testAbs</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">		assertEquals(x, Math.abs(x));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@ParameterizedTest</span></span><br><span class="line">	<span class="meta">@ValueSource</span>(ints = &#123; -<span class="number">1</span>, -<span class="number">5</span>, -<span class="number">100</span> &#125;)</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">testAbsNegative</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">		assertEquals(-x, Math.abs(x));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@ParameterizedTest</span></span><br><span class="line">	<span class="meta">@MethodSource</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">testCapitalize</span><span class="params">(String input, String result)</span> </span>&#123;</span><br><span class="line">		assertEquals(result, StringUtils.capitalize(input));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">static</span> List&lt;Arguments&gt; <span class="title">testCapitalize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> List.of( <span class="comment">// arguments:</span></span><br><span class="line">				Arguments.arguments(<span class="string">"abc"</span>, <span class="string">"Abc"</span>), <span class="comment">//</span></span><br><span class="line">				Arguments.arguments(<span class="string">"APPLE"</span>, <span class="string">"Apple"</span>), <span class="comment">//</span></span><br><span class="line">				Arguments.arguments(<span class="string">"gooD"</span>, <span class="string">"Good"</span>));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@ParameterizedTest</span></span><br><span class="line">	<span class="meta">@CsvSource</span>(&#123; <span class="string">"abc, Abc"</span>, <span class="string">"APPLE, Apple"</span>, <span class="string">"gooD, Good"</span> &#125;)</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">testCapitalizeByCsvSource</span><span class="params">(String input, String result)</span> </span>&#123;</span><br><span class="line">		assertEquals(result, StringUtils.capitalize(input));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@ParameterizedTest</span></span><br><span class="line">	<span class="meta">@CsvFileSource</span>(resources = &#123; <span class="string">"/test-capitalize.csv"</span> &#125;)</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">testCapitalizeByCsvFile</span><span class="params">(String input, String result)</span> </span>&#123;</span><br><span class="line">		assertEquals(result, StringUtils.capitalize(input));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。邮件至 feixiangdjames@gmail.com </span>
@@ -1106,12 +1068,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>异常测试</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">528</span></p>
+    <p><span class="copy-title">文章标题:</span>Atomic</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">150</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="James">James</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-05-29, 07:49:45</p>
-    <p><span class="copy-title">最后更新:</span>2020-05-29, 09:24:17</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/05/29/%E5%BC%82%E5%B8%B8%E6%B5%8B%E8%AF%95/" title="异常测试">https://feixiangdjames.github.io/blog/2020/05/29/%E5%BC%82%E5%B8%B8%E6%B5%8B%E8%AF%95/</a>
+    <p><span class="copy-title">发布时间:</span>2020-06-26, 23:49:01</p>
+    <p><span class="copy-title">最后更新:</span>2020-06-27, 00:16:04</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/blog/2020/06/26/Atomic/" title="Atomic">https://feixiangdjames.github.io/blog/2020/06/26/Atomic/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
